@@ -1,0 +1,38 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.swp
+
+# Django
+*.sqlite3
+db.sqlite3
+*.log
+media/
+staticfiles/
+
+# Virtual environments
+venv/
+.env
+.envrc
+
+# Editor-specific
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+htmlcov/
+.tox/
+.coverage
+coverage.xml
+
+# Others
+*.bak
+*.orig
