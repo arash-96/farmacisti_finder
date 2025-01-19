@@ -1,8 +1,13 @@
-import Form from "../components/Forms"
+//import Form from "../components/Forms"
+import HomeHeader from "../components/HomeHeader"
+import LoginOptions from "../components/LoginOptions"
 
 function Login() {
     return (
-        <Form route="/api/token/" method="login"/>
+        <div>
+            <HomeHeader />
+            <LoginOptions/>
+        </div>
     )
 }
 
