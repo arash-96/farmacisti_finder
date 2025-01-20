@@ -10,3 +10,14 @@ class Note(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100)
+    dob = models.DateField(null=True, blank=True)
+    placeOfBirth = models.CharField(max_length=255, null=True, blank=True)
+    telephone = models.CharField(max_length=15, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username

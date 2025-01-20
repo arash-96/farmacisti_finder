@@ -31,11 +31,13 @@ function Form({ route, method }) {
             const res = await api.post(route, { 
                 username, 
                 password, 
-                name, 
-                surname, 
-                dob, 
-                placeOfBirth, 
-                telephone 
+                profile: { 
+                    name, 
+                    surname, 
+                    dob, 
+                    placeOfBirth, 
+                    telephone 
+                }
             });
             if (method === "login") {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
