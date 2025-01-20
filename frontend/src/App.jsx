@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import Login from "./pages/Login"
+import LoginWithEmail from "./pages/LoginWithEmail"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
+        <Route path="login_email" element={<LoginWithEmail />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>

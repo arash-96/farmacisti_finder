@@ -17,7 +17,6 @@ function Form({ route, method }) {
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [dob, setDob] = useState("");
-    //const [residency, setResindency] = useState("");
     const [placeOfBirth, setPlaceOfBirth] = useState("");
     const [telephone, setTelephone] = useState("");
     const [loading, setLoading] = useState(false);
