@@ -1,30 +1,35 @@
 import "../styles/Navbar.css";
-import { Link } from "react-router-dom";
-// import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
-    // const [isLoggedIn, setIsLoggedIn] = useState(); 
+  const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("ACCESS_TOKEN") !== null;
 
-//   const toggleLogin = () => {
-//     if (isLoggedIn) {
-//       localStorage.clear();
-//     }
-//     setIsLoggedIn(!isLoggedIn);
-//   };
+  const handleLogout = () => {
+    localStorage.removeItem("ACCESS_TOKEN");
+    localStorage.removeItem("REFRESH_TOKEN"); 
+    navigate("/login");
+  };
+
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-brand">
         SOS Pharmacist
       </Link>
       <ul className="navbar-links">
+        {/* Other navigation links can go here */}
       </ul>
-      {/* <div className="navbar-profile">
+      <div className="navbar-profile">
         {isLoggedIn ? (
-          <button onClick={toggleLogin} className="logout-button" href="/logout">Logout</button>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
         ) : (
-          <button onClick={toggleLogin} className="login-button" href="/login">Login</button>
+          <Link to="/login">
+            <button className="login-button">Login</button>
+          </Link>
         )}
-      </div> */}
+      </div>
     </nav>
   );
 }
