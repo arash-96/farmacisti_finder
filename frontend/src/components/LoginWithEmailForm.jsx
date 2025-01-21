@@ -38,32 +38,36 @@ function Form({ route, method }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container-login-email mt-20">
-      <h1 className="text-lg text-gray-600 text-center">Login</h1>
-      <div className="form-group">
-        <label className="form-label">Email</label>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center justify-center mt-20 mx-auto p-6 max-w-md rounded-lg shadow-lg"
+    >
+      <h1 className="text-lg text-gray-600 text-center mb-4">Login</h1>
+      <div className="w-4/5">
+        <label className="block mb-2 text-sm text-gray-700">Email</label>
         <input
-          className="form-input"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Email"
         />
       </div>
-      <div className="form-row">
-        <div className="form-group">
-          <label className="form-label">Password</label>
-          <input
-            className="form-input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
-        </div>
+      <div className="w-4/5 mb-4">
+        <label className="block mb-2 text-sm text-gray-700">Password</label>
+        <input
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
       </div>
       {loading && <LoadingIndicator />}
-      <button className="form-button" type="submit">
+      <button
+        className="w-4/5 p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
+        type="submit"
+      >
         Login
       </button>
     </form>
