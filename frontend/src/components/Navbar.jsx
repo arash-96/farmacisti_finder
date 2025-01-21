@@ -15,6 +15,10 @@ function Navbar() {
     navigate("/login");
   };
 
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsLoggedIn(localStorage.getItem("access") !== null);
@@ -32,16 +36,20 @@ function Navbar() {
       </Link>
       <ul className="navbar-links"></ul>
       <div className="navbar-profile">
-        {
-          isLoggedIn ? (
+        {isLoggedIn ? (
+          <>
+            <button onClick={handleProfile} className="profile-button mr-7">
+              Profilo
+            </button>
             <button onClick={handleLogout} className="logout-button">
               Logout
             </button>
-          ) : null
-          // <Link to="/login">
-          //   <button className="login-button">Login</button>
-          // </Link>
-        }
+          </>
+        ) : (
+          <Link to="/login">
+            <button className="login-button">Login</button>
+          </Link>
+        )}
       </div>
     </nav>
   );

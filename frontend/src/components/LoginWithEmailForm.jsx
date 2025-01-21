@@ -31,7 +31,11 @@ function Form({ route, method }) {
         navigate("/login");
       }
     } catch (error) {
-      alert(error);
+      if (error.response && error.response.status === 401) {
+        alert("Email o password errati. Per favore riprova.");
+      } else {
+        alert(error);
+      }
     } finally {
       setLoading(false);
     }
@@ -65,7 +69,7 @@ function Form({ route, method }) {
       </div>
       {loading && <LoadingIndicator />}
       <button
-        className="w-4/5 p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
+        className="w-4/5 p-3 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
         type="submit"
       >
         Login

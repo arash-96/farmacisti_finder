@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from .serializers import UserSerializer, NoteSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.generics import RetrieveUpdateAPIView
 from .models import Note
 
 class NoteListCreate(generics.ListCreateAPIView):
@@ -32,3 +33,11 @@ class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+class UserDetailsView(RetrieveUpdateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        print(f"Authenticated user: {self.request.user}")
+        return self.request.user
