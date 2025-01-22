@@ -18,6 +18,7 @@ class Profile(models.Model):
     dob = models.DateField(null=True, blank=True)
     placeOfBirth = models.CharField(max_length=255, null=True, blank=True)
     telephone = models.CharField(max_length=15, null=True, blank=True)
+    userRole = models.CharField(max_length=100, null=False)
 
     def __str__(self):
         return self.user.username

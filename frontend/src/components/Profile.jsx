@@ -26,7 +26,6 @@ function Profile() {
   };
 
   const populateData = (data) => {
-    console.log(data["profile"]);
     const profile = data["profile"];
 
     setName(profile["name"]);
