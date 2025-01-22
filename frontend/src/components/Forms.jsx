@@ -100,16 +100,6 @@ function Form({ route, method }) {
           </div>
         </div>
         <div className="form-row">
-          {/* <div className="form-group">
-                        <label className="form-label">Residenza</label>
-                        <input
-                            className="form-input"
-                            type="text"
-                            value={residency}
-                            onChange={(e) => setResindency(e.target.value)}
-                            placeholder="Residenza"
-                        />
-                    </div> */}
           <div className="form-group">
             <label className="form-label">Email</label>
             <input

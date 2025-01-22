@@ -33,9 +33,9 @@
 
 .button-container {
   display: flex;
-  justify-content: center; /* Center the button horizontally */
-  align-items: center; /* Center the button vertically if needed */
-  margin-top: 20px; /* Add spacing from the rest of the form */
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .form-button {
@@ -61,22 +61,22 @@
 .form-grid {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Add spacing between rows */
+  gap: 1rem;
 }
 
 .form-row {
   display: flex;
   justify-content: space-between;
-  gap: 1rem; /* Add spacing between inputs */
+  gap: 1rem;
 }
 
 .form-group {
-  flex: 1; /* Ensure each input takes up equal space */
+  flex: 1;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 0.5rem; /* Add spacing below labels */
+  margin-bottom: 0.5rem;
 }
 
 .form-input {

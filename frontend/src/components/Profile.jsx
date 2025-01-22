@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../api";
-//import { useNavigate } from "react-router-dom";
 import "../styles/Form.css";
+//import { useNavigate } from "react-router-dom";
 // import LoadingIndicator from "./LoadingIndicator";
 
 function Profile() {
@@ -14,6 +14,7 @@ function Profile() {
 
   useEffect(() => {
     getUserDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getUserDetails = () => {
