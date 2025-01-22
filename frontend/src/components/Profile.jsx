@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import api from "../api";
 //import { useNavigate } from "react-router-dom";
 import "../styles/Form.css";
-import LoadingIndicator from "./LoadingIndicator";
+// import LoadingIndicator from "./LoadingIndicator";
 
 function Profile() {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [dob, setDob] = useState("");
@@ -26,7 +25,15 @@ function Profile() {
   };
 
   const populateData = (data) => {
-    console.log(data);
+    console.log(data["profile"]);
+    const profile = data["profile"];
+
+    setName(profile["name"]);
+    setSurname(profile["surname"]);
+    setDob(profile["dob"]);
+    setPlaceOfBirth(profile["placeOfBirth"]);
+    setTelephone(profile["telephone"]);
+    setUsername(data["username"]);
   };
 
   return (
@@ -40,7 +47,13 @@ function Profile() {
               className="form-input"
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              disabled
+              style={{
+                width: "100%",
+                backgroundColor: "#f5f5f5",
+                color: "#a1a1a1",
+                border: "1px solid #d1d1d1",
+              }}
               placeholder="Nome"
             />
           </div>
@@ -50,7 +63,13 @@ function Profile() {
               className="form-input"
               type="text"
               value={surname}
-              onChange={(e) => setSurname(e.target.value)}
+              disabled
+              style={{
+                width: "100%",
+                backgroundColor: "#f5f5f5",
+                color: "#a1a1a1",
+                border: "1px solid #d1d1d1",
+              }}
               placeholder="Cognome"
             />
           </div>
@@ -62,7 +81,13 @@ function Profile() {
               className="form-input"
               type="date"
               value={dob}
-              onChange={(e) => setDob(e.target.value)}
+              disabled
+              style={{
+                width: "100%",
+                backgroundColor: "#f5f5f5",
+                color: "#a1a1a1",
+                border: "1px solid #d1d1d1",
+              }}
             />
           </div>
           <div className="form-group">
@@ -71,29 +96,31 @@ function Profile() {
               className="form-input"
               type="text"
               value={placeOfBirth}
-              onChange={(e) => setPlaceOfBirth(e.target.value)}
+              disabled
+              style={{
+                width: "100%",
+                backgroundColor: "#f5f5f5",
+                color: "#a1a1a1",
+                border: "1px solid #d1d1d1",
+              }}
               placeholder="Luogo di Nascita"
             />
           </div>
         </div>
         <div className="form-row">
-          {/* <div className="form-group">
-                        <label className="form-label">Residenza</label>
-                        <input
-                            className="form-input"
-                            type="text"
-                            value={residency}
-                            onChange={(e) => setResindency(e.target.value)}
-                            placeholder="Residenza"
-                        />
-                    </div> */}
           <div className="form-group">
             <label className="form-label">Email</label>
             <input
               className="form-input"
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              disabled
+              style={{
+                width: "100%",
+                backgroundColor: "#f5f5f5",
+                color: "#a1a1a1",
+                border: "1px solid #d1d1d1",
+              }}
               placeholder="Email"
             />
           </div>
@@ -103,35 +130,17 @@ function Profile() {
               className="form-input"
               type="text"
               value={telephone}
-              onChange={(e) => setTelephone(e.target.value)}
+              disabled
+              style={{
+                width: "100%",
+                backgroundColor: "#f5f5f5",
+                color: "#a1a1a1",
+                border: "1px solid #d1d1d1",
+              }}
               placeholder="Telefono"
             />
           </div>
         </div>
-        {/* <div className="form-row">
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
-              className="form-input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-            />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label className="form-label">Conferma Password</label>
-            <input
-              className="form-input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Conferma Password"
-            />
-          </div>
-        </div> */}
       </div>
       {/* {loading && <LoadingIndicator />} */}
       {/* <button className="form-button" type="submit">

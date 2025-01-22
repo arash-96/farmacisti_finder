@@ -157,9 +157,11 @@ function Form({ route, method }) {
         </div>
       </div>
       {loading && <LoadingIndicator />}
-      <button className="form-button" type="submit">
-        Registrati
-      </button>
+      <div className="button-container">
+        <button className="form-button" type="submit">
+          Registrati
+        </button>
+      </div>
     </form>
   );
 }
