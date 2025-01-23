@@ -19,7 +19,7 @@ function Form({ route, method }) {
   const [dob, setDob] = useState("");
   const [placeOfBirth, setPlaceOfBirth] = useState("");
   const [telephone, setTelephone] = useState("");
-  const [selectedRole, setSelectedRole] = useState(null);
+  const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ function Form({ route, method }) {
           dob,
           placeOfBirth,
           telephone,
-          selectedRole,
+          userRole,
         },
       });
       if (method === "login") {
@@ -55,7 +55,7 @@ function Form({ route, method }) {
   };
 
   const handleRoleSelection = (role) => {
-    setSelectedRole(role);
+    setUserRole(role);
   };
 
   return (
@@ -67,8 +67,8 @@ function Form({ route, method }) {
             <button
               style={{
                 backgroundColor:
-                  selectedRole === "farmacista" ? "#FF7F50" : "#d3d3d3",
-                color: selectedRole === "farmacista" ? "white" : "#333",
+                  userRole === "farmacista" ? "#FF7F50" : "#d3d3d3",
+                color: userRole === "farmacista" ? "white" : "#333",
                 padding: "10px 20px",
                 border: "none",
                 cursor: "pointer",
@@ -86,8 +86,8 @@ function Form({ route, method }) {
             <button
               style={{
                 backgroundColor:
-                  selectedRole === "titolare" ? "#17B169" : "#d3d3d3",
-                color: selectedRole === "titolare" ? "white" : "#333",
+                  userRole === "titolare" ? "#17B169" : "#d3d3d3",
+                color: userRole === "titolare" ? "white" : "#333",
                 padding: "10px 20px",
                 border: "none",
                 cursor: "pointer",
