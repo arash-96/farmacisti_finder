@@ -84,19 +84,16 @@ function Home() {
               title="Crea Offerta"
               buttonText="Crea Offerta"
               buttonColor="bg-blue-500 hover:bg-blue-600"
-              onClick={() => navigate("/crea_offerta")}
             />
             <SectionCard
               title="Candidature Ricevute"
               buttonText="Candidature Ricevute"
               buttonColor="bg-blue-500 hover:bg-blue-600"
-              onClick={() => navigate("/candidature_ricevute")}
             />
             <SectionCard
               title="Informazioni Personali"
               buttonText="Informazioni Personali"
               buttonColor="bg-green-500 hover:bg-green-600"
-              onClick={() => navigate("/informazioni_personali")}
             />
           </div>
         )}
