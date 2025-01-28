@@ -3,6 +3,7 @@ import api from "../api";
 import Footer from "../components/Footer";
 import SectionCard from "../components/SectionCard";
 import CvUploadModal from "../components/CvUploadModal";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -10,6 +11,8 @@ function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
+
+  const navigate = useNavigate();
 
   const openCvUpdateForm = () => setModalOpen(true);
   const closeCvUpdateForm = () => {
@@ -58,11 +61,13 @@ function Home() {
               title="Cerca Offerte"
               buttonText="Cerca Offerte"
               buttonColor="bg-blue-500 hover:bg-blue-600"
+              onClick={() => navigate("/cerca_offerte")}
             />
             <SectionCard
               title="Leggi Recensioni"
               buttonText="Leggi Recensioni"
               buttonColor="bg-blue-500 hover:bg-blue-600"
+              onClick={() => navigate("/leggi_recensioni")}
             />
             <SectionCard
               title="Aggiorna CV"
@@ -79,16 +84,19 @@ function Home() {
               title="Crea Offerta"
               buttonText="Crea Offerta"
               buttonColor="bg-blue-500 hover:bg-blue-600"
+              onClick={() => navigate("/crea_offerta")}
             />
             <SectionCard
               title="Candidature Ricevute"
               buttonText="Candidature Ricevute"
               buttonColor="bg-blue-500 hover:bg-blue-600"
+              onClick={() => navigate("/candidature_ricevute")}
             />
             <SectionCard
               title="Informazioni Personali"
               buttonText="Informazioni Personali"
               buttonColor="bg-green-500 hover:bg-green-600"
+              onClick={() => navigate("/informazioni_personali")}
             />
           </div>
         )}
