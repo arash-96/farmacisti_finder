@@ -14,6 +14,7 @@ Form.propTypes = {
 function Form({ route, method }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmedPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [dob, setDob] = useState("");
@@ -26,6 +27,12 @@ function Form({ route, method }) {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Le password non corrispondono. Riprova");
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await api.post(route, {
@@ -185,8 +192,8 @@ function Form({ route, method }) {
             <input
               className="form-input"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={confirmPassword}
+              onChange={(e) => setConfirmedPassword(e.target.value)}
               placeholder="Conferma Password"
             />
           </div>
