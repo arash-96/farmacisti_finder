@@ -78,17 +78,17 @@ function Home() {
             <SectionCard
               title="Crea Offerta"
               buttonText="Crea Offerta"
-              buttonColor="bg-blue-500 hover:bg-yellow-600"
+              buttonColor="bg-blue-500 hover:bg-blue-600"
             />
             <SectionCard
               title="Candidature Ricevute"
               buttonText="Candidature Ricevute"
-              buttonColor="bg-blue-500 hover:bg-orange-600"
+              buttonColor="bg-blue-500 hover:bg-blue-600"
             />
             <SectionCard
               title="Informazioni Personali"
               buttonText="Informazioni Personali"
-              buttonColor="bg-green-500 hover:bg-orange-600"
+              buttonColor="bg-green-500 hover:bg-green-600"
             />
           </div>
         )}

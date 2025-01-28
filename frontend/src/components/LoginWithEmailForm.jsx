@@ -58,7 +58,9 @@ function Form({ route, method }) {
         />
       </div>
       <div className="w-4/5 mb-4">
-        <label className="block mb-2 text-sm text-gray-700">Password</label>
+        <label className="block mb-2 text-sm text-gray-700 mt-5">
+          Password
+        </label>
         <input
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           type="password"
