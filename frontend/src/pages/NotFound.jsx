@@ -4,13 +4,13 @@ function NotFound() {
       <h1 className="text-6xl font-bold mb-4">404</h1>
       <h2 className="text-2xl font-semibold mb-2">Page Not Found</h2>
       <p className="text-lg mb-6 text-gray-600">
-        Oops! The page you are looking for doesn&apos;t exist or has been moved.
+        Oops! La pagina che stai cercando non esiste o è stata spostata.
       </p>
       <button
         className="btn btn-primary"
         onClick={() => (window.location.href = "/")}
       >
-        Go Back Home
+        Torna alla homepage
       </button>
     </div>
   );
