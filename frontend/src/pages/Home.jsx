@@ -3,21 +3,25 @@ import api from "../api";
 import Footer from "../components/Footer";
 import SectionCard from "../components/SectionCard";
 import CvUploadModal from "../components/CvUploadModal";
+import CreateOffer from "../components/CreateOffer";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
-  //const [uploadMessage, setUploadMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
 
+  const [openCreateModal, setCreateModal] = useState(false);
+
+  const handleOpen = () => {
+    setCreateModal(true);
+  };
+
   const navigate = useNavigate();
 
-  const openCvUpdateForm = () => setModalOpen(true);
   const closeCvUpdateForm = () => {
     setModalOpen(false);
-    // setUploadMessage("");
     setIsLoading(false);
   };
 
@@ -67,13 +71,13 @@ function Home() {
               title="Leggi Recensioni"
               buttonText="Leggi Recensioni"
               buttonColor="bg-blue-500 hover:bg-blue-600"
-              onClick={() => navigate("/leggi_recensioni")}
+              // onClick={() => navigate("/leggi_recensioni")}
             />
             <SectionCard
               title="Aggiorna CV"
               buttonText="Aggiorna CV"
               buttonColor="bg-green-500 hover:bg-green-600"
-              onClick={openCvUpdateForm}
+              // onClick={openCvUpdateForm}
             />
           </div>
         )}
@@ -84,6 +88,7 @@ function Home() {
               title="Crea Offerta"
               buttonText="Crea Offerta"
               buttonColor="bg-blue-500 hover:bg-blue-600"
+              setModal={handleOpen}
             />
             <SectionCard
               title="Candidature Ricevute"
@@ -106,7 +111,11 @@ function Home() {
           isLoading={isLoading}
         />
       )}
-      <Footer />
+      <div className="mt-20">
+        <Footer />
+      </div>
+      {/* Create Modal Component */}
+      <CreateOffer isOpen={openCreateModal} setIsOpen={setCreateModal} />
     </div>
   );
 }

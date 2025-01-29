@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="mt-8 text-center text-gray-600 py-4">
+    <footer className="mt-8 text-center text-gray-600 py-10">
       <p className="text-sm">
         SOS Pharmacist - Tutti i diritti riservati &copy; 2025
       </p>
