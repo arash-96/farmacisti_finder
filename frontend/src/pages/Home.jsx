@@ -8,7 +8,6 @@ import SearchOffer from "../components/SearchOffer";
 
 function Home() {
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
 
@@ -21,7 +20,6 @@ function Home() {
 
   const closeCvUpdateForm = () => {
     setIsCvModalOpen(false);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -111,11 +109,7 @@ function Home() {
       </div>
       {/* Modal per caricare il CV */}
       {isCvModalOpen && (
-        <CvUploadModal
-          isOpen={isCvModalOpen}
-          onClose={closeCvUpdateForm}
-          isLoading={isLoading}
-        />
+        <CvUploadModal isOpen={isCvModalOpen} onClose={closeCvUpdateForm} />
       )}
       <div className="mt-20">
         <Footer />

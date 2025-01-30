@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import api from "../api";
 
-function CvUploadModal({ isOpen, onClose, isLoading }) {
+function CvUploadModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const handleSubmit = (event) => {
@@ -8,11 +9,17 @@ function CvUploadModal({ isOpen, onClose, isLoading }) {
     const fileInput = document.getElementById("cvFile");
     const file = fileInput.files[0];
 
+    api
+      .get("/api/user/details/")
+      .then((res) => res.data)
+      .then((data) => {
+        console.log(data["id"]);
+      })
+      .catch((err) => alert(err));
+    console.log(file);
+
     if (file && file.type !== "application/pdf") {
       alert("Carica solo file PDF.");
-    } else {
-      alert("Caricamento in corso...");
-      // Handle actual upload logic here...
     }
   };
 
@@ -43,9 +50,6 @@ function CvUploadModal({ isOpen, onClose, isLoading }) {
             Carica CV
           </button>
         </form>
-        {isLoading && (
-          <div className="mt-4 text-blue-500">Caricamento in corso...</div>
-        )}
       </div>
     </div>
   );
@@ -55,12 +59,6 @@ function CvUploadModal({ isOpen, onClose, isLoading }) {
 CvUploadModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-};
-
-// Default props
-CvUploadModal.defaultProps = {
-  isLoading: false,
 };
 
 export default CvUploadModal;
