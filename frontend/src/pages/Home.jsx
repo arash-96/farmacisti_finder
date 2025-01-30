@@ -53,10 +53,18 @@ function Home() {
         {/* Left Column */}
         <div className="p-6 rounded-lg md:w-1/2 text-center">
           <h2 className="text-2xl font-bold mb-2">Benvenuto, {name}!</h2>
-          <p className="text-gray-700">
-            Gestisci la tua carriera, cerca nuove offerte di lavoro, leggi le
-            recensioni e aggiorna il tuo CV.
-          </p>
+          {userRole === "farmacista" && (
+            <p className="text-gray-700">
+              Gestisci la tua carriera, cerca nuove offerte di lavoro, leggi le
+              recensioni e aggiorna il tuo CV.
+            </p>
+          )}
+          {userRole === "titolare" && (
+            <p className="text-gray-700">
+              Gestisci le tue offerte, visualizza le candidature e consulta le
+              tue informazioni personali.
+            </p>
+          )}
         </div>
         {/* Right Column - Conditionally Rendered */}
         {userRole === "farmacista" && (

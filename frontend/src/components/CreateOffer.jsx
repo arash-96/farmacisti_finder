@@ -40,7 +40,7 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <DialogPanel className="relative w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mt-10">
                   {/* Close button */}
                   <button
                     type="button"
@@ -58,26 +58,22 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                   </DialogTitle>
 
                   <div>
-                    <h3 className="font-bold text-lg">
+                    <h3 className="font-bold text-lg text-center">
                       Crea una Nuova Offerta
                     </h3>
-                    <p className="py-2">
-                      Compila i dettagli dell&apos;offerta qui.
-                    </p>
-
                     {/* Form Fields */}
-                    <ul className="space-y-3">
+                    <ul className="space-y-3 mt-5">
                       <li>
                         <strong>Titolo Offerta:</strong>
                         <input
                           type="text"
-                          className="input input-bordered w-full"
+                          className="input input-bordered w-full mt-3"
                         />
                       </li>
                       <li>
                         <strong>Descrizione:</strong>
                         <textarea
-                          className="textarea textarea-bordered w-full"
+                          className="textarea textarea-bordered w-full mt-3"
                           rows="3"
                         />
                       </li>
@@ -85,12 +81,12 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                         <strong>Luogo:</strong>
                         <input
                           type="text"
-                          className="input input-bordered w-full"
+                          className="input input-bordered w-full mt-3"
                         />
                       </li>
                       <li>
                         <strong>Orario richiesto:</strong>
-                        <select className="select select-bordered w-full">
+                        <select className="select select-bordered w-full mt-3">
                           <option value=""></option>
                           <option value="mattina">Mattina</option>
                           <option value="pomeriggio">Pomeriggio</option>
@@ -102,16 +98,16 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                         <strong>Retribuzione:</strong>
                         <input
                           type="text"
-                          className="input input-bordered w-full"
+                          className="input input-bordered w-full mt-3"
                         />
                       </li>
                     </ul>
                   </div>
 
-                  <div className="mt-4">
+                  <div className="mt-4 text-center">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 w-4/5 mt-3"
                     >
                       Crea
                     </button>
