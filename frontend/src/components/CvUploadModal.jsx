@@ -20,23 +20,21 @@ function CvUploadModal({ isOpen, onClose, isLoading }) {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md">
         <button
-          className="absolute top-2 right-2 text-gray-500 hover:text-black"
+          type="button"
           onClick={onClose}
+          className="absolute top-2 right-2 text-xl font-bold text-gray-600"
         >
-          &times;
+          X
         </button>
         <h3 className="text-xl font-bold mb-4">Carica il tuo CV</h3>
         <form id="cvForm" onSubmit={handleSubmit}>
-          <label htmlFor="cvFile" className="block mb-2 text-gray-700">
-            Seleziona il file del CV (PDF):
-          </label>
           <input
             type="file"
             id="cvFile"
             name="cvFile"
             accept="application/pdf"
             required
-            className="block w-full mb-4 p-2 border border-gray-300 rounded-lg"
+            className="block w-full mb-4 p-2"
           />
           <button
             type="submit"

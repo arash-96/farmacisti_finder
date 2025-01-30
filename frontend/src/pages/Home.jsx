@@ -4,24 +4,23 @@ import Footer from "../components/Footer";
 import SectionCard from "../components/SectionCard";
 import CvUploadModal from "../components/CvUploadModal";
 import CreateOffer from "../components/CreateOffer";
-import { useNavigate } from "react-router-dom";
+import SearchOffer from "../components/SearchOffer";
 
 function Home() {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
 
   const [openCreateModal, setCreateModal] = useState(false);
+  const [openSearchModal, setSearchModal] = useState(false);
 
-  const handleOpen = () => {
-    setCreateModal(true);
+  const handleOpen = (setModal) => {
+    setModal(true);
   };
 
-  const navigate = useNavigate();
-
   const closeCvUpdateForm = () => {
-    setModalOpen(false);
+    setIsCvModalOpen(false);
     setIsLoading(false);
   };
 
@@ -73,19 +72,18 @@ function Home() {
               title="Cerca Offerte"
               buttonText="Cerca Offerte"
               buttonColor="bg-blue-500 hover:bg-blue-600"
-              onClick={() => navigate("/cerca_offerte")}
+              setModal={() => handleOpen(setSearchModal)}
             />
             <SectionCard
               title="Leggi Recensioni"
               buttonText="Leggi Recensioni"
               buttonColor="bg-blue-500 hover:bg-blue-600"
-              // onClick={() => navigate("/leggi_recensioni")}
             />
             <SectionCard
               title="Aggiorna CV"
               buttonText="Aggiorna CV"
               buttonColor="bg-green-500 hover:bg-green-600"
-              // onClick={openCvUpdateForm}
+              setModal={() => setIsCvModalOpen(true)}
             />
           </div>
         )}
@@ -96,7 +94,7 @@ function Home() {
               title="Crea Offerta"
               buttonText="Crea Offerta"
               buttonColor="bg-blue-500 hover:bg-blue-600"
-              setModal={handleOpen}
+              setModal={() => handleOpen(setSearchModal)}
             />
             <SectionCard
               title="Candidature Ricevute"
@@ -112,9 +110,9 @@ function Home() {
         )}
       </div>
       {/* Modal per caricare il CV */}
-      {isModalOpen && (
+      {isCvModalOpen && (
         <CvUploadModal
-          isOpen={isModalOpen}
+          isOpen={isCvModalOpen}
           onClose={closeCvUpdateForm}
           isLoading={isLoading}
         />
@@ -124,6 +122,7 @@ function Home() {
       </div>
       {/* Create Modal Component */}
       <CreateOffer isOpen={openCreateModal} setIsOpen={setCreateModal} />
+      <SearchOffer isOpen={openSearchModal} setIsOpen={setSearchModal} />
     </div>
   );
 }
