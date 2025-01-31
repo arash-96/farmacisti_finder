@@ -1,6 +1,7 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
-from rest_framework import generics
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from rest_framework import generics, status
+from rest_framework.response import Response
 from .serializers import UserSerializer, NoteSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
@@ -39,5 +40,15 @@ class UserDetailsView(RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        print(f"Authenticated user: {self.request.user}")
         return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        user = self.get_object()
+        pdf_encoded_base64 = request.data.get('pdf_file')
+
+        if pdf_encoded_base64: 
+            user.profile.pdf_file = pdf_encoded_base64
+            user.profile.save()
+            return Response({"message": "Profile updated successfully!"}, status=status.HTTP_200_OK)
+        
+        return Response({"error": "Invalid file type. Please upload a valid file."}, status=status.HTTP_400_BAD_REQUEST)
