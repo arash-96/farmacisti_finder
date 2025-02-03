@@ -1,4 +1,3 @@
-Here’s the translated version for your README file:  
 
 ---
 
