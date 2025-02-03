@@ -1,92 +1,60 @@
-# Farmacisti Finder
+Here’s the translated version for your README file:  
 
-Farmacisti Finder è un'applicazione progettata per mettere in contatto farmacie e farmacisti. Questo strumento facilita la comunicazione e la collaborazione nel settore farmaceutico, semplificando il processo di ricerca e connessione tra le due parti.
+---
 
-## Funzionalità principali
+# Pharmacist Finder
 
-- **Per le farmacie:**
-  - Pubblicare annunci per posizioni aperte.
-  - Cercare farmacisti disponibili per collaborazioni.
-  - Gestire le candidature ricevute.
+Pharmacist Finder is an application designed to connect pharmacies and pharmacists. This tool facilitates communication and collaboration within the pharmaceutical sector, simplifying the process of searching and connecting both parties.  
 
-- **Per i farmacisti:**
-  - Creare un profilo professionale dettagliato.
-  - Cercare offerte di lavoro nelle farmacie.
-  - Candidarsi direttamente agli annunci.
+## Key Features  
 
-## Tecnologie utilizzate
+- **For Pharmacies:**  
+  - Post job openings.  
+  - Search for available pharmacists for collaboration.  
+  - Manage received applications.  
 
-- **Frontend:** React, HTML5, CSS3
-- **Backend:** Node.js, Express
-- **Database:** MongoDB
-- **Autenticazione:** JSON Web Tokens (JWT)
-- **Hosting:** Vercel (frontend), Heroku (backend)
+- **For Pharmacists:**  
+  - Create a detailed professional profile.  
+  - Search for job opportunities in pharmacies.  
+  - Apply directly to job postings.  
 
-## Installazione
+## Technologies Used  
 
-Per eseguire il progetto in locale, segui questi passaggi:
+- **Frontend:** React, HTML5, CSS3  
+- **Backend:** Python
+- **Database:** SQLite  
+- **Authentication:** JSON Web Tokens (JWT)   
 
-1. Clona il repository:
+## Installation  
+
+To run the project locally, follow these steps:  
+
+1. Clone the repository:  
    ```bash
-   git clone https://github.com/tuo-username/farmacisti-finder.git
+   git clone https://github.com/your-username/pharmacist-finder.git
    ```
-2. Vai nella directory del progetto:
+2. Navigate to the project directory:  
    ```bash
-   cd farmacisti-finder
+   cd pharmacist-finder
    ```
-3. Installa le dipendenze per il frontend:
+3. Install dependencies for the frontend:  
    ```bash
    cd frontend
    npm install
    ```
-4. Installa le dipendenze per il backend:
+4. Install dependencies for the backend:  
    ```bash
    cd ../backend
    npm install
    ```
-5. Avvia il server backend:
+5. Start the backend server:  
    ```bash
-   npm start
+   python manage.py runserver
    ```
-6. Avvia il server frontend:
+6. Start the frontend server:  
    ```bash
    cd ../frontend
-   npm start
+   npm run dev
    ```
 
-L'applicazione sarà accessibile su `http://localhost:3000`.
-
-## Contribuzione
-
-Contributi sono benvenuti! Per iniziare:
-
-1. Fai un fork del repository.
-2. Crea un nuovo branch:
-   ```bash
-   git checkout -b nome-branch
-   ```
-3. Apporta le modifiche necessarie e fai un commit:
-   ```bash
-   git commit -m "Descrizione delle modifiche"
-   ```
-4. Effettua un push del branch:
-   ```bash
-   git push origin nome-branch
-   ```
-5. Apri una pull request.
-
-## Licenza
-
-Questo progetto è distribuito sotto licenza [MIT](LICENSE). Sentiti libero di utilizzarlo e modificarlo secondo le tue necessità.
-
-## Contatti
-
-Per ulteriori informazioni o domande, puoi contattarmi tramite:
-
-- Email: [tuo-email@example.com](mailto:tuo-email@example.com)
-- LinkedIn: [Il tuo profilo LinkedIn](https://www.linkedin.com/in/tuo-profilo)
-
----
-
-Grazie per aver visitato il repository di **Farmacisti Finder**! Speriamo che l'applicazione sia utile e ben accolta dalla comunità farmaceutica.
-
+The application will be accessible at `http://localhost:3000`.  
