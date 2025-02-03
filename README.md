@@ -44,7 +44,7 @@ To run the project locally, follow these steps:
 4. Install dependencies for the backend:  
    ```bash
    cd ../backend
-   npm install
+   pip install -r requirements.txt
    ```
 5. Start the backend server:  
    ```bash
