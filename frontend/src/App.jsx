@@ -19,9 +19,13 @@ function RegisterAndLogout() {
 }
 
 function App() {
+  const showNavbar =
+    location.pathname !== "/login" &&
+    location.pathname !== "/register" &&
+    location.pathname !== "/logout";
   return (
     <BrowserRouter>
-      <Navbar />
+      {showNavbar && <Navbar />}
       <div className="pt-14">
         <Routes>
           <Route
@@ -43,8 +47,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="login_email" element={<LoginWithEmail />} />
-          <Route path="*" element={<NotFound />}></Route>
+          <Route path="/login_email" element={<LoginWithEmail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </BrowserRouter>

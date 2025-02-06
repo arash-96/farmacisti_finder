@@ -31,7 +31,7 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">
+      {/* <Link to="/" className="navbar-brand">
         SOS Pharmacist
       </Link>
       <ul className="navbar-links"></ul>
@@ -50,7 +50,7 @@ function Navbar() {
             <button className="login-button">Login</button>
           </Link>
         )}
-      </div>
+      </div> */}
     </nav>
   );
 }

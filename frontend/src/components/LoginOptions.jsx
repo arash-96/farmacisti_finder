@@ -1,33 +1,87 @@
-import { useNavigate } from "react-router-dom";
+import "../styles/Login.css";
 
 const LoginOptions = () => {
-
-  const navigate = useNavigate();
-
   return (
-    <div className="auth-section text-center flex flex-col items-center gap-4">
-      <h2 className="text-xl text-gray-600">Benvenuto!</h2>
-      <button
-        onClick={() => alert("Funzione Google Login!")}
-        className="text-base p-3 rounded-lg border border-gray-300 w-1/4 focus:outline-none focus:border-blue-600 bg-blue-600 text-white font-bold cursor-pointer transition-colors duration-300 hover:bg-blue-700"
+    <div
+      style={{
+        fontFamily: "Roboto",
+        margin: 0,
+        padding: 0,
+        backgroundColor: "#f9f9f9",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        color: "#333",
+      }}
+    >
+      <div
+        style={{ textAlign: "center", marginBottom: "40px", fontSize: "1.5em" }}
       >
-        Accedi con Google
-      </button>
-      <button
-        onClick={() => alert("Funzione Facebook Login!")}
-        className="text-base p-3 rounded-lg border border-gray-300 w-1/4 focus:outline-none focus:border-blue-600 bg-blue-600 text-white font-bold cursor-pointer transition-colors duration-300 hover:bg-blue-700"
+        <h1 style={{ fontSize: "3em", color: "#0288d1", fontWeight: "bold" }}>
+          SOS Pharmacist
+        </h1>
+        <p style={{ fontSize: "1.2em", margin: 0, color: "#666" }}>
+          Connetti farmacisti e titolari di farmacia in modo semplice e veloce.
+        </p>
+      </div>
+
+      {/* Authentication Section */}
+      <div
+        id="auth-section"
+        className="auth-section"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "30px",
+          width: "100%",
+          maxWidth: "800px",
+        }}
       >
-        Accedi con Facebook
-      </button>
-      <button
-        onClick={() => navigate("/login_email")}
-        className="text-base p-3 rounded-lg border border-gray-300 w-1/4 focus:outline-none focus:border-blue-600 bg-blue-600 text-white font-bold cursor-pointer transition-colors duration-300 hover:bg-blue-700"
-      >
-        Accedi con Email
-      </button>
-      <a href="/register" className="text-blue-600 underline">
-        Sei nuovo? Registrati
-      </a>
+        <h2 style={{ fontSize: "2em", color: "#333", marginBottom: "60px" }}>
+          Benvenuto!
+        </h2>
+        {/* Login via email button */}
+        <button
+          onClick={() => {
+            window.location.href = "/login_email";
+          }}
+          style={{
+            padding: "18px",
+            fontSize: "1.3em",
+            borderRadius: "10px",
+            border: "1px solid #ddd",
+            backgroundColor: "#0288d1",
+            color: "white",
+            fontWeight: "bold",
+            cursor: "pointer",
+            transition: "background-color 0.3s ease",
+            width: "100%",
+          }}
+          onMouseOver={() => {
+            document.querySelector("button").style.backgroundColor = "#0277b8";
+          }}
+          onMouseOut={() => {
+            document.querySelector("button").style.backgroundColor = "#0288d1";
+          }}
+        >
+          Accedi con Email
+        </button>
+        {/* Link to Registration form */}
+        <a
+          href="/register"
+          style={{
+            color: "#0288d1",
+            textDecoration: "none",
+            fontSize: "1.3em",
+            marginTop: "20px",
+          }}
+        >
+          Sei nuovo? Registrati
+        </a>
+      </div>
     </div>
   );
 };

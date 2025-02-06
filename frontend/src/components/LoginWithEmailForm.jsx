@@ -42,41 +42,50 @@ function Form({ route, method }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-center justify-center mt-20 mx-auto p-6 max-w-md rounded-lg shadow-lg"
-    >
-      <h1 className="text-lg text-gray-600 text-center mb-4">Login</h1>
-      <div className="w-4/5">
-        <label className="block mb-2 text-sm text-gray-700">Email</label>
-        <input
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Email"
-        />
-      </div>
-      <div className="w-4/5 mb-4">
-        <label className="block mb-2 text-sm text-gray-700 mt-5">
-          Password
-        </label>
-        <input
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-      </div>
-      {loading && <LoadingIndicator />}
-      <button
-        className="w-4/5 p-3 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
-        type="submit"
+    <div className="body">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center justify-center mt-10 mx-auto p-8 max-w-xl rounded-xl shadow-2xl bg-white"
       >
-        Login
-      </button>
-    </form>
+        <h1 className="text-2xl text-gray-800 text-center mb-6 font-semibold">
+          Login
+        </h1>
+        <div className="w-full mb-4">
+          <label className="block mb-2 text-sm text-gray-700 font-medium">
+            Email
+          </label>
+          <input
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div className="w-full mb-6">
+          <label className="block mb-2 text-sm text-gray-700 font-medium">
+            Password
+          </label>
+          <input
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+          />
+        </div>
+
+        {loading && <LoadingIndicator />}
+
+        <button
+          className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out"
+          type="submit"
+        >
+          {method === "login" ? "Login" : "Register"}
+        </button>
+      </form>
+    </div>
   );
 }
 

@@ -1,11 +1,11 @@
-import LoginWithEmailForm from "../components/LoginWithEmailForm"
+import LoginWithEmailForm from "../components/LoginWithEmailForm";
 
 function LoginWithEmail() {
-    return (
-        <div>
-            <LoginWithEmailForm route="/api/token/" method="login"/>
-        </div>
-    )
+  return (
+    <div>
+      <LoginWithEmailForm route="/api/token/" method="login" />
+    </div>
+  );
 }
 
-export default LoginWithEmail
+export default LoginWithEmail;

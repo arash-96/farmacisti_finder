@@ -66,30 +66,28 @@ function Form({ route, method }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container mt-20">
+    <form onSubmit={handleSubmit} className="form-container">
       <h1 className="text-lg text-gray-600 text-center">Registrazione</h1>
       <div className="form-grid">
-        <div className="form-row mt-5">
-          <div className="form-group">
-            <button
-              style={{
-                backgroundColor:
-                  userRole === "farmacista" ? "#FF7F50" : "#d3d3d3",
-                color: userRole === "farmacista" ? "white" : "#333",
-                padding: "10px 20px",
-                border: "none",
-                cursor: "pointer",
-              }}
-              className="form-input"
-              onClick={(e) => {
-                e.preventDefault();
-                handleRoleSelection("farmacista");
-              }}
-            >
-              Farmacista
-            </button>
+        <div className="form-row">
+          <div className="form-row  text-center w-full">
+            <div className="form-group">
+              <label className="block mb-2 form-label">
+                Seleziona il tuo ruolo:
+              </label>
+              <select
+                className="select select-bordered w-full text-center"
+                onChange={(e) => {
+                  setUserRole(e.target.value);
+                }}
+              >
+                <option disabled></option>
+                <option value={"farmacista"}>Farmacista</option>
+                <option value={"titolare"}>Titolare di Farmacia</option>
+              </select>
+            </div>
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <button
               style={{
                 backgroundColor:
@@ -107,7 +105,7 @@ function Form({ route, method }) {
             >
               Titolare di Farmacia
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="form-row">
           <div className="form-group">
@@ -152,6 +150,73 @@ function Form({ route, method }) {
             />
           </div>
         </div>
+        <div className="form-row">
+          <div className="form-group">
+            <label className="form-label">Regione di Residenza</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Regione di Residenza"
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Provincia di Residenza</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Provincia di Residenza"
+            />
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="form-group">
+            <label className="form-label">Comune</label>
+            <input className="form-input" type="text" placeholder="Comune" />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Via/Piazza</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Via/Piazza"
+            />
+          </div>
+        </div>
+        {userRole === "farmacista" && (
+          <div className="form-row  text-center w-full">
+            <div className="form-group">
+              <label className="block mb-2 form-label">
+                N° Iscrizione Albo dei Farmacisti
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                placeholder="N° Iscrizione"
+              />
+            </div>
+          </div>
+        )}
+        {userRole === "titolare" && (
+          <div className="form-row">
+            <div className="form-group">
+              <label className="form-label">Denominazione Farmacia</label>
+              <input
+                className="form-input"
+                type="text"
+                placeholder="Denominazione Farmacia"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Partita IVA</label>
+              <input
+                className="form-input"
+                type="text"
+                placeholder="Parita Iva"
+              />
+            </div>
+          </div>
+        )}
+
         <div className="form-row">
           <div className="form-group">
             <label className="form-label">Email</label>

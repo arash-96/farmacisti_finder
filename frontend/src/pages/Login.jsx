@@ -1,13 +1,13 @@
-import HomeHeader from "../components/HomeHeader"
-import LoginOptions from "../components/LoginOptions"
+// import HomeHeader from "../components/HomeHeader";
+import LoginOptions from "../components/LoginOptions";
 
 function Login() {
-    return (
-        <div>
-            <HomeHeader />
-            <LoginOptions/>
-        </div>
-    )
+  return (
+    <div>
+      {/* <HomeHeader /> */}
+      <LoginOptions />
+    </div>
+  );
 }
 
-export default Login
+export default Login;
