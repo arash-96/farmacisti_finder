@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
+import { useEffect } from "react";
 
 function Logout() {
   localStorage.clear();
@@ -22,7 +23,12 @@ function App() {
   const showNavbar =
     location.pathname !== "/login" &&
     location.pathname !== "/register" &&
-    location.pathname !== "/logout";
+    location.pathname !== "/logout" &&
+    location.pathname !== "/login_email";
+
+  useEffect(() => {
+    console.log(showNavbar);
+  }, [showNavbar]);
   return (
     <BrowserRouter>
       {showNavbar && <Navbar />}
