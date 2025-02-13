@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 
-const SectionCard = ({ title, buttonText, buttonColor, setModal }) => {
+const SectionCard = ({ title, buttonText, setModal }) => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md text-center">
-      <h3 className="text-xl font-semibold mb-4">{title}</h3>
+    <div className="bg-white rounded-[15px] shadow-lg p-6 m-4 text-center w-[calc(45%-30px)] transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl">
+      <h3 className="text-2xl font-semibold text-blue-600 mb-4">{title}</h3>
       <button
-        className={`${buttonColor} text-white px-4 py-2 rounded-lg hover:brightness-110`}
+        className={`bg-blue-600 text-white px-5 py-3 rounded-lg text-lg transition-colors duration-300 hover:bg-blue-800`}
         onClick={setModal}
       >
         {buttonText}
@@ -14,11 +14,9 @@ const SectionCard = ({ title, buttonText, buttonColor, setModal }) => {
   );
 };
 
-// Adding PropTypes for props validation
 SectionCard.propTypes = {
   title: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
-  buttonColor: PropTypes.string.isRequired,
   setModal: PropTypes.func,
 };
 
