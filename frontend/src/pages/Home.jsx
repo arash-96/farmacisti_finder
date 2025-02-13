@@ -47,10 +47,17 @@ function Home() {
     <div className="container">
       <div className="left-column">
         <h2>Benvenuto, {name}!</h2>
-        <p className="text-xl">
-          Gestisci la tua carriera, cerca nuove offerte di lavoro, leggi le
-          recensioni e aggiorna il tuo CV.
-        </p>
+        {userRole === "farmacista" ? (
+          <p className="text-xl">
+            Gestisci la tua carriera, cerca nuove offerte di lavoro, leggi le
+            recensioni e aggiorna il tuo CV.
+          </p>
+        ) : userRole === "titolare" ? (
+          <p className="text-xl">
+            Gestisci le tue offerte, visualizza le candidature e consulta le tue
+            informazioni personali.
+          </p>
+        ) : null}
       </div>
       {userRole === "farmacista" && (
         <div className="right-column">
