@@ -76,7 +76,7 @@ function Home() {
               setModal={() => setCreateModal(true)}
             />
             <SectionCard
-              buttonText="Leggi Recensioni"
+              buttonText="Candidature Ricevute"
               buttonColor="bg-blue-500 hover:bg-blue-600"
             />
           </>
