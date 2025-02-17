@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import api from "../api";
 import { useEffect, useState } from "react";
+import { IoMdClose } from "react-icons/io";
 
 function CvUploadModal({ isOpen, onClose }) {
   const [pdfFile, setPdfFile] = useState("");
@@ -73,34 +74,33 @@ function CvUploadModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md">
-        <button
-          type="button"
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white p-6 rounded-2xl shadow-lg relative w-full max-w-md">
+        <IoMdClose
           onClick={onClose}
-          className="absolute top-2 right-2 text-xl font-bold text-gray-600"
-        >
-          X
-        </button>
-        <h3 className="text-xl font-bold mb-4">Carica il tuo CV</h3>
-        <form id="cvForm" onSubmit={handleSubmit}>
+          className="absolute top-4 right-4 cursor-pointer text-gray-600 hover:text-gray-800"
+        />
+        <h3 className="text-2xl font-bold text-center text-gray-800 mb-4">
+          Carica il tuo CV
+        </h3>
+        <form id="cvForm" onSubmit={handleSubmit} className="space-y-4 mt-10">
           <input
             type="file"
             name="cvFile"
             accept="application/pdf"
             required
-            className="block w-full mb-4 p-2"
+            className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <button
             type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+            className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300"
           >
             Carica CV
           </button>
           {loading && (
             <div className="flex justify-center mt-4">
               <svg
-                className="animate-spin h-5 w-5 text-green-500"
+                className="animate-spin h-6 w-6 text-green-500"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
@@ -122,12 +122,13 @@ function CvUploadModal({ isOpen, onClose }) {
             </div>
           )}
           {pdfFile && (
-            <div>
-              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <div className="mt-6 text-center">
+              <hr className="h-px my-4 bg-gray-200 border-0" />
               <a
                 href={pdfFile}
                 target="_blank"
-                className="text-blue-500 block mt-5"
+                rel="noopener noreferrer"
+                className="text-blue-500 font-medium hover:underline"
               >
                 📥 Scarica il tuo CV
               </a>
