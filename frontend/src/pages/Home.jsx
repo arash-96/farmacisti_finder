@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api";
 import SectionCard from "../components/SectionCard";
 import CvUploadModal from "../components/CvUploadModal";
 import CreateOffer from "../components/CreateOffer";
-import SearchOffer from "../components/SearchOffer";
+// import SearchOffer from "../components/SearchOffer";
 
 function Home() {
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [openCreateModal, setCreateModal] = useState(false);
-  const [openSearchModal, setSearchModal] = useState(false);
+  // const [openSearchModal, setSearchModal] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUserDetails();
@@ -53,9 +56,9 @@ function Home() {
         {userRole === "farmacista" && (
           <>
             <SectionCard
+              title="Trova le Migliori Offerte"
               buttonText="Cerca Offerte"
-              buttonColor="bg-blue-500 hover:bg-blue-600"
-              setModal={() => setSearchModal(true)}
+              onClick={() => navigate("/cerca_offerte")}
             />
             <SectionCard
               buttonText="Leggi Recensioni"
@@ -90,7 +93,7 @@ function Home() {
         />
       )}
       <CreateOffer isOpen={openCreateModal} setIsOpen={setCreateModal} />
-      <SearchOffer isOpen={openSearchModal} setIsOpen={setSearchModal} />
+      {/* <SearchOffer isOpen={openSearchModal} setIsOpen={setSearchModal} /> */}
     </div>
   );
 }

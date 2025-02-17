@@ -5,6 +5,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import { IoMdClose } from "react-icons/io";
 import { Fragment } from "react";
 import PropTypes from "prop-types";
 
@@ -16,7 +17,7 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-50" onClose={closeModal}>
           <TransitionChild
             as={Fragment}
             enter="ease-out duration-300"
@@ -42,13 +43,10 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
               >
                 <DialogPanel className="relative w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mt-10">
                   {/* Close button */}
-                  <button
-                    type="button"
+                  <IoMdClose
                     onClick={closeModal}
-                    className="absolute top-2 right-2 text-xl font-bold text-gray-600"
-                  >
-                    X
-                  </button>
+                    className="absolute top-4 right-4 cursor-pointer text-gray-600 hover:text-gray-800"
+                  />
 
                   <DialogTitle
                     as="h3"
