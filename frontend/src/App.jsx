@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import LoginWithEmail from "./pages/LoginWithEmail";
 import Register from "./pages/Register";
@@ -19,20 +25,19 @@ function RegisterAndLogout() {
   return <Register />;
 }
 
-function App() {
+function AppContent() {
+  const location = useLocation(); // This will reactively track path changes
+
   const showNavbar =
     location.pathname !== "/login" &&
     location.pathname !== "/register" &&
     location.pathname !== "/logout" &&
     location.pathname !== "/login_email";
 
-  useEffect(() => {
-    console.log(showNavbar);
-  }, [showNavbar]);
   return (
-    <BrowserRouter>
+    <>
       {showNavbar && <Navbar />}
-      <div className="pt-14">
+      <div className={`min-h-screen ${showNavbar ? "pt-20" : ""}`}>
         <Routes>
           <Route
             path="/"
@@ -57,6 +62,14 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }

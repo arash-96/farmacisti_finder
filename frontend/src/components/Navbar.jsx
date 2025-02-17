@@ -1,6 +1,11 @@
-import "../styles/Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {
+  FaUser,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -15,43 +20,53 @@ function Navbar() {
     navigate("/login");
   };
 
-  const handleProfile = () => {
-    navigate("/profile");
-  };
-
   useEffect(() => {
     const interval = setInterval(() => {
       setIsLoggedIn(localStorage.getItem("access") !== null);
-    }, 1000); // Check every second
-
-    return () => {
-      clearInterval(interval);
-    };
+    }, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <nav className="navbar">
-      <Link to="/" className="navbar-brand">
-        SOS Pharmacist
-      </Link>
-      <ul className="navbar-links"></ul>
-      <div className="navbar-profile">
-        {isLoggedIn ? (
-          <>
-            <button onClick={handleProfile} className="profile-button mr-7">
-              Profilo
-            </button>
-            <button onClick={handleLogout} className="logout-button">
-              Logout
-            </button>
-          </>
-        ) : (
-          <Link to="/login">
-            <button className="login-button">Login</button>
-          </Link>
-        )}
+    <header className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white fixed w-full top-0 left-0 z-50 shadow-lg rounded-b-2xl">
+      <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
+        {/* Left-aligned Brand */}
+        <Link to="/" className="text-2xl font-bold">
+          SOS Pharmacist
+        </Link>
+
+        {/* Right-aligned Icons */}
+        <div className="flex items-center gap-6">
+          <button className="md:hidden text-white text-2xl">☰</button>
+          <nav className="hidden md:flex gap-6">
+            <Link
+              to="/profile"
+              className="flex items-center gap-2 hover:underline"
+            >
+              <FaUser /> Profilo
+            </Link>
+            <Link to="/map" className="flex items-center gap-2 hover:underline">
+              <FaMapMarkerAlt /> Mappa
+            </Link>
+            <Link
+              to="/messages"
+              className="flex items-center gap-2 hover:underline"
+            >
+              <FaEnvelope /> Messaggi
+            </Link>
+            {isLoggedIn && (
+              <Link
+                to="/login"
+                onClick={handleLogout}
+                className="flex items-center gap-2 hover:underline"
+              >
+                <FaSignOutAlt /> Logout
+              </Link>
+            )}
+          </nav>
+        </div>
       </div>
-    </nav>
+    </header>
   );
 }
 
