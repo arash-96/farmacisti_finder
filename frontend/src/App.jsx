@@ -11,9 +11,9 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SearchOffers from "./pages/SearchOffers";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
-import { useEffect } from "react";
 
 function Logout() {
   localStorage.clear();
@@ -52,6 +52,14 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cerca_offerte"
+            element={
+              <ProtectedRoute>
+                <SearchOffers />
               </ProtectedRoute>
             }
           />
