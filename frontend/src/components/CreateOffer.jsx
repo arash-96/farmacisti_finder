@@ -7,6 +7,7 @@ import {
 } from "@headlessui/react";
 import { IoMdClose } from "react-icons/io";
 import { Fragment } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import api from "../api";
@@ -47,8 +48,29 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
         time,
         salary,
       });
-    } catch (error) {
-      alert(error);
+
+      // Show success toast
+      toast.success("Offerta creata con successo!", {
+        position: "top-center",
+        autoClose: 1200,
+        closeButton: false,
+      });
+
+      // Reset form fields
+      setTitle("");
+      setDescription("");
+      setPlace("");
+      setTime("");
+      setSalary(0);
+
+      // Close modal after success
+      closeModal();
+    } catch {
+      toast.error("Errore nella creazione dell'offerta!", {
+        position: "top-center",
+        autoClose: 1200,
+        closeButton: false,
+      });
     } finally {
       setLoading(false);
     }
@@ -56,6 +78,7 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
 
   return (
     <>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={closeModal}>
           <TransitionChild
