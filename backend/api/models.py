@@ -22,3 +22,21 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class Offer(models.Model):
+    TIME_CHOICES = [
+        ('mattina', 'Mattina'),
+        ('pomeriggio', 'Pomeriggio'),
+        ('sera', 'Sera'),
+        ('notturno', 'Notturno'),
+    ]
+
+    title = models.CharField(max_length=400, null=True, blank=True)
+    description = models.TextField()
+    place = models.CharField(max_length=255, null=True, blank=True)
+    time = models.CharField(max_length=10, choices=TIME_CHOICES)
+    salary = models.FloatField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="offers", null=True)
+
+    def __str__(self):
+        return self.title or "Offer"
