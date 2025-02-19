@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
-import "../styles/Form.css";
 import LoadingIndicator from "./LoadingIndicator";
+import "../styles/Form.css";
 
 Form.propTypes = {
   route: PropTypes.string.isRequired,
@@ -47,9 +47,12 @@ function Form({ route, method }) {
         onSubmit={handleSubmit}
         className="flex flex-col items-center justify-center mt-10 mx-auto p-8 max-w-xl rounded-xl shadow-2xl bg-white"
       >
-        <h1 className="text-2xl text-gray-800 text-center mb-6 font-semibold">
-          Login
-        </h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl text-gray-800 text-center font-semibold">
+            Login
+          </h1>
+        </div>
+
         <div className="w-full mb-4">
           <label className="block mb-2 text-sm text-gray-700 font-medium">
             Email

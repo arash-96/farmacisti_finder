@@ -61,7 +61,8 @@ function Home() {
               onClick={() => navigate("/cerca_offerte")}
             />
             <SectionCard
-              buttonText="Leggi Recensioni"
+              title="/"
+              buttonText="/"
               buttonColor="bg-blue-500 hover:bg-blue-600"
             />
             <SectionCard

@@ -4,7 +4,7 @@ import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/Form.css";
-import LoadingIndicator from "./LoadingIndicator";
+import Loading from "../components/Loading";
 
 Form.propTypes = {
   route: PropTypes.string.isRequired,
@@ -61,10 +61,6 @@ function Form({ route, method }) {
     }
   };
 
-  const handleRoleSelection = (role) => {
-    setUserRole(role);
-  };
-
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <h1 className="text-lg text-gray-600 text-center">Registrazione</h1>
@@ -87,25 +83,6 @@ function Form({ route, method }) {
               </select>
             </div>
           </div>
-          {/* <div className="form-group">
-            <button
-              style={{
-                backgroundColor:
-                  userRole === "titolare" ? "#17B169" : "#d3d3d3",
-                color: userRole === "titolare" ? "white" : "#333",
-                padding: "10px 20px",
-                border: "none",
-                cursor: "pointer",
-              }}
-              className="form-input"
-              onClick={(e) => {
-                e.preventDefault(); // Prevent form submission
-                handleRoleSelection("titolare");
-              }}
-            >
-              Titolare di Farmacia
-            </button>
-          </div> */}
         </div>
         <div className="form-row">
           <div className="form-group">
@@ -183,7 +160,7 @@ function Form({ route, method }) {
           </div>
         </div>
         {userRole === "farmacista" && (
-          <div className="form-row  text-center w-full">
+          <div className="form-row  text-center">
             <div className="form-group">
               <label className="block mb-2 form-label">
                 N° Iscrizione Albo dei Farmacisti
@@ -192,6 +169,14 @@ function Form({ route, method }) {
                 className="form-input"
                 type="text"
                 placeholder="N° Iscrizione"
+              />
+            </div>
+            <div className="form-group">
+              <label className="block mb-2 form-label">Titolo di studio</label>
+              <input
+                className="form-input"
+                type="text"
+                placeholder="Titolo di studio"
               />
             </div>
           </div>
@@ -264,7 +249,7 @@ function Form({ route, method }) {
           </div>
         </div>
       </div>
-      {loading && <LoadingIndicator />}
+      {loading && <Loading />}
       <div className="button-container">
         <button className="form-button" type="submit">
           Registrati

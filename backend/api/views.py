@@ -35,6 +35,14 @@ class OfferCreate(generics.CreateAPIView):
         else:
             print(serializer.errors)
 
+class OfferList(generics.ListAPIView):  
+    """Returns all offers, regardless of the user."""
+    serializer_class = OfferSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Offer.objects.all()
+
 class NoteDelete(generics.DestroyAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer

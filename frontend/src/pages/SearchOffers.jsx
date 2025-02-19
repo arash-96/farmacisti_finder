@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import api from "../api";
 import PropTypes from "prop-types";
 import "leaflet/dist/leaflet.css";
+import Loading from "../components/Loading";
 
 const jobOffers = [
   { name: "Farmacia Centrale", lat: 41.9028, lon: 12.4964 },
@@ -28,7 +30,28 @@ MapUpdater.propTypes = {
 };
 
 export default function App() {
+  const [loading, setLoading] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
+
+  useEffect(() => {
+    async function createOffer() {
+      try {
+        setLoading(true);
+
+        // Fetch offers from API
+        const response = await api.get("/api/offers/");
+
+        // Log the response data
+        console.log("Offers response:", response.data);
+      } catch (error) {
+        console.error("Error fetching offers:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    createOffer(); // Call the function inside useEffect
+  }, []); //
 
   return (
     <div className="bg-gray-100 font-roboto min-h-screen flex flex-col">
@@ -52,6 +75,7 @@ export default function App() {
                 {offer.name}
               </li>
             ))}
+            {loading && <Loading />}
           </ul>
         </aside>
 
