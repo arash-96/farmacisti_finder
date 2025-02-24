@@ -28,22 +28,45 @@ function Form({ route, method }) {
   const [titolo, setTitolo] = useState(null);
   const [denominazione_farmacia, setDenominazione_farmacia] = useState(null);
   const [partita_iva, setPartita_iva] = useState(null);
-  const [userRole, setUserRole] = useState(null);
+  const [userRole, setUserRole] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-
+  const validateForm = () => {
+    if (
+      !username ||
+      !password ||
+      !confirmPassword ||
+      !name ||
+      !surname ||
+      !dob ||
+      !telephone
+    ) {
+      alert("Tutti i campi obbligatori devono essere compilati.");
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username)) {
+      alert("Inserisci un'email valida.");
+      return false;
+    }
+    if (password.length < 8) {
+      alert("La password deve essere di almeno 8 caratteri.");
+      return false;
+    }
     if (password !== confirmPassword) {
       alert("Le password non corrispondono. Riprova");
-      setLoading(false);
-      return;
+      return false;
     }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    setLoading(true);
 
     try {
-      const res = await api.post(route, {
+      const requestBody = {
         username,
         password,
         profile: {
@@ -62,7 +85,10 @@ function Form({ route, method }) {
           denominazione_farmacia,
           partita_iva,
         },
-      });
+      };
+
+      const res = await api.post(route, requestBody);
+
       if (method === "login") {
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
@@ -84,16 +110,16 @@ function Form({ route, method }) {
         <div className="form-row">
           <div className="form-row  text-center w-full">
             <div className="form-group">
-              <label className="block mb-2 form-label">
-                Seleziona il tuo ruolo:
-              </label>
               <select
                 className="select select-bordered w-full text-center"
                 onChange={(e) => {
                   setUserRole(e.target.value);
                 }}
+                defaultValue={""}
               >
-                <option disabled></option>
+                <option value={""} disabled hidden>
+                  Seleziona un ruolo
+                </option>
                 <option value={"farmacista"}>Farmacista</option>
                 <option value={"titolare"}>Titolare di Farmacia</option>
               </select>
@@ -102,7 +128,7 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Nome</label>
+            <label className="form-label">Nome*</label>
             <input
               className="form-input"
               type="text"
@@ -112,7 +138,7 @@ function Form({ route, method }) {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Cognome</label>
+            <label className="form-label">Cognome*</label>
             <input
               className="form-input"
               type="text"
@@ -124,7 +150,7 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Data di Nascita</label>
+            <label className="form-label">Data di Nascita*</label>
             <input
               className="form-input"
               type="date"
@@ -133,7 +159,7 @@ function Form({ route, method }) {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Luogo di Nascita</label>
+            <label className="form-label">Luogo di Nascita*</label>
             <input
               className="form-input"
               type="text"
@@ -145,7 +171,7 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Regione di Residenza</label>
+            <label className="form-label">Regione di Residenza*</label>
             <input
               className="form-input"
               type="text"
@@ -154,7 +180,7 @@ function Form({ route, method }) {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Provincia di Residenza</label>
+            <label className="form-label">Provincia di Residenza*</label>
             <input
               className="form-input"
               type="text"
@@ -165,7 +191,7 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Comune</label>
+            <label className="form-label">Comune*</label>
             <input
               className="form-input"
               type="text"
@@ -187,7 +213,7 @@ function Form({ route, method }) {
           <div className="form-row  text-center">
             <div className="form-group">
               <label className="block mb-2 form-label">
-                N° Iscrizione Albo dei Farmacisti
+                N° Iscrizione Albo dei Farmacisti*
               </label>
               <input
                 className="form-input"
@@ -210,7 +236,7 @@ function Form({ route, method }) {
         {userRole === "titolare" && (
           <div className="form-row">
             <div className="form-group">
-              <label className="form-label">Denominazione Farmacia</label>
+              <label className="form-label">Denominazione Farmacia*</label>
               <input
                 className="form-input"
                 type="text"
@@ -219,7 +245,7 @@ function Form({ route, method }) {
               />
             </div>
             <div className="form-group">
-              <label className="form-label">Partita IVA</label>
+              <label className="form-label">Partita IVA*</label>
               <input
                 className="form-input"
                 type="text"
@@ -232,7 +258,7 @@ function Form({ route, method }) {
 
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Email</label>
+            <label className="form-label">Email*</label>
             <input
               className="form-input"
               type="text"
@@ -242,7 +268,7 @@ function Form({ route, method }) {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Telefono</label>
+            <label className="form-label">Telefono*</label>
             <input
               className="form-input"
               type="text"
@@ -254,7 +280,7 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Password</label>
+            <label className="form-label">Password*</label>
             <input
               className="form-input"
               type="password"
@@ -266,7 +292,7 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Conferma Password</label>
+            <label className="form-label">Conferma Password*</label>
             <input
               className="form-input"
               type="password"
