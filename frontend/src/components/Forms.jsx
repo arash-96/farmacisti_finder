@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/Form.css";
 import Loading from "../components/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 Form.propTypes = {
   route: PropTypes.string.isRequired,
@@ -42,19 +44,39 @@ function Form({ route, method }) {
       !dob ||
       !telephone
     ) {
-      alert("Tutti i campi obbligatori devono essere compilati.");
+      toast.error("Tutti i campi obbligatori devono essere compilati.", {
+        position: "top-center",
+        autoClose: 1200,
+        closeButton: false,
+        hideProgressBar: true,
+      });
       return false;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username)) {
-      alert("Inserisci un'email valida.");
+      toast.error("Inserisci un'email valida.", {
+        position: "top-center",
+        autoClose: 1200,
+        closeButton: false,
+        hideProgressBar: true,
+      });
       return false;
     }
     if (password.length < 8) {
-      alert("La password deve essere di almeno 8 caratteri.");
+      toast.error("La password deve essere di almeno 8 caratteri.", {
+        position: "top-center",
+        autoClose: 1200,
+        closeButton: false,
+        hideProgressBar: true,
+      });
       return false;
     }
     if (password !== confirmPassword) {
-      alert("Le password non corrispondono. Riprova");
+      toast.error("Le password non corrispondono. Riprova", {
+        position: "top-center",
+        autoClose: 1200,
+        closeButton: false,
+        hideProgressBar: true,
+      });
       return false;
     }
     return true;
@@ -105,6 +127,7 @@ function Form({ route, method }) {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
+      <ToastContainer position="top-right" />
       <h1 className="text-lg text-gray-600 text-center">Registrazione</h1>
       <div className="form-grid">
         <div className="form-row">
