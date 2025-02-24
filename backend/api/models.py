@@ -19,6 +19,15 @@ class Profile(models.Model):
     telephone = models.CharField(max_length=15, null=True, blank=True)
     userRole = models.CharField(max_length=100, null=True)
     pdf_file = models.TextField(null=True, blank=True)
+    regione_residenza = models.CharField(max_length=200, null=True)
+    provincia_residenza = models.CharField(max_length=300, null=True)
+    comune = models.CharField(max_length=300, null=True)
+    via = models.CharField(max_length=600, null=True)
+    numero_iscrizione_albo =  models.CharField(max_length=100, null=True, blank=True)
+    titolo = models.CharField(max_length=200, null=True)
+    denominazione_farmacia = models.CharField(max_length=200, null=True)
+    partita_iva =  models.CharField(max_length=100, null=True, blank=True)
+
 
     def __str__(self):
         return self.user.username

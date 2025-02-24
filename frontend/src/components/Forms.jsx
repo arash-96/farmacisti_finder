@@ -20,6 +20,14 @@ function Form({ route, method }) {
   const [dob, setDob] = useState("");
   const [placeOfBirth, setPlaceOfBirth] = useState("");
   const [telephone, setTelephone] = useState("");
+  const [regione_residenza, setRegione_residenza] = useState(null);
+  const [provincia_residenza, setProvincia_residenza] = useState(null);
+  const [comune, setComune] = useState(null);
+  const [via, setVia] = useState(null);
+  const [numero_iscrizione_albo, setNumero_iscrizione_albo] = useState(null);
+  const [titolo, setTitolo] = useState(null);
+  const [denominazione_farmacia, setDenominazione_farmacia] = useState(null);
+  const [partita_iva, setPartita_iva] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -45,6 +53,14 @@ function Form({ route, method }) {
           placeOfBirth,
           telephone,
           userRole,
+          regione_residenza,
+          provincia_residenza,
+          comune,
+          via,
+          numero_iscrizione_albo,
+          titolo,
+          denominazione_farmacia,
+          partita_iva,
         },
       });
       if (method === "login") {
@@ -134,6 +150,7 @@ function Form({ route, method }) {
               className="form-input"
               type="text"
               placeholder="Regione di Residenza"
+              onChange={(e) => setRegione_residenza(e.target.value)}
             />
           </div>
           <div className="form-group">
@@ -142,13 +159,19 @@ function Form({ route, method }) {
               className="form-input"
               type="text"
               placeholder="Provincia di Residenza"
+              onChange={(e) => setProvincia_residenza(e.target.value)}
             />
           </div>
         </div>
         <div className="form-row">
           <div className="form-group">
             <label className="form-label">Comune</label>
-            <input className="form-input" type="text" placeholder="Comune" />
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Comune"
+              onChange={(e) => setComune(e.target.value)}
+            />
           </div>
           <div className="form-group">
             <label className="form-label">Via/Piazza</label>
@@ -156,6 +179,7 @@ function Form({ route, method }) {
               className="form-input"
               type="text"
               placeholder="Via/Piazza"
+              onChange={(e) => setVia(e.target.value)}
             />
           </div>
         </div>
@@ -169,6 +193,7 @@ function Form({ route, method }) {
                 className="form-input"
                 type="text"
                 placeholder="N° Iscrizione"
+                onChange={(e) => setNumero_iscrizione_albo(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -177,6 +202,7 @@ function Form({ route, method }) {
                 className="form-input"
                 type="text"
                 placeholder="Titolo di studio"
+                onChange={(e) => setTitolo(e.target.value)}
               />
             </div>
           </div>
@@ -189,6 +215,7 @@ function Form({ route, method }) {
                 className="form-input"
                 type="text"
                 placeholder="Denominazione Farmacia"
+                onChange={(e) => setDenominazione_farmacia(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -197,6 +224,7 @@ function Form({ route, method }) {
                 className="form-input"
                 type="text"
                 placeholder="Parita Iva"
+                onChange={(e) => setPartita_iva(e.target.value)}
               />
             </div>
           </div>

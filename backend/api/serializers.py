@@ -5,7 +5,10 @@ from .models import Note, Profile, Offer
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ["name", "surname", "dob", "placeOfBirth", "telephone", "userRole", "pdf_file"]
+        fields = ["name", "surname", "dob", "placeOfBirth", "telephone", "userRole", "pdf_file",
+                   "regione_residenza", "provincia_residenza", "comune", "via", "numero_iscrizione_albo",
+                   "titolo", "denominazione_farmacia", "partita_iva"
+                ]
         extra_kwargs = {"pdf_file": {"required": False}}
 
 class UserSerializer(serializers.ModelSerializer):
