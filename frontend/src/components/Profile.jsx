@@ -113,12 +113,29 @@ function Profile() {
       .put("api/user/details/", updatedProfile)
       .then((res) => {
         if (res.status === 200) {
-          alert("Profile updated successfully!");
+          toast.success("Profilo aggiornato correttamente.", {
+            position: "top-center",
+            autoClose: 1200,
+            closeButton: false,
+            hideProgressBar: true,
+          });
         } else {
-          alert("Failed to update profile.");
+          toast.error("Si e' verificato un errore.", {
+            position: "top-center",
+            autoClose: 1200,
+            closeButton: false,
+            hideProgressBar: true,
+          });
         }
       })
-      .catch((err) => alert(err));
+      .catch((err) =>
+        toast.error(err, {
+          position: "top-center",
+          autoClose: 1200,
+          closeButton: false,
+          hideProgressBar: true,
+        })
+      );
   };
 
   return (
