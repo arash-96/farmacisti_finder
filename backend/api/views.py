@@ -66,10 +66,17 @@ class UserDetailsView(RetrieveUpdateAPIView):
     def update(self, request, *args, **kwargs):
         user = self.get_object()
         pdf_encoded_base64 = request.data.get('pdf_file')
-
+        #Either Update PDF or Profile
         if pdf_encoded_base64: 
             user.profile.pdf_file = pdf_encoded_base64
             user.profile.save()
             return Response({"message": "Profile updated successfully!"}, status=status.HTTP_200_OK)
-        
+        else:
+            profile_data = request.data.get('profile', {})
+            if profile_data:
+                for attr, value in profile_data.items():
+                    setattr(user.profile, attr, value)
+                user.profile.save()
+                return Response({"message": "Profile updated successfully!"}, status=status.HTTP_200_OK)
+            
         return Response({"error": "Invalid file type. Please upload a valid file."}, status=status.HTTP_400_BAD_REQUEST)
