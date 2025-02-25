@@ -34,7 +34,6 @@ function Profile() {
   };
 
   const populateData = (data) => {
-    console.log(data);
     const profile = data["profile"];
 
     setUserRole(profile["userRole"] || "");

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   FaUser,
-  FaMapMarkerAlt,
+  // FaMapMarkerAlt,
   FaEnvelope,
   FaSignOutAlt,
 } from "react-icons/fa";
@@ -45,9 +45,9 @@ function Navbar() {
             >
               <FaUser /> Profilo
             </Link>
-            <Link to="/map" className="flex items-center gap-2 hover:underline">
+            {/* <Link to="/map" className="flex items-center gap-2 hover:underline">
               <FaMapMarkerAlt /> Mappa
-            </Link>
+            </Link> */}
             <Link
               to="/messages"
               className="flex items-center gap-2 hover:underline"
