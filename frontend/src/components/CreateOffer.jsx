@@ -18,7 +18,6 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
   const [user, setUser] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [place, setPlace] = useState("");
   const [time, setTime] = useState("");
   const [salary, setSalary] = useState(0);
 
@@ -45,7 +44,6 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
         user,
         title,
         description,
-        place,
         time,
         salary,
       });
@@ -60,7 +58,6 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
       // Reset form fields
       setTitle("");
       setDescription("");
-      setPlace("");
       setTime("");
       setSalary(0);
 
@@ -139,14 +136,6 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                           className="textarea textarea-bordered w-full mt-3"
                           rows="3"
                           onChange={(e) => setDescription(e.target.value)}
-                        />
-                      </li>
-                      <li>
-                        <strong>Luogo:</strong>
-                        <input
-                          type="text"
-                          className="input input-bordered w-full mt-3"
-                          onChange={(e) => setPlace(e.target.value)}
                         />
                       </li>
                       <li>

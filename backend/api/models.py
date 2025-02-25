@@ -42,7 +42,6 @@ class Offer(models.Model):
 
     title = models.CharField(max_length=400, null=True, blank=True)
     description = models.TextField()
-    place = models.CharField(max_length=255, null=True, blank=True)
     time = models.CharField(max_length=10, choices=TIME_CHOICES)
     salary = models.FloatField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="offers", null=True)

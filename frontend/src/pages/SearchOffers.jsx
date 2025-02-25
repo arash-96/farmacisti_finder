@@ -40,8 +40,6 @@ export default function App() {
 
         // Fetch offers from API
         const response = await api.get("/api/offers/");
-
-        // Log the response data
         console.log("Offers response:", response.data);
       } catch (error) {
         console.error("Error fetching offers:", error);
@@ -50,7 +48,7 @@ export default function App() {
       }
     }
 
-    createOffer(); // Call the function inside useEffect
+    createOffer();
   }, []); //
 
   return (
