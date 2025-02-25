@@ -233,7 +233,7 @@ function Form({ route, method }) {
           </div>
         </div>
         {userRole === "farmacista" && (
-          <div className="form-row  text-center">
+          <div className="form-row">
             <div className="form-group">
               <label className="block mb-2 form-label">
                 N° Iscrizione Albo dei Farmacisti*
