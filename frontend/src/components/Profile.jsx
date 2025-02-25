@@ -138,11 +138,9 @@ function Profile() {
   };
 
   return (
-    <form className="mt-20 max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <form className="mt-16 max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <ToastContainer position="top-right" />
-      <h1 className="text-lg text-gray-600 text-center mb-6">
-        Profilo Personale
-      </h1>
+      <h1 className="text-lg text-gray-600 text-center">Profilo Personale</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">
