@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/Form.css";
 import Loading from "../components/Loading";
@@ -328,9 +328,20 @@ function Form({ route, method }) {
       </div>
       {loading && <Loading />}
       <div className="button-container">
-        <button className="form-button" type="submit">
+        <button
+          className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out"
+          type="submit"
+        >
           Registrati
         </button>
+      </div>
+      <div className="text-center">
+        <p className="text-lg text-gray-600">
+          Hai già un account?{" "}
+          <Link to="/login_email" className="text-blue-600 hover:underline">
+            Accedi subito!
+          </Link>
+        </p>
       </div>
     </form>
   );
