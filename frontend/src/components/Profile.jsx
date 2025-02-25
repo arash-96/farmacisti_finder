@@ -317,7 +317,7 @@ function Profile() {
           className="w-3/5 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
           onClick={handleSubmit}
         >
-          Update Profile
+          Aggiorna Profile
         </button>
       </div>
     </form>
