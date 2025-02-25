@@ -128,13 +128,13 @@ function Form({ route, method }) {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <ToastContainer position="top-right" />
-      <h1 className="text-lg text-gray-600 text-center">Registrazione</h1>
+      <h1 className="text-2xl text-gray-600 text-center">Registrazione</h1>
       <div className="form-grid">
         <div className="form-row">
-          <div className="form-row  text-center w-full">
+          <div className="form-row text-center w-full">
             <div className="form-group">
               <select
-                className="select select-bordered w-full text-center"
+                className="select select-bordered w-full text-center text-xl"
                 onChange={(e) => {
                   setUserRole(e.target.value);
                 }}
@@ -151,9 +151,9 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Nome*</label>
+            <label className="form-label text-xl">Nome*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -161,9 +161,9 @@ function Form({ route, method }) {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Cognome*</label>
+            <label className="form-label text-xl">Cognome*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
@@ -173,18 +173,18 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Data di Nascita*</label>
+            <label className="form-label text-xl">Data di Nascita*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="date"
               value={dob}
               onChange={(e) => setDob(e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Luogo di Nascita*</label>
+            <label className="form-label text-xl">Luogo di Nascita*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               value={placeOfBirth}
               onChange={(e) => setPlaceOfBirth(e.target.value)}
@@ -194,18 +194,20 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Regione di Residenza*</label>
+            <label className="form-label text-xl">Regione di Residenza*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               placeholder="Regione di Residenza"
               onChange={(e) => setRegione_residenza(e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Provincia di Residenza*</label>
+            <label className="form-label text-xl">
+              Provincia di Residenza*
+            </label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               placeholder="Provincia di Residenza"
               onChange={(e) => setProvincia_residenza(e.target.value)}
@@ -214,18 +216,18 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Comune*</label>
+            <label className="form-label text-xl">Comune*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               placeholder="Comune"
               onChange={(e) => setComune(e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Via/Piazza</label>
+            <label className="form-label text-xl">Via/Piazza</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               placeholder="Via/Piazza"
               onChange={(e) => setVia(e.target.value)}
@@ -235,20 +237,22 @@ function Form({ route, method }) {
         {userRole === "farmacista" && (
           <div className="form-row">
             <div className="form-group">
-              <label className="block mb-2 form-label">
+              <label className="block mb-2 form-label text-xl">
                 N° Iscrizione Albo dei Farmacisti*
               </label>
               <input
-                className="form-input"
+                className="form-input text-xl"
                 type="text"
                 placeholder="N° Iscrizione"
                 onChange={(e) => setNumero_iscrizione_albo(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label className="block mb-2 form-label">Titolo di studio</label>
+              <label className="block mb-2 form-label text-xl">
+                Titolo di studio
+              </label>
               <input
-                className="form-input"
+                className="form-input text-xl"
                 type="text"
                 placeholder="Titolo di studio"
                 onChange={(e) => setTitolo(e.target.value)}
@@ -259,20 +263,22 @@ function Form({ route, method }) {
         {userRole === "titolare" && (
           <div className="form-row">
             <div className="form-group">
-              <label className="form-label">Denominazione Farmacia*</label>
+              <label className="form-label text-xl">
+                Denominazione Farmacia*
+              </label>
               <input
-                className="form-input"
+                className="form-input text-xl"
                 type="text"
                 placeholder="Denominazione Farmacia"
                 onChange={(e) => setDenominazione_farmacia(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label className="form-label">Partita IVA*</label>
+              <label className="form-label text-xl">Partita IVA*</label>
               <input
-                className="form-input"
+                className="form-input text-xl"
                 type="text"
-                placeholder="Parita Iva"
+                placeholder="Partita Iva"
                 onChange={(e) => setPartita_iva(e.target.value)}
               />
             </div>
@@ -281,9 +287,9 @@ function Form({ route, method }) {
 
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Email*</label>
+            <label className="form-label text-xl">Email*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -291,9 +297,9 @@ function Form({ route, method }) {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Telefono*</label>
+            <label className="form-label text-xl">Telefono*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="text"
               value={telephone}
               onChange={(e) => setTelephone(e.target.value)}
@@ -303,9 +309,9 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Password*</label>
+            <label className="form-label text-xl">Password*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -315,9 +321,9 @@ function Form({ route, method }) {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Conferma Password*</label>
+            <label className="form-label text-xl">Conferma Password*</label>
             <input
-              className="form-input"
+              className="form-input text-xl"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmedPassword(e.target.value)}
@@ -329,7 +335,7 @@ function Form({ route, method }) {
       {loading && <Loading />}
       <div className="button-container">
         <button
-          className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out"
+          className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl"
           type="submit"
         >
           Registrati

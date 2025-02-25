@@ -48,17 +48,17 @@ function Form({ route, method }) {
         className="flex flex-col items-center justify-center mt-10 mx-auto p-8 max-w-xl rounded-xl shadow-2xl bg-white"
       >
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl text-gray-800 text-center font-semibold">
+          <h1 className="text-3xl text-gray-800 text-center font-semibold">
             Login
           </h1>
         </div>
 
         <div className="w-full mb-4">
-          <label className="block mb-2 text-sm text-gray-700 font-medium">
+          <label className="block mb-2 text-lg text-gray-700 font-medium">
             Email
           </label>
           <input
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -67,11 +67,11 @@ function Form({ route, method }) {
         </div>
 
         <div className="w-full mb-6">
-          <label className="block mb-2 text-sm text-gray-700 font-medium">
+          <label className="block mb-2 text-lg text-gray-700 font-lg">
             Password
           </label>
           <input
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -87,7 +87,7 @@ function Form({ route, method }) {
         >
           {method === "login" ? "Login" : "Register"}
         </button>
-        <p className="mt-4 text-lg text-gray-600">
+        <p className="mt-4 text-xl text-gray-600">
           Non hai un account?{" "}
           <Link to="/register" className="text-blue-600 hover:underline">
             Registrati
