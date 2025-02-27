@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import LoginWithEmail from "./pages/LoginWithEmail";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -27,14 +28,15 @@ function RegisterAndLogout() {
 }
 
 function AppContent() {
-  const location = useLocation(); // This will reactively track path changes
+  const location = useLocation();
 
   const showNavbar =
     location.pathname !== "/login" &&
     location.pathname !== "/register" &&
     location.pathname !== "/logout" &&
     location.pathname !== "/login_email" &&
-    location.pathname !== "/forgot-password";
+    location.pathname !== "/forgot-password" &&
+    !location.pathname.startsWith("/reset-password/");
 
   return (
     <>
@@ -70,6 +72,7 @@ function AppContent() {
           <Route path="/register" element={<RegisterAndLogout />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/login_email" element={<LoginWithEmail />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

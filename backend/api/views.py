@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.utils.timezone import now, timedelta
+from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .serializers import UserSerializer, NoteSerializer, OfferSerializer, ForgotPasswordSerializer
@@ -107,7 +108,7 @@ class ForgotPasswordView(APIView):
         profile.reset_token_expires_at = now() + timedelta(hours=1)  # Expires in 1 hour
         profile.save()
 
-        reset_link = f"http://localhost:3000/reset-password/{token}/"
+        reset_link = f"http://localhost:5173/reset-password/{token}/"
         send_mail(
             'Password Reset Request',
             f'Click the link to reset your password: {reset_link}',
@@ -117,3 +118,30 @@ class ForgotPasswordView(APIView):
         )
 
         return Response({'message': 'Password reset email sent'}, status=status.HTTP_200_OK)
+    
+class ResetPasswordView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
+        token = request.data.get("token")
+        new_password = request.data.get("password")
+
+        if not token or not new_password:
+            return Response({"error": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            profile = Profile.objects.get(reset_token=token)
+            if profile.reset_token_expires_at and profile.reset_token_expires_at < now():
+                return Response({"error": "Token expired"}, status=status.HTTP_400_BAD_REQUEST)
+
+            user = profile.user
+            user.password = make_password(new_password)
+            user.save()
+
+            profile.reset_token = None
+            profile.reset_token_expires_at = None
+            profile.save()
+
+            return Response({"message": "Password successfully reset"}, status=status.HTTP_200_OK)
+
+        except Profile.DoesNotExist:
+            return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)

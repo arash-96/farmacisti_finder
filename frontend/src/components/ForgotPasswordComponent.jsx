@@ -11,10 +11,11 @@ function ForgotPasswordComponent() {
     e.preventDefault();
 
     try {
-      // Send a POST request with the email in the payload
       const response = await api.post("api/forgot-password/", { email });
       console.log(response.data);
-      alert("Password reset email sent. Please check your inbox.");
+      alert(
+        "E-mail per il ripristino della password inviata. Si prega di controllare la posta in arrivo."
+      );
     } catch (error) {
       if (error.response && error.response.status === 404) {
         alert("User with this email does not exist.");
