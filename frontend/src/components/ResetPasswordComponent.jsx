@@ -9,14 +9,18 @@ const ResetPasswordComponent = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error("Le password non corrispondono.", {
+        position: "top-center",
+        autoClose: 2000,
+        closeButton: false,
+        hideProgressBar: true,
+      });
       return;
     }
 
@@ -28,15 +32,24 @@ const ResetPasswordComponent = () => {
         password,
       });
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error("Qualcosa è andato storto");
       }
 
-      setMessage("Password reset successfully!");
-      toast.success("Password reset successfully!");
+      toast.success("La password è stata ripristinata con successo!", {
+        position: "top-center",
+        autoClose: 2000,
+        closeButton: false,
+        hideProgressBar: true,
+      });
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message, {
+        position: "top-center",
+        autoClose: 2000,
+        closeButton: false,
+        hideProgressBar: true,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -49,8 +62,6 @@ const ResetPasswordComponent = () => {
         <h2 className="text-2xl font-bold mb-4 text-center mb-10">
           Reimposta Password
         </h2>
-
-        {message && <p className="text-green-600">{message}</p>}
 
         <form onSubmit={handleSubmit}>
           <div>
@@ -76,11 +87,9 @@ const ResetPasswordComponent = () => {
               required
             />
           </div>
-
           <button
+            className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl flex justify-center items-center"
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 flex justify-center items-center"
-            disabled={isLoading}
           >
             {isLoading ? (
               <svg
@@ -104,7 +113,7 @@ const ResetPasswordComponent = () => {
                 ></path>
               </svg>
             ) : (
-              "Reimposta Password"
+              "Reimposta password"
             )}
           </button>
         </form>

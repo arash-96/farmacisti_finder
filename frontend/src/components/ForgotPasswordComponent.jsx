@@ -23,12 +23,7 @@ function ForgotPasswordComponent() {
       );
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        toast.error("Non esiste un utente con questa email.", {
-          position: "top-center",
-          autoClose: 2000,
-          closeButton: false,
-          hideProgressBar: true,
-        });
+        toast.error("Non esiste un utente con questa email.");
       } else {
         toast.error("Si è verificato un errore. Si prega di riprovare.", {
           position: "top-center",
