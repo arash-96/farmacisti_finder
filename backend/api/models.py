@@ -27,7 +27,8 @@ class Profile(models.Model):
     titolo = models.CharField(max_length=200, null=True)
     denominazione_farmacia = models.CharField(max_length=200, null=True)
     partita_iva =  models.CharField(max_length=100, null=True, blank=True)
-
+    reset_token = models.CharField(max_length=255, null=True, blank=True)
+    reset_token_expires_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.user.username

@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import LoginWithEmail from "./pages/LoginWithEmail";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SearchOffers from "./pages/SearchOffers";
@@ -32,7 +33,8 @@ function AppContent() {
     location.pathname !== "/login" &&
     location.pathname !== "/register" &&
     location.pathname !== "/logout" &&
-    location.pathname !== "/login_email";
+    location.pathname !== "/login_email" &&
+    location.pathname !== "/forgot-password";
 
   return (
     <>
@@ -66,6 +68,7 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<RegisterAndLogout />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/login_email" element={<LoginWithEmail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -38,6 +38,9 @@ class UserSerializer(serializers.ModelSerializer):
 
         return instance
     
+class ForgotPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note

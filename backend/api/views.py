@@ -1,11 +1,15 @@
 from django.contrib.auth.models import User
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.mail import send_mail
+from django.utils.timezone import now, timedelta
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import UserSerializer, NoteSerializer, OfferSerializer
+from .serializers import UserSerializer, NoteSerializer, OfferSerializer, ForgotPasswordSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
-from .models import Note, Offer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.views import APIView
+from .models import Note, Offer, Profile
+import uuid, os
 
 class NoteListCreate(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
@@ -80,3 +84,36 @@ class UserDetailsView(RetrieveUpdateAPIView):
                 return Response({"message": "Profile updated successfully!"}, status=status.HTTP_200_OK)
             
         return Response({"error": "Invalid file type. Please upload a valid file."}, status=status.HTTP_400_BAD_REQUEST)
+    
+class ForgotPasswordView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = ForgotPasswordSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        email = serializer.validated_data['email']
+        
+        try:
+            user = User.objects.get(username=email)
+        except User.DoesNotExist:
+            return Response({'error': 'User with this email does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        profile, created = Profile.objects.get_or_create(user=user)
+
+        token = str(uuid.uuid4())
+        profile.reset_token = token
+        profile.reset_token_expires_at = now() + timedelta(hours=1)  # Expires in 1 hour
+        profile.save()
+
+        reset_link = f"http://localhost:3000/reset-password/{token}/"
+        send_mail(
+            'Password Reset Request',
+            f'Click the link to reset your password: {reset_link}',
+            os.getenv("EMAIL_HOST_USER"),
+            [email],
+            fail_silently=False,
+        )
+
+        return Response({'message': 'Password reset email sent'}, status=status.HTTP_200_OK)

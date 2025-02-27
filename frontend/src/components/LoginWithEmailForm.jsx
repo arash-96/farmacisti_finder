@@ -80,7 +80,6 @@ function Form({ route, method }) {
         </div>
 
         {loading && <LoadingIndicator />}
-
         <button
           className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl"
           type="submit"
@@ -91,6 +90,12 @@ function Form({ route, method }) {
           Non hai un account?{" "}
           <Link to="/register" className="text-blue-600 hover:underline">
             Registrati
+          </Link>
+        </p>
+        <p className="text-lg text-gray-600">
+          Hai dimenticato la password?{" "}
+          <Link to="/forgot-password" className="text-blue-600 hover:underline">
+            Recupera password
           </Link>
         </p>
       </form>
