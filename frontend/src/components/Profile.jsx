@@ -191,9 +191,8 @@ function Profile() {
             Email
           </label>
           <input
-            className={`w-full mt-1 p-2 border rounded ${
-              username ? "bg-gray-100" : ""
-            }`}
+            className={`w-full mt-1 p-2 border rounded ${username ? "bg-gray-100" : ""
+              }`}
             type="text"
             value={username}
             disabled
@@ -259,12 +258,11 @@ function Profile() {
                 Denominazione Farmacia
               </label>
               <input
-                className={`w-full mt-1 p-2 border rounded ${
-                  denominazione_farmacia ? "bg-gray-100" : ""
-                }`}
+                className={`w-full mt-1 p-2 border rounded ${denominazione_farmacia ? "bg-gray-100" : ""
+                  }`}
                 type="text"
                 value={denominazione_farmacia}
-                disabled
+                onChange={(e) => setDenominazione_farmacia(e.target.value)}
               />
             </div>
             <div>
@@ -272,9 +270,8 @@ function Profile() {
                 Partita IVA
               </label>
               <input
-                className={`w-full mt-1 p-2 border rounded ${
-                  partita_iva ? "bg-gray-100" : ""
-                }`}
+                className={`w-full mt-1 p-2 border rounded ${partita_iva ? "bg-gray-100" : ""
+                  }`}
                 type="text"
                 value={partita_iva}
                 disabled
@@ -289,9 +286,8 @@ function Profile() {
                 N° Iscrizione Albo dei Farmacisti
               </label>
               <input
-                className={`w-full mt-1 p-2 border rounded ${
-                  numero_iscrizione_albo ? "bg-gray-100" : ""
-                }`}
+                className={`w-full mt-1 p-2 border rounded ${numero_iscrizione_albo ? "bg-gray-100" : ""
+                  }`}
                 type="text"
                 value={numero_iscrizione_albo}
                 disabled

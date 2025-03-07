@@ -21,8 +21,6 @@ export default function App() {
     { name: "Farmacia Napoli Centro", lat: 40.8522, lon: 14.2681 },
   ];
 
-  // const map = useMap()
-
   // const addOffer = (newOffer) => {
   //   setOffers([...offers, newOffer]);
   // };
@@ -64,7 +62,7 @@ export default function App() {
             Clicca su un&apos;offerta per visualizzarla sulla mappa.
           </p>
           <ul className="space-y-4">
-            {/* {jobOffers.map((offer, index) => (
+            {jobOffers.map((offer, index) => (
               <li
                 key={index}
                 className="p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
@@ -72,7 +70,7 @@ export default function App() {
               >
                 {offer.name}
               </li>
-            ))} */}
+            ))}
             {offers.map((offer, index) => (
               <li
                 key={index}
