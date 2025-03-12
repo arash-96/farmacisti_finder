@@ -1,0 +1,22 @@
+# Use node image
+FROM node:20
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and install dependencies
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
+
+# Copy the entire frontend code
+COPY frontend .
+
+# Build React app
+RUN npm run build
+
+# Serve frontend using a lightweight web server
+RUN npm install -g serve
+CMD ["npm", "run", "dev"]
+
+# Expose port
+EXPOSE 3000
