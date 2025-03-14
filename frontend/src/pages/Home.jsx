@@ -39,12 +39,12 @@ function Home() {
     <div className="container mx-auto px-4 py-12">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-blue-600">Benvenuto, {name}!</h2>
-        {userRole === "farmacista" ? (
+        {userRole === "farmacista" || userRole === "admin" ? (
           <p className="text-lg text-gray-700 mt-2">
             Gestisci la tua carriera, cerca nuove offerte di lavoro, leggi le
             recensioni e aggiorna il tuo CV.
           </p>
-        ) : userRole === "titolare" ? (
+        ) : userRole === "titolare" || userRole === "admin" ? (
           <p className="text-lg text-gray-700 mt-2">
             Gestisci le tue offerte, visualizza le candidature e consulta le tue
             informazioni personali.
@@ -53,7 +53,7 @@ function Home() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-6">
-        {userRole === "farmacista" && (
+        {userRole === "farmacista" || userRole === "admin" && (
           <>
             <SectionCard
               title="Trova le Migliori Offerte"
@@ -72,7 +72,7 @@ function Home() {
             />
           </>
         )}
-        {userRole === "titolare" && (
+        {userRole === "titolare" || userRole === "admin" && (
           <>
             <SectionCard
               buttonText="Crea Offerta"
@@ -82,6 +82,15 @@ function Home() {
             <SectionCard
               buttonText="Candidature Ricevute"
               buttonColor="bg-blue-500 hover:bg-blue-600"
+            />
+          </>
+        )}
+        {userRole === "admin" && (
+          <>
+            <SectionCard
+              buttonText="Tutte le farmacie"
+              buttonColor="bg-blue-500 hover:bg-blue-600"
+              onClick={() => navigate("/farmacie")}
             />
           </>
         )}

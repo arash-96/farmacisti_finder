@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import SearchOffers from "./pages/SearchOffers";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
+import Farmacie from "./pages/Farmacie";
 
 function Logout() {
   localStorage.clear();
@@ -64,6 +65,14 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <SearchOffers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/farmacie"
+            element={
+              <ProtectedRoute>
+                <Farmacie />
               </ProtectedRoute>
             }
           />
