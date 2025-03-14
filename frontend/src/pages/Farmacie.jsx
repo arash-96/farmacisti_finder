@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from "react";
-
-const pharmaciesData = [
-    { id: 1, name: "City Pharmacy", location: "Downtown" },
-    { id: 2, name: "Green Health Pharmacy", location: "Uptown" },
-    { id: 3, name: "Wellness Pharmacy", location: "Suburb" },
-    { id: 4, name: "CarePlus Pharmacy", location: "Midtown" },
-];
+import api from "../api";
 
 export default function PharmacySearch() {
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredPharmacies, setFilteredPharmacies] = useState(pharmaciesData);
+    const [pharmacies, setPharmacies] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const results = pharmaciesData.filter((pharmacy) =>
-            pharmacy.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredPharmacies(results);
+        async function fetchPharmacies() {
+            setLoading(true);
+            try {
+                const response = await api.get(`/api/get_pharmacies/?search=${searchTerm}`);
+                setPharmacies(response.data);
+            } catch (error) {
+                console.error("Error fetching pharmacies:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        if (searchTerm.length > 0) {
+            fetchPharmacies();
+        } else {
+            setPharmacies([]);
+        }
     }, [searchTerm]);
 
     return (
@@ -30,11 +38,16 @@ export default function PharmacySearch() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
+
+            {loading && <p className="text-center text-gray-500">Loading...</p>}
+
             <div className="space-y-2">
-                {filteredPharmacies.map((pharmacy) => (
-                    <div key={pharmacy.id} className="p-3 border rounded-lg shadow-md">
-                        <h2 className="text-lg font-semibold">{pharmacy.name}</h2>
-                        <p className="text-gray-600">{pharmacy.location}</p>
+                {pharmacies.map((pharmacy) => (
+                    <div key={pharmacy.pharmacy_id} className="p-3 border rounded-lg shadow-md">
+                        <h2 className="text-lg font-semibold">{pharmacy.pharmacy_name}</h2>
+                        <p className="text-gray-600">{pharmacy.address}</p>
+                        <p className="text-gray-600">📍 {pharmacy.provincia}</p>
+                        <p className="text-gray-600">📞 {pharmacy.phone}</p>
                     </div>
                 ))}
             </div>

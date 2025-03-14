@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note, Profile, Offer
+from .models import Note, Profile, Offer, Pharmacy
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,3 +52,16 @@ class OfferSerializer(serializers.ModelSerializer):
         model = Offer
         fields = ["id", "title", "description", "time", "salary", "user"]
         extra_kwargs = {"user": {"read_only": True}}
+
+class PharmacySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pharmacy
+        fields = [
+            "pharmacy_id",
+            "pharmacy_name",
+            "provincia",
+            "address",
+            "phone",
+            "lat",
+            "lng",
+        ]

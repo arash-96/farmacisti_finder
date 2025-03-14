@@ -4,13 +4,14 @@ from django.utils.timezone import now, timedelta
 from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import UserSerializer, NoteSerializer, OfferSerializer, ForgotPasswordSerializer
+from .serializers import UserSerializer, NoteSerializer, OfferSerializer, ForgotPasswordSerializer, PharmacySerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
-from .models import Note, Offer, Profile
+from .models import Note, Offer, Profile, Pharmacy
 import uuid, os
+from django.db.models import Q
 
 class NoteListCreate(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
@@ -145,3 +146,18 @@ class ResetPasswordView(APIView):
 
         except Profile.DoesNotExist:
             return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+        
+class CreateFarmacieView(generics.ListAPIView):
+    serializer_class = PharmacySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Pharmacy.objects.all()
+        search_query = self.request.query_params.get('search', None)
+        if search_query:
+            queryset = queryset.filter(
+                Q(pharmacy_name__icontains=search_query) | 
+                Q(address__icontains=search_query) |
+                Q(provincia__icontains=search_query)
+            )
+        return queryset[:5]

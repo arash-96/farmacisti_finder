@@ -49,3 +49,18 @@ class Offer(models.Model):
 
     def __str__(self):
         return self.title or "Offer"
+    
+class Pharmacy(models.Model):
+    pharmacy_id = models.AutoField(primary_key=True, db_column="PharmacyID")
+    pharmacy_name = models.TextField(db_column="PharmacyName")
+    provincia = models.TextField(db_column="Provincia")
+    address = models.TextField(db_column="Address")
+    phone = models.TextField(db_column="Phone", null=True, blank=True)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, db_column="Lat", null=True, blank=True)
+    lng = models.DecimalField(max_digits=9, decimal_places=6, db_column="Lng", null=True, blank=True)
+
+    class Meta:
+        db_table = "api_pharmacies"
+
+    def __str__(self):
+        return self.pharmacy_name
