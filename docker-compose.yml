@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    image: farmacisti_finder-backend
     ports:
       - "8000:8000"
     volumes:
@@ -15,6 +16,7 @@ services:
     build:
       context: .
       dockerfile: frontend/Dockerfile
+    image: farmacisti_finder-frontend
     ports:
       - "3000:3000"
     depends_on:
