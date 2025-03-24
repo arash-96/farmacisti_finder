@@ -14,7 +14,6 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
-import smtplib
 
 load_dotenv()
 
@@ -31,6 +30,7 @@ SECRET_KEY = 'django-insecure-k%^!9ah2*!w(g@q8_lma&-sz2#3vcmqkl(d#(t+a_x-1_u-h+s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#ALLOWED_HOSTS = ['.vercel.app', "127.0.0.1", "localhost",]
 ALLOWED_HOSTS = ['.vercel.app']
 
 REST_FRAMEWORK = {
@@ -102,11 +102,8 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DATABASE'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST'),
+        'HOST': os.getenv('POSTGRES_HOST_DJANGO'),
         'PORT': os.getenv('POSTGRES_PORT'),
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
     }
 }
 
