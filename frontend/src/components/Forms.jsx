@@ -8,6 +8,36 @@ import Loading from "../components/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const regioni_italiane = [
+  "Abruzzo", "Basilicata", "Calabria", "Campania", "Emilia-Romagna",
+  "Friuli-Venezia Giulia", "Lazio", "Liguria", "Lombardia", "Marche",
+  "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana",
+  "Trentino-Alto Adige", "Umbria", "Valle d'Aosta", "Veneto"
+];
+
+const province_italiane = {
+  "Abruzzo": ["L'Aquila", "Teramo", "Pescara", "Chieti"],
+  "Basilicata": ["Potenza", "Matera"],
+  "Calabria": ["Catanzaro", "Cosenza", "Reggio Calabria", "Crotone", "Vibo Valentia"],
+  "Campania": ["Napoli", "Salerno", "Caserta", "Avellino", "Benevento"],
+  "Emilia-Romagna": ["Bologna", "Modena", "Parma", "Reggio Emilia", "Ferrara", "Ravenna", "Forlì-Cesena", "Piacenza", "Rimini"],
+  "Friuli-Venezia Giulia": ["Udine", "Trieste", "Gorizia", "Pordenone"],
+  "Lazio": ["Roma", "Latina", "Frosinone", "Viterbo", "Rieti"],
+  "Liguria": ["Genova", "Imperia", "La Spezia", "Savona"],
+  "Lombardia": ["Milano", "Bergamo", "Brescia", "Como", "Cremona", "Lecco", "Lodi", "Mantova", "Monza e Brianza", "Pavia", "Sondrio", "Varese"],
+  "Marche": ["Ancona", "Ascoli Piceno", "Fermo", "Macerata", "Pesaro e Urbino"],
+  "Molise": ["Campobasso", "Isernia"],
+  "Piemonte": ["Torino", "Alessandria", "Asti", "Biella", "Cuneo", "Novara", "Verbano-Cusio-Ossola", "Vercelli"],
+  "Puglia": ["Bari", "Brindisi", "Foggia", "Lecce", "Taranto", "Barletta-Andria-Trani"],
+  "Sardegna": ["Cagliari", "Sassari", "Nuoro", "Oristano", "Sud Sardegna"],
+  "Sicilia": ["Palermo", "Catania", "Messina", "Agrigento", "Caltanissetta", "Enna", "Ragusa", "Siracusa", "Trapani"],
+  "Toscana": ["Firenze", "Arezzo", "Grosseto", "Livorno", "Lucca", "Massa-Carrara", "Pisa", "Pistoia", "Prato", "Siena"],
+  "Trentino-Alto Adige": ["Trento", "Bolzano"],
+  "Umbria": ["Perugia", "Terni"],
+  "Valle d'Aosta": ["Aosta"],
+  "Veneto": ["Venezia", "Verona", "Vicenza", "Treviso", "Padova", "Rovigo", "Belluno"],
+};
+
 Form.propTypes = {
   route: PropTypes.string.isRequired,
   method: PropTypes.string.isRequired,
@@ -33,6 +63,62 @@ function Form({ route, method }) {
   const [userRole, setUserRole] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const [searchRegione, setSearchRegione] = useState("");
+  const [filteredRegioni, setFilteredRegioni] = useState([]);
+  const [selectedRegione, setSelectedRegione] = useState("");
+
+  const [searchProvincia, setSearchProvincia] = useState("");
+  const [filteredProvince, setFilteredProvince] = useState([]);
+  const [selectedProvincia, setSelectedProvincia] = useState("");
+
+  const handleSearchRegione = (e) => {
+    const value = e.target.value;
+    setSearchRegione(value);
+    if (value.length > 0) {
+      setFilteredRegioni(regioni_italiane.filter(regione =>
+        regione.toLowerCase().includes(value.toLowerCase())
+      ).slice(0, 3));
+    } else {
+      setFilteredRegioni([]);
+    }
+  };
+
+  const handleSelectRegione = (regione) => {
+    setSelectedRegione(regione);
+    setSearchRegione(regione);
+    setFilteredRegioni([]);
+  };
+
+  const handleSearchProvincia = (e) => {
+    const value = e.target.value;
+    setSearchProvincia(value);
+    if (selectedRegione && value.length > 0) {
+      setFilteredProvince(province_italiane[selectedRegione]?.filter(provincia =>
+        provincia.toLowerCase().includes(value.toLowerCase())
+      ).slice(0, 3) || []);
+    } else {
+      setFilteredProvince([]);
+    }
+  };
+
+  const handleSelectProvincia = (provincia) => {
+    setSelectedProvincia(provincia);
+    setSearchProvincia(provincia);
+    setFilteredProvince([]);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowDown" && selectedIndex < filteredOptions.length - 1) {
+      setSelectedIndex(selectedIndex + 1);
+    } else if (e.key === "ArrowUp" && selectedIndex > 0) {
+      setSelectedIndex(selectedIndex - 1);
+    } else if (e.key === "Enter" && selectedIndex >= 0) {
+      setQuery(filteredOptions[selectedIndex]);
+      onSelect(filteredOptions[selectedIndex]);
+      setFilteredOptions([]);
+    }
+  };
 
   const validateForm = () => {
     if (
@@ -98,8 +184,8 @@ function Form({ route, method }) {
           placeOfBirth,
           telephone,
           userRole,
-          regione_residenza,
-          provincia_residenza,
+          selectedRegione,
+          selectedProvincia,
           comune,
           via,
           numero_iscrizione_albo,
@@ -196,22 +282,43 @@ function Form({ route, method }) {
           <div className="form-group">
             <label className="form-label text-xl">Regione di Residenza*</label>
             <input
-              className="form-input text-xl"
               type="text"
-              placeholder="Regione di Residenza"
-              onChange={(e) => setRegione_residenza(e.target.value)}
+              className="form-input text-xl"
+              value={searchRegione}
+              onChange={handleSearchRegione}
+              placeholder="Cerca Regione"
             />
+            {filteredRegioni.length > 0 && (
+              <ul>
+                {filteredRegioni.map((regione) => (
+                  <li key={regione} onClick={() => handleSelectRegione(regione)}>
+                    {regione}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="form-group">
             <label className="form-label text-xl">
               Provincia di Residenza*
             </label>
             <input
-              className="form-input text-xl"
               type="text"
-              placeholder="Provincia di Residenza"
-              onChange={(e) => setProvincia_residenza(e.target.value)}
+              className="form-input text-xl"
+              value={searchProvincia}
+              onChange={handleSearchProvincia}
+              placeholder="Cerca Provincia"
+              disabled={!selectedRegione}
             />
+            {filteredProvince.length > 0 && (
+              <ul>
+                {filteredProvince.map((provincia) => (
+                  <li key={provincia} onClick={() => handleSelectProvincia(provincia)}>
+                    {provincia}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
         <div className="form-row">
