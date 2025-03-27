@@ -34,16 +34,12 @@ class Profile(models.Model):
         return self.user.username
     
 class Offer(models.Model):
-    TIME_CHOICES = [
-        ('mattina', 'Mattina'),
-        ('pomeriggio', 'Pomeriggio'),
-        ('sera', 'Sera'),
-        ('notturno', 'Notturno'),
-    ]
-
     title = models.CharField(max_length=400, null=True, blank=True)
     description = models.TextField()
-    time = models.CharField(max_length=10, choices=TIME_CHOICES)
+    date_from = models.DateField(null=True, blank=True)  
+    date_to = models.DateField(null=True, blank=True)   
+    time_from = models.TimeField(null=True, blank=True)  
+    time_to = models.TimeField(null=True, blank=True) 
     salary = models.FloatField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="offers", null=True)
 

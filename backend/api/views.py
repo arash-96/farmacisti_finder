@@ -4,28 +4,13 @@ from django.utils.timezone import now, timedelta
 from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import UserSerializer, NoteSerializer, OfferSerializer, ForgotPasswordSerializer, PharmacySerializer
+from .serializers import UserSerializer, NoteSerializer, OfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from .models import Note, Offer, Profile, Pharmacy
 import uuid, os
 from django.db.models import Q
-
-class NoteListCreate(generics.ListCreateAPIView):
-    serializer_class = NoteSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user        
-        return Note.objects.filter(author=user)
-    
-    def perform_create(self, serializer):
-        if serializer.is_valid():
-            serializer.save(author=self.request.user)
-        else:
-            print(serializer.errors)
 
 class OfferCreate(generics.CreateAPIView):
     serializer_class = OfferSerializer
@@ -86,6 +71,29 @@ class UserDetailsView(RetrieveUpdateAPIView):
                 return Response({"message": "Profile updated successfully!"}, status=status.HTTP_200_OK)
             
         return Response({"error": "Invalid file type. Please upload a valid file."}, status=status.HTTP_400_BAD_REQUEST)
+    
+class TitolareUserListView(generics.ListAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """Retrieve titolare users and filter by search term if provided."""
+        queryset = Profile.objects.filter(userRole='titolare')
+
+        # Retrieve search term from query parameters
+        search_term = self.request.query_params.get('search', "").strip()
+        
+        if search_term:
+            queryset = queryset.filter(
+                Q(name__icontains=search_term) | 
+                Q(surname__icontains=search_term) | 
+                Q(denominazione_farmacia__icontains=search_term) |
+                Q(provincia_residenza__icontains=search_term) |
+                Q(regione_residenza__icontains=search_term) |  
+                Q(comune__icontains=search_term)  
+            )
+
+        return queryset
     
 class ForgotPasswordView(APIView):
     permission_classes = [AllowAny]

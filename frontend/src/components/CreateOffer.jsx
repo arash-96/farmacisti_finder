@@ -18,7 +18,11 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
   const [user, setUser] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [time, setTime] = useState("");
+  // const [time, setTime] = useState("");
+  const [date_from, setDateFrom] = useState("");
+  const [date_to, setDateTo] = useState("");
+  const [time_from, setTimeFrom] = useState("");
+  const [time_to, setTimeTo] = useState("");
   const [salary, setSalary] = useState(0);
 
   useEffect(() => {
@@ -44,7 +48,11 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
         user,
         title,
         description,
-        time,
+        //time,
+        date_from,
+        date_to,
+        time_from,
+        time_to,
         salary,
       });
 
@@ -58,7 +66,11 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
       // Reset form fields
       setTitle("");
       setDescription("");
-      setTime("");
+      //setTime("");
+      setTimeFrom("");
+      setTimeTo("");
+      setDateFrom("");
+      setDateTo("");
       setSalary(0);
 
       // Close modal after success
@@ -138,7 +150,7 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                           onChange={(e) => setDescription(e.target.value)}
                         />
                       </li>
-                      <li>
+                      {/* <li>
                         <strong>Orario richiesto:</strong>
                         <select
                           className="select select-bordered w-full mt-3"
@@ -152,7 +164,54 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                           <option value="sera">Sera</option>
                           <option value="notturno">Notturno</option>
                         </select>
+                      </li> */}
+                      <li className="flex items-center gap-4">
+                        <div className="w-1/2">
+                          <strong>Data da:</strong>
+                          <input
+                            type="date"
+                            className="input input-bordered w-full mt-3"
+                            onChange={(e) => {
+                              setDateFrom(e.target.value);
+                            }}
+                          />
+                        </div>
+
+                        <div className="w-1/2">
+                          <strong>Data a:</strong>
+                          <input
+                            type="date"
+                            className="input input-bordered w-full mt-3"
+                            onChange={(e) => {
+                              setDateTo(e.target.value);
+                            }}
+                          />
+                        </div>
                       </li>
+                      <li className="flex items-center gap-4">
+                        <div className="w-1/2">
+                          <strong>Orario da:</strong>
+                          <input
+                            type="time"
+                            className="input input-bordered w-full mt-3"
+                            onChange={(e) => {
+                              setTimeFrom(e.target.value);
+                            }}
+                          />
+                        </div>
+
+                        <div className="w-1/2">
+                          <strong>Orario a:</strong>
+                          <input
+                            type="time"
+                            className="input input-bordered w-full mt-3"
+                            onChange={(e) => {
+                              setTimeTo(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </li>
+
                       <li>
                         <strong>Retribuzione:</strong>
                         <input

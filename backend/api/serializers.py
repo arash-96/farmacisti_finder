@@ -50,7 +50,7 @@ class NoteSerializer(serializers.ModelSerializer):
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
-        fields = ["id", "title", "description", "time", "salary", "user"]
+        fields = ["id", "title", "description", "time_from", "time_to", "date_from", "date_to", "salary", "user"]
         extra_kwargs = {"user": {"read_only": True}}
 
 class PharmacySerializer(serializers.ModelSerializer):
