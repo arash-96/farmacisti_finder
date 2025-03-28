@@ -52,8 +52,6 @@ function Form({ route, method }) {
   const [dob, setDob] = useState("");
   const [placeOfBirth, setPlaceOfBirth] = useState("");
   const [telephone, setTelephone] = useState("");
-  const [regione_residenza, setRegione_residenza] = useState(null);
-  const [provincia_residenza, setProvincia_residenza] = useState(null);
   const [comune, setComune] = useState(null);
   const [via, setVia] = useState(null);
   const [numero_iscrizione_albo, setNumero_iscrizione_albo] = useState(null);
@@ -61,6 +59,7 @@ function Form({ route, method }) {
   const [denominazione_farmacia, setDenominazione_farmacia] = useState(null);
   const [partita_iva, setPartita_iva] = useState(null);
   const [userRole, setUserRole] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -158,6 +157,15 @@ function Form({ route, method }) {
     }
     if (password !== confirmPassword) {
       toast.error("Le password non corrispondono. Riprova", {
+        position: "top-center",
+        autoClose: 1200,
+        closeButton: false,
+        hideProgressBar: true,
+      });
+      return false;
+    }
+    if (!acceptedTerms) {
+      toast.error("Si prega di accettare i termini e le condizioni d'uso.", {
         position: "top-center",
         autoClose: 1200,
         closeButton: false,
@@ -440,6 +448,17 @@ function Form({ route, method }) {
         </div>
       </div>
       {loading && <Loading />}
+      <div className="flex text-center items-center justify-center">
+        <input
+          type="checkbox"
+          checked={acceptedTerms}
+          className="checkbox mr-2"
+          onChange={() => setAcceptedTerms(!acceptedTerms)} />
+        <label htmlFor="terms" className="text-lg text-gray-600">
+          Accetto i <Link to="/terms" className="text-blue-600 hover:underline">Termini e Condizioni</Link> e la
+          <Link to="/privacy" className="text-blue-600 hover:underline"> Privacy Policy</Link>
+        </label>
+      </div>
       <div className="button-container">
         <button
           className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl"

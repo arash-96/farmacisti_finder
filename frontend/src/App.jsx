@@ -17,6 +17,8 @@ import SearchOffers from "./pages/SearchOffers";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import Farmacie from "./pages/Farmacie";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
 
 function Logout() {
   localStorage.clear();
@@ -37,6 +39,8 @@ function AppContent() {
     location.pathname !== "/logout" &&
     location.pathname !== "/login_email" &&
     location.pathname !== "/forgot-password" &&
+    location.pathname !== "/terms" &&
+    location.pathname !== "/privacy" &&
     !location.pathname.startsWith("/reset-password/");
 
   return (
@@ -82,6 +86,8 @@ function AppContent() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/login_email" element={<LoginWithEmail />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
