@@ -29,6 +29,8 @@ class Profile(models.Model):
     partita_iva =  models.CharField(max_length=100, null=True, blank=True)
     reset_token = models.CharField(max_length=255, null=True, blank=True)
     reset_token_expires_at = models.DateTimeField(null=True, blank=True)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, db_column="Lat", null=True, blank=True)
+    lng = models.DecimalField(max_digits=9, decimal_places=6, db_column="Lng", null=True, blank=True)
 
     def __str__(self):
         return self.user.username

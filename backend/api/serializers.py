@@ -5,9 +5,9 @@ from .models import Note, Profile, Offer, Pharmacy
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ["name", "surname", "dob", "placeOfBirth", "telephone", "userRole", "pdf_file",
+        fields = ["id", "name", "surname", "dob", "placeOfBirth", "telephone", "userRole", "pdf_file",
                    "regione_residenza", "provincia_residenza", "comune", "via", "numero_iscrizione_albo",
-                   "titolo", "denominazione_farmacia", "partita_iva"
+                   "titolo", "denominazione_farmacia", "partita_iva", "lat", "lng"
                 ]
         extra_kwargs = {"pdf_file": {"required": False}}
 
@@ -65,3 +65,8 @@ class PharmacySerializer(serializers.ModelSerializer):
             "lat",
             "lng",
         ]
+
+class ProfileLocationUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['lat', 'lng']

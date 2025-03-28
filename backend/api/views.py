@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .serializers import UserSerializer, NoteSerializer, OfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
+from .serializers import ProfileLocationUpdateSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.views import APIView
@@ -169,3 +170,23 @@ class CreateFarmacieView(generics.ListAPIView):
                 Q(provincia__icontains=search_query)
             )
         return queryset[:5]
+    
+
+class UpdateLocationView(APIView):
+    serializer_class = ProfileLocationUpdateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = request.data.get('userId')
+        lat = request.data.get('lat')
+        lng = request.data.get('lng')
+
+        if lat is None or lng is None:
+            return Response({"error": "Latitude and Longitude are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        profile = Profile.objects.get(user=user)
+        profile.lat = lat
+        profile.lng = lng
+        profile.save()
+
+        return Response({"message": "Location updated successfully"}, status=status.HTTP_200_OK)

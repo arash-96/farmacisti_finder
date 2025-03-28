@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import api from "../api";
 
 export default function PharmacySearch() {
@@ -8,6 +9,63 @@ export default function PharmacySearch() {
     const [titolari, setTitolari] = useState([]);
     const [loadingFarmacie, setLoadingFarmacie] = useState(false);
     const [loadingUserTitolari, setLoadingUserTitolari] = useState(false);
+    const [loadingSave, setLoadingSave] = useState(false);
+
+    //Modal states
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [lat, setLat] = useState("");
+    const [lng, setLng] = useState("");
+
+    const openModal = (user) => {
+        setSelectedUser(user.id);
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+        setLat("");
+        setLng("");
+    };
+
+    const saveLocation = async () => {
+        if (selectedUser) {
+            setLoadingSave(true);
+            try {
+                const requestBody = {
+                    userId: selectedUser,
+                    lat: lat,
+                    lng: lng
+                };
+
+                console.log(requestBody);
+
+                const res = await api.post('/api/users/update_location', requestBody);
+
+                if (res.status === 200) {
+                    toast.success("Latitudine e longitudine sono stati aggiornati!", {
+                        position: "top-center",
+                        autoClose: 1200,
+                        closeButton: false,
+                        hideProgressBar: true,
+                    });
+                }
+                closeModal();
+            } catch (error) {
+                console.error('Error updating location:', error);
+                if (error.response) {
+                    console.error('Response error:', error.response.data);
+                } else if (error.request) {
+                    console.error('Request error:', error.request);
+                } else {
+                    console.error('Error message:', error.message);
+                }
+            } finally {
+                setLoadingSave(false);
+            }
+        }
+    };
+
 
     // Fetch pharmacies based on searchTerm
     useEffect(() => {
@@ -37,6 +95,7 @@ export default function PharmacySearch() {
             try {
                 const response = await api.get(`/api/users/titolare/?search=${userSearchTerm}`);
                 const usersArray = Object.values(response.data);
+                console.log(response.data);
                 setTitolari(usersArray);
             } catch (error) {
                 console.error("Error fetching titolari:", error);
@@ -60,6 +119,7 @@ export default function PharmacySearch() {
 
     return (
         <div className="container mx-auto p-6">
+            <ToastContainer position="top-right" />
             <h1 className="text-3xl font-bold text-center mb-6">Farmacie e Utenti Titolari</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -91,7 +151,9 @@ export default function PharmacySearch() {
                                     <h2 className="text-lg font-semibold">{pharmacy.pharmacy_name}</h2>
                                     <p className="text-gray-600">{pharmacy.address}</p>
                                     <p className="text-gray-600">📍 {pharmacy.provincia}</p>
-                                    <p className="text-gray-600">📞 {pharmacy.phone}</p>
+                                    <p className="text-gray-600">📞 0{pharmacy.phone}</p>
+                                    <p className="text-gray-600">📍 Latitude: {pharmacy.lat}</p>
+                                    <p className="text-gray-600">📍 Longitude: {pharmacy.lng}</p>
                                 </div>
                             ))}
                         </div>
@@ -122,11 +184,11 @@ export default function PharmacySearch() {
                     ) : (
                         <div className="space-y-4">
                             {filteredTitolari.map((user, index) => (
-                                <div key={index} className="p-4 border rounded-lg shadow-md flex-1 min-h-[180px]">
+                                <div key={index} className="p-4 border rounded-lg shadow-md flex-1 min-h-[180px]" onClick={() => openModal(user)}>
                                     <h2 className="text-lg font-semibold">{user.name} {user.surname}</h2>
                                     <p className="text-gray-600">📅 {user.dob}</p>
                                     <p className="text-gray-600">📍 {user.provincia_residenza}, {user.regione_residenza}</p>
-                                    <p className="text-gray-600">📞 {user.telephone}</p>
+                                    <p className="text-gray-600">📞 0{user.telephone}</p>
                                     <p className="text-gray-600">🏢 {user.denominazione_farmacia || "N/A"}</p>
                                     <p className="text-gray-600">📜 {user.numero_iscrizione_albo}</p>
                                 </div>
@@ -135,6 +197,53 @@ export default function PharmacySearch() {
                     )}
                 </div>
             </div>
+            {modalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                        <div className="mb-4">
+                            <label className="block text-gray-600">Latitude</label>
+                            <input
+                                type="text"
+                                value={lat}
+                                onChange={(e) => setLat(e.target.value)}
+                                className="w-full p-2 mt-2 border border-gray-300 rounded-md"
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-gray-600">Longitude</label>
+                            <input
+                                type="text"
+                                value={lng}
+                                onChange={(e) => setLng(e.target.value)}
+                                className="w-full p-2 mt-2 border border-gray-300 rounded-md"
+                            />
+                        </div>
+
+                        <div className="flex justify-between">
+                            <button
+                                onClick={closeModal}
+                                className="bg-gray-500 text-white px-4 py-2 rounded-md w-1/2 mr-2"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={saveLocation}
+                                className="bg-blue-500 text-white px-4 py-2 rounded-md w-1/2 flex items-center justify-center"
+                                disabled={loadingSave}
+                            >
+                                {loadingSave ? (
+                                    <div className="animate-spin rounded-full border-t-4 border-white w-6 h-6"></div>
+                                ) : (
+                                    "Save"
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
+
+
 }
