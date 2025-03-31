@@ -190,3 +190,22 @@ class UpdateLocationView(APIView):
         profile.save()
 
         return Response({"message": "Location updated successfully"}, status=status.HTTP_200_OK)
+    
+class GetLocationView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user_id = request.data.get('userId')
+
+        if not user_id:
+            return Response({"error": "userId is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            profile = Profile.objects.get(user__id=user_id)
+        except Profile.DoesNotExist:
+            return Response({"error": "Profile not found for the specified user."}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({
+            "lat": profile.lat,
+            "lng": profile.lng
+        }, status=status.HTTP_200_OK)

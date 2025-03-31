@@ -1,12 +1,8 @@
 import axios from "axios";
 import { ACCESS_TOKEN } from "./constants";
 
-//const apiUrl = "/choreo-apis/awbo/backend/rest-api-be2/v1.0";
-//const apiUrl = "http://127.0.0.1:8000";
-const apiUrl = "https://farmacisti-finder-backend.vercel.app";
-
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL : apiUrl,
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 api.interceptors.request.use(
@@ -17,9 +13,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default api;

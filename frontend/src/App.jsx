@@ -19,6 +19,7 @@ import Navbar from "./components/Navbar";
 import Farmacie from "./pages/Farmacie";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
+import Footer from "./components/Footer";
 
 function Logout() {
   localStorage.clear();
@@ -33,7 +34,7 @@ function RegisterAndLogout() {
 function AppContent() {
   const location = useLocation();
 
-  const showNavbar =
+  const showNavbarAndFooter =
     location.pathname !== "/login" &&
     location.pathname !== "/register" &&
     location.pathname !== "/logout" &&
@@ -45,8 +46,8 @@ function AppContent() {
 
   return (
     <>
-      {showNavbar && <Navbar />}
-      <div className={`min-h-screen ${showNavbar ? "pt-20" : ""}`}>
+      {showNavbarAndFooter && <Navbar />}
+      <div className={`min-h-screen ${showNavbarAndFooter ? "pt-20" : ""}`}>
         <Routes>
           <Route
             path="/"
@@ -90,7 +91,9 @@ function AppContent() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        {showNavbarAndFooter && <Footer />}
       </div>
+
     </>
   );
 }

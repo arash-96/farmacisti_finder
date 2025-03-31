@@ -1,11 +1,12 @@
 const Footer = () => {
   return (
-    <footer className="mt-8 text-center text-gray-600 py-10">
+    <footer className="text-center text-gray-600 py-10">
       <p className="text-sm">
         SOS Pharmacist - Tutti i diritti riservati &copy; 2025
       </p>
       <p className="text-sm mt-2">
-        <a className="text-blue-500 hover:underline">Privacy Policy</a> |{" "}
+        <a className="text-blue-500 hover:underline" href="/privacy" target="_blank">Privacy Policy</a> |{" "}
+        <a className="text-blue-500 hover:underline" href="/terms" target="_blank">Termini e Condizioni</a> |{" "}
         <a className="text-blue-500 hover:underline">Contatti</a>
       </p>
     </footer>

@@ -19,6 +19,7 @@ export default function PharmacySearch() {
 
     const openModal = (user) => {
         setSelectedUser(user.id);
+        getLocation(user.id);
         setModalOpen(true);
     };
 
@@ -27,6 +28,26 @@ export default function PharmacySearch() {
         setLat("");
         setLng("");
     };
+
+    async function getLocation(userId) {
+        try {
+            const requestBody = { userId };
+
+            const response = await api.post('/api/users/get_location/', requestBody);
+
+            if (response.status === 200) {
+                const { lat, lng } = response.data;
+                setLat(lat ?? "");
+                setLng(lng ?? "");
+            } else {
+                console.error('Failed to retrieve location. Status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error retrieving location:', error);
+        }
+    }
+
+
 
     const saveLocation = async () => {
         if (selectedUser) {
@@ -40,7 +61,7 @@ export default function PharmacySearch() {
 
                 console.log(requestBody);
 
-                const res = await api.post('/api/users/update_location', requestBody);
+                const res = await api.post('/api/users/update_location/', requestBody);
 
                 if (res.status === 200) {
                     toast.success("Latitudine e longitudine sono stati aggiornati!", {

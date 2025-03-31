@@ -455,8 +455,8 @@ function Form({ route, method }) {
           className="checkbox mr-2"
           onChange={() => setAcceptedTerms(!acceptedTerms)} />
         <label htmlFor="terms" className="text-lg text-gray-600">
-          Accetto i <Link to="/terms" className="text-blue-600 hover:underline">Termini e Condizioni</Link> e la
-          <Link to="/privacy" className="text-blue-600 hover:underline"> Privacy Policy</Link>
+          Accetto i <Link to="/terms" target="_blank" className="text-blue-600 hover:underline">Termini e Condizioni</Link> e la
+          <Link to="/privacy" target="_blank" className="text-blue-600 hover:underline"> Privacy Policy</Link>
         </label>
       </div>
       <div className="button-container">
