@@ -70,3 +70,10 @@ class ProfileLocationUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['lat', 'lng']
+
+
+class MyOfferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Offer
+        fields = '__all__'
+        read_only_fields = ['user']

@@ -48,6 +48,12 @@ export default function App() {
     createOffer();
   }, []); //
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const [year, month, day] = dateString.split("-");
+    return `${day}/${month}/${year}`;
+  };
+
 
   return (
     <div className="bg-gray-100 font-roboto min-h-screen flex flex-col">
@@ -87,13 +93,19 @@ export default function App() {
                 </div>
                 {selectedJob === offer && (
                   <div className="mt-3 space-y-2">
-                    <p className="text-gray-700">{offer.description}</p>
                     <p className="text-gray-700">
-                      <strong>Salario:</strong> € {offer.salary}
+                      <strong>Descrizione:</strong>{" "}
+                      {offer.description}
                     </p>
                     <p className="text-gray-700">
-                      <strong>Orario:</strong> {offer.time}
+                      <strong>Salario:</strong> € {offer.salary} / h
                     </p>
+                    {(offer.date_from || offer.date_to) && (
+                      <p className="text-gray-700">
+                        <strong>Periodo:</strong>{" "}
+                        {formatDate(offer.date_from)} - {formatDate(offer.date_to)}
+                      </p>
+                    )}
                   </div>
                 )}
               </li>

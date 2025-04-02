@@ -235,7 +235,7 @@ function Form({ route, method }) {
                 defaultValue={""}
               >
                 <option value={""} disabled hidden>
-                  Seleziona un ruolo
+                  Seleziona un ruolo*
                 </option>
                 <option value={"farmacista"}>Farmacista</option>
                 <option value={"titolare"}>Titolare di Farmacia</option>

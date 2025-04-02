@@ -20,6 +20,7 @@ import Farmacie from "./pages/Farmacie";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Footer from "./components/Footer";
+import MyOffers from "./pages/MyOffers";
 
 function Logout() {
   localStorage.clear();
@@ -78,6 +79,14 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <Farmacie />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mie_offerte"
+            element={
+              <ProtectedRoute>
+                <MyOffers />
               </ProtectedRoute>
             }
           />

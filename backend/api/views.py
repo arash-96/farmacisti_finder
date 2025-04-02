@@ -4,7 +4,7 @@ from django.utils.timezone import now, timedelta
 from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import UserSerializer, NoteSerializer, OfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
+from .serializers import UserSerializer, NoteSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
 from .serializers import ProfileLocationUpdateSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
@@ -209,3 +209,24 @@ class GetLocationView(generics.CreateAPIView):
             "lat": profile.lat,
             "lng": profile.lng
         }, status=status.HTTP_200_OK)
+
+class MyOffersView(generics.ListAPIView):
+    serializer_class = MyOfferSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Offer.objects.filter(user=self.request.user)
+
+class DeleteOfferView(generics.DestroyAPIView):
+    serializer_class = MyOfferSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Offer.objects.filter(user=self.request.user)
+
+class UpdateOfferView(generics.RetrieveUpdateAPIView):
+    serializer_class = MyOfferSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Offer.objects.filter(user=self.request.user)

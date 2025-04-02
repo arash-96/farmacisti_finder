@@ -6,19 +6,17 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { IoMdClose } from "react-icons/io";
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
 import api from "../api";
 import Loading from "../components/Loading";
 
-export default function CreateOffer({ isOpen, setIsOpen }) {
+export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null }) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  // const [time, setTime] = useState("");
   const [date_from, setDateFrom] = useState("");
   const [date_to, setDateTo] = useState("");
   const [time_from, setTimeFrom] = useState("");
@@ -28,6 +26,27 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
   useEffect(() => {
     getUserDetails();
   }, []);
+
+  useEffect(() => {
+    if (selectedOffer) {
+      setTitle(selectedOffer.title || "");
+      setDescription(selectedOffer.description || "");
+      setDateFrom(selectedOffer.date_from || "");
+      setDateTo(selectedOffer.date_to || "");
+      setTimeFrom(selectedOffer.time_from || "");
+      setTimeTo(selectedOffer.time_to || "");
+      setSalary(selectedOffer.salary || 0);
+    } else {
+      // Reset if creating a new one
+      setTitle("");
+      setDescription("");
+      setDateFrom("");
+      setDateTo("");
+      setTimeFrom("");
+      setTimeTo("");
+      setSalary(0);
+    }
+  }, [selectedOffer, isOpen]);
 
   const getUserDetails = () => {
     api
@@ -41,42 +60,42 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
     setIsOpen(false);
   }
 
-  async function createOffer() {
+  async function handleSubmit() {
+    setLoading(true);
+
+    const payload = {
+      user,
+      title,
+      description,
+      date_from,
+      date_to,
+      time_from,
+      time_to,
+      salary,
+    };
+
+    const url = selectedOffer
+      ? `/api/offers/${selectedOffer.id}/update/`
+      : "/api/offer/";
+    const method = selectedOffer ? api.put : api.post;
+
     try {
-      setLoading(true);
-      await api.post("/api/offer/", {
-        user,
-        title,
-        description,
-        //time,
-        date_from,
-        date_to,
-        time_from,
-        time_to,
-        salary,
-      });
+      await method(url, payload);
 
-      // Show success toast
-      toast.success("Offerta creata con successo!", {
-        position: "top-center",
-        autoClose: 1200,
-        closeButton: false,
-      });
+      toast.success(
+        selectedOffer
+          ? "Offerta aggiornata con successo!"
+          : "Offerta creata con successo!",
+        {
+          position: "top-center",
+          autoClose: 1200,
+          closeButton: false,
+        }
+      );
 
-      // Reset form fields
-      setTitle("");
-      setDescription("");
-      //setTime("");
-      setTimeFrom("");
-      setTimeTo("");
-      setDateFrom("");
-      setDateTo("");
-      setSalary(0);
-
-      // Close modal after success
       closeModal();
     } catch {
-      toast.error("Errore nella creazione dell'offerta!", {
+      toast.error("Errore durante l'invio dell'offerta.", {
         position: "top-center",
         autoClose: 1200,
         closeButton: false,
@@ -115,7 +134,6 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="relative w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mt-10">
-                  {/* Close button */}
                   <IoMdClose
                     onClick={closeModal}
                     className="absolute top-4 right-4 cursor-pointer text-gray-600 hover:text-gray-800"
@@ -124,21 +142,20 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                   <DialogTitle
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    {/* Modal Title */}
-                  </DialogTitle>
+                  />
 
                   <div>
                     <h3 className="font-bold text-lg text-center">
-                      Crea una Nuova Offerta
+                      {selectedOffer ? "Modifica Offerta" : "Crea una Nuova Offerta"}
                     </h3>
-                    {/* Form Fields */}
+
                     <ul className="space-y-3 mt-5">
                       <li>
                         <strong>Titolo Offerta:</strong>
                         <input
                           type="text"
                           className="input input-bordered w-full mt-3"
+                          value={title}
                           onChange={(e) => setTitle(e.target.value)}
                         />
                       </li>
@@ -147,44 +164,27 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                         <textarea
                           className="textarea textarea-bordered w-full mt-3"
                           rows="3"
+                          value={description}
                           onChange={(e) => setDescription(e.target.value)}
                         />
                       </li>
-                      {/* <li>
-                        <strong>Orario richiesto:</strong>
-                        <select
-                          className="select select-bordered w-full mt-3"
-                          onChange={(e) => {
-                            setTime(e.target.value);
-                          }}
-                        >
-                          <option value=""></option>
-                          <option value="mattina">Mattina</option>
-                          <option value="pomeriggio">Pomeriggio</option>
-                          <option value="sera">Sera</option>
-                          <option value="notturno">Notturno</option>
-                        </select>
-                      </li> */}
                       <li className="flex items-center gap-4">
                         <div className="w-1/2">
                           <strong>Data da:</strong>
                           <input
                             type="date"
                             className="input input-bordered w-full mt-3"
-                            onChange={(e) => {
-                              setDateFrom(e.target.value);
-                            }}
+                            value={date_from}
+                            onChange={(e) => setDateFrom(e.target.value)}
                           />
                         </div>
-
                         <div className="w-1/2">
                           <strong>Data a:</strong>
                           <input
                             type="date"
                             className="input input-bordered w-full mt-3"
-                            onChange={(e) => {
-                              setDateTo(e.target.value);
-                            }}
+                            value={date_to}
+                            onChange={(e) => setDateTo(e.target.value)}
                           />
                         </div>
                       </li>
@@ -194,29 +194,26 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                           <input
                             type="time"
                             className="input input-bordered w-full mt-3"
-                            onChange={(e) => {
-                              setTimeFrom(e.target.value);
-                            }}
+                            value={time_from}
+                            onChange={(e) => setTimeFrom(e.target.value)}
                           />
                         </div>
-
                         <div className="w-1/2">
                           <strong>Orario a:</strong>
                           <input
                             type="time"
                             className="input input-bordered w-full mt-3"
-                            onChange={(e) => {
-                              setTimeTo(e.target.value);
-                            }}
+                            value={time_to}
+                            onChange={(e) => setTimeTo(e.target.value)}
                           />
                         </div>
                       </li>
-
                       <li>
-                        <strong>Retribuzione:</strong>
+                        <strong>Retribuzione oraria:</strong>
                         <input
-                          type="text"
+                          type="number"
                           className="input input-bordered w-full mt-3"
+                          value={salary}
                           onChange={(e) => setSalary(e.target.value)}
                         />
                       </li>
@@ -227,9 +224,9 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 w-4/5 mt-3"
-                      onClick={createOffer}
+                      onClick={handleSubmit}
                     >
-                      Crea
+                      {selectedOffer ? "Salva Modifiche" : "Crea"}
                     </button>
                     {loading && <Loading />}
                   </div>
@@ -244,6 +241,7 @@ export default function CreateOffer({ isOpen, setIsOpen }) {
 }
 
 CreateOffer.propTypes = {
-  isOpen: PropTypes.bool.isRequired, // Expect a boolean prop
-  setIsOpen: PropTypes.func.isRequired, // Expect a function prop
+  isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
+  selectedOffer: PropTypes.object, // optional
 };

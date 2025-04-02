@@ -62,7 +62,7 @@ function Form({ route, method }) {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your email"
+            placeholder="Inserisci la tua email"
           />
         </div>
 
@@ -75,7 +75,7 @@ function Form({ route, method }) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
+            placeholder="Inserisci la tua password"
           />
         </div>
 

@@ -48,12 +48,12 @@ function Navbar() {
             {/* <Link to="/map" className="flex items-center gap-2 hover:underline">
               <FaMapMarkerAlt /> Mappa
             </Link> */}
-            <Link
+            {/* <Link
               to="/messages"
               className="flex items-center gap-2 hover:underline"
             >
               <FaEnvelope /> Messaggi
-            </Link>
+            </Link> */}
             {isLoggedIn && (
               <Link
                 to="/login"

@@ -4,14 +4,12 @@ import api from "../api";
 import SectionCard from "../components/SectionCard";
 import CvUploadModal from "../components/CvUploadModal";
 import CreateOffer from "../components/CreateOffer";
-// import SearchOffer from "../components/SearchOffer";
 
 function Home() {
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [openCreateModal, setCreateModal] = useState(false);
-  // const [openSearchModal, setSearchModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -36,7 +34,7 @@ function Home() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12 mb-18">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-blue-600">Benvenuto, {name}!</h2>
         {(userRole === "farmacista" || userRole === "admin") ? (
@@ -51,7 +49,6 @@ function Home() {
           </p>
         ) : null}
       </div>
-
       <div className="flex flex-wrap justify-center gap-6">
         {(userRole === "farmacista" || userRole === "admin") && (
           <>
@@ -61,11 +58,7 @@ function Home() {
               onClick={() => navigate("/cerca_offerte")}
             />
             <SectionCard
-              title="/"
-              buttonText="/"
-              buttonColor="bg-blue-500 hover:bg-blue-600"
-            />
-            <SectionCard
+              title="Carica il CV"
               buttonText="Aggiorna CV"
               buttonColor="bg-green-500 hover:bg-green-600"
               setModal={() => setIsCvModalOpen(true)}
@@ -82,6 +75,11 @@ function Home() {
             <SectionCard
               buttonText="Candidature Ricevute"
               buttonColor="bg-blue-500 hover:bg-blue-600"
+            />
+            <SectionCard
+              buttonText="Le Mie Offerte"
+              buttonColor="bg-purple-500 hover:bg-purple-600"
+              onClick={() => navigate("/mie_offerte")}
             />
           </>
         )}
@@ -103,7 +101,6 @@ function Home() {
         />
       )}
       <CreateOffer isOpen={openCreateModal} setIsOpen={setCreateModal} />
-      {/* <SearchOffer isOpen={openSearchModal} setIsOpen={setSearchModal} /> */}
     </div>
   );
 }
