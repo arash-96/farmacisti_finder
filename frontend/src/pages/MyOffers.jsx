@@ -37,7 +37,7 @@ export default function MyOffers() {
 
     return (
         <div className="container mx-auto p-6 mb-80">
-            <h1 className="text-2xl font-bold mb-6 text-center text-purple-600">
+            <h1 className="text-2xl font-bold mb-6 text-center text-blue-600">
                 Le Mie Offerte
             </h1>
 
