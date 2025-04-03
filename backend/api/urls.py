@@ -11,4 +11,7 @@ urlpatterns = [
     path('offers/my/', views.MyOffersView.as_view(), name='my_offers'),
     path('offers/<int:pk>/delete/', views.DeleteOfferView.as_view(), name='delete_offer'),
     path('offers/<int:pk>/update/', views.UpdateOfferView.as_view(), name='update_offer'),
+    path('candidature/', views.SubmitCandidatureView.as_view(), name='submit-candidature'),
+    path('farmacista/<int:farmacista_id>/profile/', views.FarmacistaProfileView.as_view(), name='farmacista-profile'),
+    path("titolare/candidatures/", views.TitolareCandidatureListView.as_view()),
 ]

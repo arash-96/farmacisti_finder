@@ -21,6 +21,7 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Footer from "./components/Footer";
 import MyOffers from "./pages/MyOffers";
+import Candidature from "./pages/Candidature";
 
 function Logout() {
   localStorage.clear();
@@ -87,6 +88,14 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <MyOffers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/candidature"
+            element={
+              <ProtectedRoute>
+                <Candidature />
               </ProtectedRoute>
             }
           />

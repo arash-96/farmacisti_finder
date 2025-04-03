@@ -48,6 +48,17 @@ class Offer(models.Model):
     def __str__(self):
         return self.title or "Offer"
     
+class Candidature(models.Model):
+    offer = models.ForeignKey(Offer, on_delete=models.CASCADE, related_name='candidatures')
+    farmacista = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='candidatures')
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('offer', 'farmacista')  # Prevents duplicate
+
+    def __str__(self):
+        return f"{self.farmacista.user.username} → {self.offer.title}"
+    
 class Pharmacy(models.Model):
     pharmacy_id = models.AutoField(primary_key=True, db_column="PharmacyID")
     pharmacy_name = models.TextField(db_column="PharmacyName")

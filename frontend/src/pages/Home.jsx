@@ -75,6 +75,7 @@ function Home() {
             <SectionCard
               buttonText="Candidature Ricevute"
               buttonColor="bg-blue-500 hover:bg-blue-600"
+              onClick={() => navigate("/candidature")}
             />
             <SectionCard
               buttonText="Le Mie Offerte"

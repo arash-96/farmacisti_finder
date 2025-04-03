@@ -5,11 +5,11 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .serializers import UserSerializer, NoteSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
-from .serializers import ProfileLocationUpdateSerializer
+from .serializers import ProfileLocationUpdateSerializer, CandidatureSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.views import APIView
-from .models import Note, Offer, Profile, Pharmacy
+from .models import Note, Offer, Profile, Pharmacy,Candidature
 import uuid, os
 from django.db.models import Q
 
@@ -230,3 +230,61 @@ class UpdateOfferView(generics.RetrieveUpdateAPIView):
 
     def get_queryset(self):
         return Offer.objects.filter(user=self.request.user)
+
+class FarmacistaProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, farmacista_id):
+        try:
+            farmacista_profile = Profile.objects.get(id=farmacista_id, userRole='farmacista')
+        except Profile.DoesNotExist:
+            return Response({'error': 'Farmacista not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        if request.user.profile.userRole != 'titolare':
+            return Response({'error': 'Only titolari can view this'}, status=status.HTTP_403_FORBIDDEN)
+
+        if not can_titolare_view_profile(request.user, farmacista_profile):
+            return Response({'error': 'You do not have permission to view this profile'}, status=status.HTTP_403_FORBIDDEN)
+
+        serializer = UserProfileSerializer(farmacista_profile)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class SubmitCandidatureView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        offer_id = request.data.get("offer_id")
+        if request.user.profile.userRole != 'farmacista':
+            return Response({'error': 'Only farmacisti can apply to offers'}, status=status.HTTP_403_FORBIDDEN)
+
+        try:
+            offer = Offer.objects.get(id=offer_id)
+        except Offer.DoesNotExist:
+            return Response({'error': 'Offer not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        candidatura, created = Candidature.objects.get_or_create(
+            offer=offer,
+            farmacista=request.user.profile
+        )
+
+        if not created:
+            return Response({'message': 'You already applied to this offer'}, status=status.HTTP_200_OK)
+
+        return Response({'message': 'Application submitted successfully'}, status=status.HTTP_201_CREATED)
+
+
+def can_titolare_view_profile(titolare_user, farmacista_profile):
+    return Candidature.objects.filter(
+        offer__user=titolare_user,
+        farmacista=farmacista_profile
+    ).exists()
+
+class TitolareCandidatureListView(generics.ListAPIView):
+    serializer_class = CandidatureSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.profile.userRole != 'titolare':
+            return Candidature.objects.none()
+        return Candidature.objects.filter(offer__user=user).select_related("offer", "farmacista", "farmacista__user")
