@@ -5,14 +5,15 @@ function MapComponent({ jobOffers }) {
     return (
         <MapContainer center={[41.9028, 12.4964]} zoom={6} className="h-full w-full rounded-lg">
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="© OpenStreetMap contributors" />
-            {jobOffers.map((offer, index) => (
-                <Marker key={index} position={[offer.lat, offer.lng]}>
-                    <Popup>
-                        <br />
-                        <b>{offer.denominazione_farmacia}</b>
-                    </Popup>
-                </Marker>
-            ))}
+            {jobOffers
+                .filter((offer) => offer.lat != null && offer.lng != null)
+                .map((offer, index) => (
+                    <Marker key={index} position={[offer.lat, offer.lng]}>
+                        <Popup>
+                            <b>{offer.denominazione_farmacia}</b>
+                        </Popup>
+                    </Marker>
+                ))}
         </MapContainer>
     );
 }
