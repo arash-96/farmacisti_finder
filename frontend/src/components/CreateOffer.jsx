@@ -22,6 +22,7 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
   const [time_from, setTimeFrom] = useState("");
   const [time_to, setTimeTo] = useState("");
   const [salary, setSalary] = useState(0);
+  const [isSingleDay, setIsSingleDay] = useState(false);
 
   useEffect(() => {
     getUserDetails();
@@ -60,7 +61,62 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
     setIsOpen(false);
   }
 
+  function validateForm() {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+    if (!title || title.trim().length < 3) {
+      toast.error("Il titolo è obbligatorio e deve essere almeno 3 caratteri", {
+        autoClose: 3000,
+        position: "top-center",
+        closeButton: false
+      });
+      return false;
+    }
+
+    if (!description || description.trim() === "") {
+      toast.error("La descrizione è obbligatoria.", {
+        autoClose: 3000,
+        position: "top-center",
+        closeButton: false
+      });
+      return false;
+    }
+
+    if (!dateRegex.test(date_from)) {
+      toast.error("Formato data di inizio non valido (AAAA-MM-GG).",
+        {
+          autoClose: 3000,
+          position: "top-center",
+          closeButton: false
+        });
+      return false;
+    }
+
+    if (!dateRegex.test(date_to)) {
+      toast.error("Formato data di fine non valido (AAAA-MM-GG).", {
+        autoClose: 3000,
+        position: "top-center",
+        closeButton: false
+      });
+      return false;
+    }
+
+    if (!salary || isNaN(salary) || salary <= 0) {
+      toast.error("Inserisci una retribuzione valida.", {
+        autoClose: 3000,
+        position: "top-center",
+        closeButton: false
+      });
+      return false;
+    }
+
+    return true;
+  }
+
   async function handleSubmit() {
+    if (!validateForm()) return;
+
     setLoading(true);
 
     const payload = {
@@ -69,8 +125,8 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       description,
       date_from,
       date_to,
-      time_from,
-      time_to,
+      // time_from,
+      // time_to,
       salary,
     };
 
@@ -168,27 +224,72 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
                           onChange={(e) => setDescription(e.target.value)}
                         />
                       </li>
-                      <li className="flex items-center gap-4">
-                        <div className="w-1/2">
-                          <strong>Data da:</strong>
+                      <li className="mt-6">
+                        <strong className="block mb-2">Seleziona tipo di durata:</strong>
+                        <div className="flex w-full gap-36 mt-3">
+                          <div className="flex gap-4">
+                            <input
+                              type="radio"
+                              name="dateType"
+                              value="single"
+                              checked={isSingleDay}
+                              className="radio"
+                              onChange={() => {
+                                setIsSingleDay(true);
+                                setDateTo(date_from);
+                              }}
+                            />
+                            <span>Giorno singolo</span>
+                          </div>
+                          <div className="flex gap-4">
+                            <input
+                              type="radio"
+                              name="dateType"
+                              value="multiple"
+                              checked={!isSingleDay}
+                              className="radio"
+                              onChange={() => setIsSingleDay(false)}
+                            />
+                            <span>Più giorni</span>
+                          </div>
+                        </div>
+                      </li>
+                      {isSingleDay ? (
+                        <li>
+                          <strong>Data:</strong>
                           <input
                             type="date"
                             className="input input-bordered w-full mt-3"
                             value={date_from}
-                            onChange={(e) => setDateFrom(e.target.value)}
+                            onChange={(e) => {
+                              setDateFrom(e.target.value);
+                              setDateTo(e.target.value);
+                            }}
                           />
-                        </div>
-                        <div className="w-1/2">
-                          <strong>Data a:</strong>
-                          <input
-                            type="date"
-                            className="input input-bordered w-full mt-3"
-                            value={date_to}
-                            onChange={(e) => setDateTo(e.target.value)}
-                          />
-                        </div>
-                      </li>
-                      <li className="flex items-center gap-4">
+                        </li>
+                      ) : (
+                        <li className="flex items-center gap-4">
+                          <div className="w-1/2">
+                            <strong>Data da:</strong>
+                            <input
+                              type="date"
+                              className="input input-bordered w-full mt-3"
+                              value={date_from}
+                              onChange={(e) => setDateFrom(e.target.value)}
+                            />
+                          </div>
+                          <div className="w-1/2">
+                            <strong>Data a:</strong>
+                            <input
+                              type="date"
+                              className="input input-bordered w-full mt-3"
+                              value={date_to}
+                              onChange={(e) => setDateTo(e.target.value)}
+                            />
+                          </div>
+                        </li>
+                      )}
+                      {/* <li className="flex items-center gap-4">
                         <div className="w-1/2">
                           <strong>Orario da:</strong>
                           <input
@@ -207,7 +308,7 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
                             onChange={(e) => setTimeTo(e.target.value)}
                           />
                         </div>
-                      </li>
+                      </li> */}
                       <li>
                         <strong>Retribuzione oraria:</strong>
                         <input

@@ -32,7 +32,7 @@ function CvUploadModal({ isOpen, onClose }) {
     }
 
     if (file.type !== "application/pdf") {
-      alert("Carica solo file PDF.");
+      alert("Verificare che il PDF sia in formato PDF");
       return;
     }
 

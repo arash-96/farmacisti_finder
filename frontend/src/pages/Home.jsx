@@ -10,6 +10,8 @@ function Home() {
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [openCreateModal, setCreateModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const navigate = useNavigate();
 
@@ -25,15 +27,23 @@ function Home() {
       .then((data) => {
         setName(capitalizeFirstLetter(data.profile.name));
         setUserRole(data.profile.userRole);
+        setIsLoading(false);
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        alert(err);
+        setIsLoading(false);
+      });
   };
 
   function capitalizeFirstLetter(name) {
     return name ? name.charAt(0).toUpperCase() + name.slice(1) : "";
   }
 
-  return (
+  return isLoading ? (
+    <div className="flex justify-center items-center h-[50vh]">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+    </div>
+  ) : (
     <div className="container mx-auto px-4 py-12 mb-18">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-blue-600">Benvenuto, {name}!</h2>
