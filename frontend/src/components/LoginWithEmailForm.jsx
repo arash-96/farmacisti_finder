@@ -79,19 +79,19 @@ function Form({ route, method }) {
         {loading && <LoadingIndicator />}
 
         <button
-          className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl"
+          className="w-full p-3 mt-6 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl"
           type="submit"
         >
           {method === "login" ? "Login" : "Register"}
         </button>
 
-        <p className="mt-4 text-lg text-gray-600">
+        <p className="mt-8 text-lg text-gray-600">
           Non hai un account?{" "}
           <Link to="/register" className="text-blue-600 hover:underline">
             Registrati
           </Link>
         </p>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 mt-3">
           Hai dimenticato la password?{" "}
           <Link to="/forgot-password" className="text-blue-600 hover:underline">
             Recupera password
