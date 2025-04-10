@@ -4,12 +4,14 @@ import api from "../api";
 import SectionCard from "../components/SectionCard";
 import CvUploadModal from "../components/CvUploadModal";
 import CreateOffer from "../components/CreateOffer";
+import DescriptionModal from "../components/DescriptionModal";
 
 function Home() {
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [openCreateModal, setCreateModal] = useState(false);
+  const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
 
@@ -96,6 +98,14 @@ function Home() {
             />
           </>
         )}
+        <>
+          <SectionCard
+            title="Aggiorna la tua descrizione"
+            buttonText="Modifica Descrizione"
+            buttonColor="bg-blue-500 hover:bg-blue-600"
+            setModal={() => setIsDescriptionModalOpen(true)}
+          />
+        </>
         {userRole === "admin" && (
           <>
             <SectionCard
@@ -114,6 +124,7 @@ function Home() {
         />
       )}
       <CreateOffer isOpen={openCreateModal} setIsOpen={setCreateModal} />
+      <DescriptionModal isOpen={isDescriptionModalOpen} setIsOpen={setIsDescriptionModalOpen} />
     </div>
   );
 }
