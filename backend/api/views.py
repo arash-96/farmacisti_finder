@@ -4,12 +4,12 @@ from django.utils.timezone import now, timedelta
 from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import UserSerializer, NoteSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
+from .serializers import UserSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
 from .serializers import ProfileLocationUpdateSerializer, CandidatureSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.views import APIView
-from .models import Note, Offer, Profile, Pharmacy,Candidature
+from .models import Offer, Profile, Pharmacy,Candidature
 import uuid, os
 from django.db.models import Q
 
@@ -34,15 +34,6 @@ class OfferList(generics.ListAPIView):
 
     def get_queryset(self):
         return Offer.objects.all()
-
-class NoteDelete(generics.DestroyAPIView):
-    queryset = Note.objects.all()
-    serializer_class = NoteSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        return Note.objects.filter(author=user)
 
 class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer

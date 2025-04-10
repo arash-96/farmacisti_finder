@@ -57,6 +57,7 @@ function Form({ route, method }) {
   const [numero_iscrizione_albo, setNumero_iscrizione_albo] = useState(null);
   const [titolo, setTitolo] = useState(null);
   const [denominazione_farmacia, setDenominazione_farmacia] = useState(null);
+  const [indirizzo_farmacia, setIndirizzo_farmacia] = useState(null);
   const [partita_iva, setPartita_iva] = useState(null);
   const [userRole, setUserRole] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -199,6 +200,7 @@ function Form({ route, method }) {
           numero_iscrizione_albo,
           titolo,
           denominazione_farmacia,
+          indirizzo_farmacia,
           partita_iva,
         },
       };
@@ -376,26 +378,39 @@ function Form({ route, method }) {
           </div>
         )}
         {userRole === "titolare" && (
-          <div className="form-row">
-            <div className="form-group">
-              <label className="form-label text-xl">
-                Denominazione Farmacia*
-              </label>
-              <input
-                className="form-input text-xl"
-                type="text"
-                placeholder="Denominazione Farmacia"
-                onChange={(e) => setDenominazione_farmacia(e.target.value)}
-              />
+          <div>
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label text-xl">
+                  Denominazione Farmacia*
+                </label>
+                <input
+                  className="form-input text-xl"
+                  type="text"
+                  placeholder="Denominazione Farmacia"
+                  onChange={(e) => setDenominazione_farmacia(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label text-xl">Partita IVA*</label>
+                <input
+                  className="form-input text-xl"
+                  type="text"
+                  placeholder="Partita Iva"
+                  onChange={(e) => setPartita_iva(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="form-group">
-              <label className="form-label text-xl">Partita IVA*</label>
-              <input
-                className="form-input text-xl"
-                type="text"
-                placeholder="Partita Iva"
-                onChange={(e) => setPartita_iva(e.target.value)}
-              />
+            <div className="form-row mt-5">
+              <div className="form-group">
+                <label className="form-label text-xl">Indirizzo Farmacia</label>
+                <input
+                  className="form-input text-xl"
+                  type="text"
+                  placeholder="Indirizzo Farmacia"
+                  onChange={(e) => setIndirizzo_farmacia(e.target.value)}
+                />
+              </div>
             </div>
           </div>
         )}

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note, Profile, Offer, Pharmacy, Candidature
+from .models import Profile, Offer, Pharmacy, Candidature
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,12 +40,6 @@ class UserSerializer(serializers.ModelSerializer):
     
 class ForgotPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    
-class NoteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Note
-        fields = ["id", "title", "content", "created_at", "author"]
-        extra_kwargs = {"author": {"read_only": True}}
 
 class OfferSerializer(serializers.ModelSerializer):
     lat = serializers.DecimalField(source='user.profile.lat', max_digits=9, decimal_places=6, read_only=True)
