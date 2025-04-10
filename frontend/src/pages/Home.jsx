@@ -46,13 +46,15 @@ function Home() {
   ) : (
     <div className="container mx-auto px-4 py-12 mb-18">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-blue-600">Benvenuto, {name}!</h2>
-        {(userRole === "farmacista" || userRole === "admin") ? (
+        {userRole !== "admin" && (
+          <h2 className="text-3xl font-bold text-blue-600">Benvenuto, {name}!</h2>
+        )}
+        {(userRole === "farmacista") ? (
           <p className="text-lg text-gray-700 mt-2">
             Gestisci la tua carriera, cerca nuove offerte di lavoro, leggi le
             recensioni e aggiorna il tuo CV.
           </p>
-        ) : (userRole === "titolare" || userRole === "admin") ? (
+        ) : (userRole === "titolare") ? (
           <p className="text-lg text-gray-700 mt-2">
             Gestisci le tue offerte, visualizza le candidature e consulta le tue
             informazioni personali.
@@ -60,7 +62,7 @@ function Home() {
         ) : null}
       </div>
       <div className="flex flex-wrap justify-center gap-6">
-        {(userRole === "farmacista" || userRole === "admin") && (
+        {(userRole === "farmacista") && (
           <>
             <SectionCard
               title="Trova le Migliori Offerte"
@@ -75,7 +77,7 @@ function Home() {
             />
           </>
         )}
-        {(userRole === "titolare" || userRole === "admin") && (
+        {(userRole === "titolare") && (
           <>
             <SectionCard
               buttonText="Crea Offerta"

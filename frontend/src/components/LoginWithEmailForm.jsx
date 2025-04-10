@@ -4,7 +4,6 @@ import api from "../api";
 import { useNavigate, Link } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import LoadingIndicator from "./LoadingIndicator";
-import "../styles/Form.css";
 
 Form.propTypes = {
   route: PropTypes.string.isRequired,
@@ -42,15 +41,13 @@ function Form({ route, method }) {
   };
 
   return (
-    <div className="body">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-center mt-10 mx-auto p-8 max-w-xl rounded-xl shadow-2xl bg-white"
+        className="flex flex-col items-center justify-center mt-10 mx-auto p-8 w-full max-w-xl rounded-xl shadow-2xl bg-white"
       >
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl text-gray-800 text-center font-semibold">
-            Login
-          </h1>
+        <div className="w-full mb-6 text-center">
+          <h1 className="text-3xl text-gray-800 font-semibold">Login</h1>
         </div>
 
         <div className="w-full mb-4">
@@ -67,7 +64,7 @@ function Form({ route, method }) {
         </div>
 
         <div className="w-full mb-6">
-          <label className="block mb-2 text-lg text-gray-700 font-lg">
+          <label className="block mb-2 text-lg text-gray-700 font-medium">
             Password
           </label>
           <input
@@ -80,12 +77,14 @@ function Form({ route, method }) {
         </div>
 
         {loading && <LoadingIndicator />}
+
         <button
           className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl"
           type="submit"
         >
           {method === "login" ? "Login" : "Register"}
         </button>
+
         <p className="mt-4 text-lg text-gray-600">
           Non hai un account?{" "}
           <Link to="/register" className="text-blue-600 hover:underline">

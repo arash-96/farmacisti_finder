@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import api from "../api";
 import { useNavigate, Link } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
-import "../styles/Form.css";
 import Loading from "../components/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -222,44 +221,47 @@ function Form({ route, method }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col justify-center mx-auto my-10 p-5 rounded-lg shadow-md max-w-3xl"
+    >
       <ToastContainer position="top-right" />
-      <h1 className="text-2xl text-gray-600 text-center">Registrazione</h1>
-      <div className="form-grid">
-        <div className="form-row">
-          <div className="form-row text-center w-full">
-            <div className="form-group">
-              <select
-                className="select select-bordered w-full text-center text-xl"
-                onChange={(e) => {
-                  setUserRole(e.target.value);
-                }}
-                defaultValue={""}
-              >
-                <option value={""} disabled hidden>
-                  Seleziona un ruolo*
-                </option>
-                <option value={"farmacista"}>Farmacista</option>
-                <option value={"titolare"}>Titolare di Farmacia</option>
-              </select>
-            </div>
+      <h1 className="text-2xl text-gray-600 text-center mb-4">Registrazione</h1>
+
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col w-full text-center">
+          <div className="flex-1">
+            <select
+              className="border border-gray-300 rounded w-full p-2 text-center text-xl"
+              onChange={(e) => {
+                setUserRole(e.target.value);
+              }}
+              defaultValue={""}
+            >
+              <option value={""} disabled hidden>
+                Seleziona un ruolo*
+              </option>
+              <option value={"farmacista"}>Farmacista</option>
+              <option value={"titolare"}>Titolare di Farmacia</option>
+            </select>
           </div>
         </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label className="form-label text-xl">Nome*</label>
+
+        <div className="flex justify-between gap-4">
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Nome*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Nome"
             />
           </div>
-          <div className="form-group">
-            <label className="form-label text-xl">Cognome*</label>
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Cognome*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="text"
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
@@ -267,20 +269,21 @@ function Form({ route, method }) {
             />
           </div>
         </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label className="form-label text-xl">Data di Nascita*</label>
+
+        <div className="flex justify-between gap-4">
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Data di Nascita*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="date"
               value={dob}
               onChange={(e) => setDob(e.target.value)}
             />
           </div>
-          <div className="form-group">
-            <label className="form-label text-xl">Luogo di Nascita*</label>
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Luogo di Nascita*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="text"
               value={placeOfBirth}
               onChange={(e) => setPlaceOfBirth(e.target.value)}
@@ -288,42 +291,49 @@ function Form({ route, method }) {
             />
           </div>
         </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label className="form-label text-xl">Regione di Residenza*</label>
+
+        <div className="flex justify-between gap-4">
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Regione di Residenza*</label>
             <input
               type="text"
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               value={searchRegione}
               onChange={handleSearchRegione}
               placeholder="Cerca Regione"
             />
             {filteredRegioni.length > 0 && (
-              <ul>
+              <ul className="bg-white border mt-1 rounded shadow max-h-48 overflow-y-auto">
                 {filteredRegioni.map((regione) => (
-                  <li key={regione} onClick={() => handleSelectRegione(regione)}>
+                  <li
+                    key={regione}
+                    onClick={() => handleSelectRegione(regione)}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  >
                     {regione}
                   </li>
                 ))}
               </ul>
             )}
           </div>
-          <div className="form-group">
-            <label className="form-label text-xl">
-              Provincia di Residenza*
-            </label>
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Provincia di Residenza*</label>
             <input
               type="text"
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               value={searchProvincia}
               onChange={handleSearchProvincia}
               placeholder="Cerca Provincia"
               disabled={!selectedRegione}
             />
             {filteredProvince.length > 0 && (
-              <ul>
+              <ul className="bg-white border mt-1 rounded shadow max-h-48 overflow-y-auto">
                 {filteredProvince.map((provincia) => (
-                  <li key={provincia} onClick={() => handleSelectProvincia(provincia)}>
+                  <li
+                    key={provincia}
+                    onClick={() => handleSelectProvincia(provincia)}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  >
                     {provincia}
                   </li>
                 ))}
@@ -331,45 +341,43 @@ function Form({ route, method }) {
             )}
           </div>
         </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label className="form-label text-xl">Comune*</label>
+
+        <div className="flex justify-between gap-4">
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Comune*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="text"
               placeholder="Comune"
               onChange={(e) => setComune(e.target.value)}
             />
           </div>
-          <div className="form-group">
-            <label className="form-label text-xl">Via/Piazza</label>
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Via/Piazza</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="text"
               placeholder="Via/Piazza"
               onChange={(e) => setVia(e.target.value)}
             />
           </div>
         </div>
+
         {userRole === "farmacista" && (
-          <div className="form-row">
-            <div className="form-group">
-              <label className="block mb-2 form-label text-xl">
-                N° Iscrizione Albo dei Farmacisti*
-              </label>
+          <div className="flex justify-between gap-4">
+            <div className="flex-1">
+              <label className="block mb-2 text-xl">N° Iscrizione Albo dei Farmacisti*</label>
               <input
-                className="form-input text-xl"
+                className="w-full p-2 border border-gray-300 rounded text-xl"
                 type="text"
                 placeholder="N° Iscrizione"
                 onChange={(e) => setNumero_iscrizione_albo(e.target.value)}
               />
             </div>
-            <div className="form-group">
-              <label className="block mb-2 form-label text-xl">
-                Titolo di studio
-              </label>
+            <div className="flex-1">
+              <label className="block mb-2 text-xl">Titolo di studio</label>
               <input
-                className="form-input text-xl"
+                className="w-full p-2 border border-gray-300 rounded text-xl"
                 type="text"
                 placeholder="Titolo di studio"
                 onChange={(e) => setTitolo(e.target.value)}
@@ -377,59 +385,58 @@ function Form({ route, method }) {
             </div>
           </div>
         )}
+
         {userRole === "titolare" && (
-          <div>
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label text-xl">
-                  Denominazione Farmacia*
-                </label>
+          <>
+            <div className="flex justify-between gap-4">
+              <div className="flex-1">
+                <label className="block mb-2 text-xl">Denominazione Farmacia*</label>
                 <input
-                  className="form-input text-xl"
+                  className="w-full p-2 border border-gray-300 rounded text-xl"
                   type="text"
                   placeholder="Denominazione Farmacia"
                   onChange={(e) => setDenominazione_farmacia(e.target.value)}
                 />
               </div>
-              <div className="form-group">
-                <label className="form-label text-xl">Partita IVA*</label>
+              <div className="flex-1">
+                <label className="block mb-2 text-xl">Partita IVA*</label>
                 <input
-                  className="form-input text-xl"
+                  className="w-full p-2 border border-gray-300 rounded text-xl"
                   type="text"
                   placeholder="Partita Iva"
                   onChange={(e) => setPartita_iva(e.target.value)}
                 />
               </div>
             </div>
-            <div className="form-row mt-5">
-              <div className="form-group">
-                <label className="form-label text-xl">Indirizzo Farmacia</label>
+            <div className="flex">
+              <div className="flex-1">
+                <label className="block mb-2 text-xl">Indirizzo Farmacia</label>
                 <input
-                  className="form-input text-xl"
+                  className="w-full p-2 border border-gray-300 rounded text-xl"
                   type="text"
                   placeholder="Indirizzo Farmacia"
                   onChange={(e) => setIndirizzo_farmacia(e.target.value)}
                 />
               </div>
             </div>
-          </div>
+          </>
         )}
 
-        <div className="form-row">
-          <div className="form-group">
-            <label className="form-label text-xl">Email*</label>
+        <div className="flex justify-between gap-4">
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Email*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Email"
             />
           </div>
-          <div className="form-group">
-            <label className="form-label text-xl">Telefono*</label>
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Telefono*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="text"
               value={telephone}
               onChange={(e) => setTelephone(e.target.value)}
@@ -437,23 +444,22 @@ function Form({ route, method }) {
             />
           </div>
         </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label className="form-label text-xl">Password*</label>
+
+        <div className="flex justify-between gap-4">
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Password*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
           </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label className="form-label text-xl">Conferma Password*</label>
+          <div className="flex-1">
+            <label className="block mb-2 text-xl">Conferma Password*</label>
             <input
-              className="form-input text-xl"
+              className="w-full p-2 border border-gray-300 rounded text-xl"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmedPassword(e.target.value)}
@@ -462,27 +468,38 @@ function Form({ route, method }) {
           </div>
         </div>
       </div>
+
       {loading && <Loading />}
-      <div className="flex text-center items-center justify-center">
+
+      <div className="flex items-center justify-center gap-5 mt-6">
         <input
           type="checkbox"
           checked={acceptedTerms}
-          className="checkbox mr-2"
-          onChange={() => setAcceptedTerms(!acceptedTerms)} />
+          className="w-6 h-6 accent-blue-600 checkbox"
+          onChange={() => setAcceptedTerms(!acceptedTerms)}
+        />
         <label htmlFor="terms" className="text-lg text-gray-600">
-          Accetto i <Link to="/terms" target="_blank" className="text-blue-600 hover:underline">Termini e Condizioni</Link> e la
-          <Link to="/privacy" target="_blank" className="text-blue-600 hover:underline"> Privacy Policy</Link>
+          Accetto i{" "}
+          <Link to="/terms" target="_blank" className="text-blue-600 hover:underline">
+            Termini e Condizioni
+          </Link>{" "}
+          e la{" "}
+          <Link to="/privacy" target="_blank" className="text-blue-600 hover:underline">
+            Privacy Policy
+          </Link>
         </label>
       </div>
-      <div className="button-container">
+
+      <div className="flex justify-center items-center mt-5">
         <button
-          className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl"
+          className="w-2/3 p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out text-xl"
           type="submit"
         >
           Registrati
         </button>
       </div>
-      <div className="text-center">
+
+      <div className="text-center mt-4">
         <p className="text-lg text-gray-600">
           Hai già un account?{" "}
           <Link to="/login_email" className="text-blue-600 hover:underline">
