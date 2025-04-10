@@ -1,83 +1,30 @@
-import "../styles/Login.css";
-
 const LoginOptions = () => {
   return (
-    <div
-      style={{
-        fontFamily: "Roboto",
-        margin: 0,
-        padding: 0,
-        backgroundColor: "#f9f9f9",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        color: "#333",
-      }}
-    >
-      <div
-        style={{ textAlign: "center", marginBottom: "40px", fontSize: "1.5em" }}
-      >
-        <h1 style={{ fontSize: "3em", color: "#0288d1", fontWeight: "bold" }}>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-gray-800 font-['Roboto'] px-6">
+      <div className="text-center mb-20">
+        <h1 className="text-[5em] font-bold text-sky-600 mb-6 leading-tight">
           SOS Pharmacist
         </h1>
-        <p style={{ fontSize: "1.2em", margin: 0, color: "#666" }}>
+        <p className="text-[2em] text-gray-600 max-w-4xl mx-auto">
           Connetti farmacisti e titolari di farmacia in modo semplice e veloce.
         </p>
       </div>
 
-      {/* Authentication Section */}
-      <div
-        id="auth-section"
-        className="auth-section"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "30px",
-          width: "100%",
-          maxWidth: "800px",
-        }}
-      >
-        <h2 style={{ fontSize: "2em", color: "#333", marginBottom: "60px" }}>
+      <div className="flex flex-col items-center w-full max-w-5xl gap-12">
+        <h2 className="text-[3em] font-semibold text-gray-700 mb-12">
           Benvenuto!
         </h2>
-        {/* Login via email button */}
+
         <button
-          onClick={() => {
-            window.location.href = "/login_email";
-          }}
-          style={{
-            padding: "18px",
-            fontSize: "1.3em",
-            borderRadius: "10px",
-            border: "1px solid #ddd",
-            backgroundColor: "#0288d1",
-            color: "white",
-            fontWeight: "bold",
-            cursor: "pointer",
-            transition: "background-color 0.3s ease",
-            width: "100%",
-          }}
-          onMouseOver={() => {
-            document.querySelector("button").style.backgroundColor = "#0277b8";
-          }}
-          onMouseOut={() => {
-            document.querySelector("button").style.backgroundColor = "#0288d1";
-          }}
+          onClick={() => (window.location.href = "/login_email")}
+          className="w-full px-10 py-6 text-[2em] font-bold text-white bg-sky-600 rounded-xl border border-gray-300 transition duration-300 hover:bg-sky-700"
         >
           Accedi con Email
         </button>
-        {/* Link to Registration form */}
+
         <a
           href="/register"
-          style={{
-            color: "#0288d1",
-            textDecoration: "none",
-            fontSize: "1.3em",
-            marginTop: "20px",
-          }}
+          className="text-sky-600 text-[1.8em] mt-8 hover:underline transition"
         >
           Sei nuovo? Registrati
         </a>
@@ -85,5 +32,3 @@ const LoginOptions = () => {
     </div>
   );
 };
-
-export default LoginOptions;
