@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../api";
+import { use } from "react";
 
 function Profile() {
   const [userRole, setUserRole] = useState("");
@@ -18,6 +19,7 @@ function Profile() {
   const [numero_iscrizione_albo, setNumero_iscrizione_albo] = useState("");
   const [titolo, setTitolo] = useState("");
   const [denominazione_farmacia, setDenominazione_farmacia] = useState("");
+  const [indirizzo_farmacia, setIndirizzo_farmacia] = useState("");
   const [partita_iva, setPartita_iva] = useState("");
 
   useEffect(() => {
@@ -49,6 +51,7 @@ function Profile() {
     setNumero_iscrizione_albo(profile["numero_iscrizione_albo"] || "");
     setTitolo(profile["titolo"] || "");
     setDenominazione_farmacia(profile["denominazione_farmacia"] || "");
+    setIndirizzo_farmacia(profile["indirizzo_farmacia"] || "");
     setPartita_iva(profile["partita_iva"] || "");
     setUsername(data["username"] || "");
   };
@@ -104,6 +107,7 @@ function Profile() {
         numero_iscrizione_albo,
         titolo,
         denominazione_farmacia,
+        indirizzo_farmacia,
         partita_iva,
       },
     };
@@ -263,6 +267,18 @@ function Profile() {
                 type="text"
                 value={denominazione_farmacia}
                 onChange={(e) => setDenominazione_farmacia(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Indirizzo Farmacia
+              </label>
+              <input
+                className={`w-full mt-1 p-2 border rounded ${indirizzo_farmacia ? "bg-gray-100" : ""
+                  }`}
+                type="text"
+                value={indirizzo_farmacia}
+                onChange={(e) => setIndirizzo_farmacia(e.target.value)}
               />
             </div>
             <div>
