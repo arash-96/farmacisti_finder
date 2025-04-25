@@ -2,6 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 import api from "../api";
 import { Dialog, Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import CreateOffer from "../components/CreateOffer";
 
 export default function MyOffers() {
@@ -37,10 +38,18 @@ export default function MyOffers() {
 
     return (
         <div className="container mx-auto p-6 mb-80">
+            <Link to="/">
+                <button
+                    type="button"
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-gray-600"
+                >
+                    Torna alla Home
+                </button>
+            </Link>
+            <br />
             <h1 className="text-2xl font-bold mb-6 text-center text-blue-600">
                 Le Mie Offerte
             </h1>
-
             {loading ? (
                 <p className="text-center">Caricamento...</p>
             ) : offers.length === 0 ? (

@@ -5,7 +5,7 @@ const Footer = () => {
         SOS Pharmacist - Tutti i diritti riservati &copy; 2025
       </p>
       <p className="text-sm mt-1">
-        info@sospharmacist.com
+        info.sospharmacist@gmail.com
       </p>
       <p className="text-sm mt-2">
         <a className="text-blue-500 hover:underline" href="/privacy" target="_blank">Privacy Policy</a> |{" "}

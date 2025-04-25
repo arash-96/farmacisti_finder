@@ -479,7 +479,7 @@ function Form({ route, method }) {
           onChange={() => setAcceptedTerms(!acceptedTerms)}
         />
         <label htmlFor="terms" className="text-lg text-gray-600">
-          Accetto i{" "}
+          Ho preso visione e accetto i{" "}
           <Link to="/terms" target="_blank" className="text-blue-600 hover:underline">
             Termini e Condizioni
           </Link>{" "}

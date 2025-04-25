@@ -100,7 +100,6 @@ function Home() {
         )}
         <>
           <SectionCard
-            title="Aggiorna la tua descrizione"
             buttonText="Modifica Descrizione"
             buttonColor="bg-blue-500 hover:bg-blue-600"
             setModal={() => setIsDescriptionModalOpen(true)}
