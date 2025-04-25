@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .serializers import UserSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
-from .serializers import ProfileLocationUpdateSerializer, CandidatureSerializer
+from .serializers import ProfileLocationUpdateSerializer, CandidatureSerializer, DescrizioneProfileSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.views import APIView
@@ -279,3 +279,10 @@ class TitolareCandidatureListView(generics.ListAPIView):
         if user.profile.userRole != 'titolare':
             return Candidature.objects.none()
         return Candidature.objects.filter(offer__user=user).select_related("offer", "farmacista", "farmacista__user")
+    
+class ProfileDescrizioneView(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = DescrizioneProfileSerializer
+
+    def get_object(self):
+        return self.request.user.profile

@@ -14,4 +14,5 @@ urlpatterns = [
     path('candidature/', views.SubmitCandidatureView.as_view(), name='submit-candidature'),
     path('farmacista/<int:farmacista_id>/profile/', views.FarmacistaProfileView.as_view(), name='farmacista-profile'),
     path("titolare/candidatures/", views.TitolareCandidatureListView.as_view()),
+    path('profile-descrizione/', views.ProfileDescrizioneView.as_view(), name='profile-descrizione')
 ]

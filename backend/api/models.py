@@ -23,6 +23,7 @@ class Profile(models.Model):
     reset_token_expires_at = models.DateTimeField(null=True, blank=True)
     lat = models.DecimalField(max_digits=9, decimal_places=6, db_column="Lat", null=True, blank=True)
     lng = models.DecimalField(max_digits=9, decimal_places=6, db_column="Lng", null=True, blank=True)
+    descrizione = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.user.username

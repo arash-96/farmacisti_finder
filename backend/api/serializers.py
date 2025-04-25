@@ -7,7 +7,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ["id", "name", "surname", "dob", "placeOfBirth", "telephone", "userRole", "pdf_file",
                    "regione_residenza", "provincia_residenza", "comune", "via", "numero_iscrizione_albo",
-                   "titolo", "denominazione_farmacia", "indirizzo_farmacia", "partita_iva", "lat", "lng"
+                   "titolo", "denominazione_farmacia", "indirizzo_farmacia", "partita_iva", "lat", "lng", "descrizione"
                 ]
         extra_kwargs = {"pdf_file": {"required": False}}
 
@@ -71,6 +71,11 @@ class ProfileLocationUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['lat', 'lng']
+
+class DescrizioneProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['descrizione']
 
 class FarmacistaProfileSerializer(serializers.ModelSerializer):
     class Meta:

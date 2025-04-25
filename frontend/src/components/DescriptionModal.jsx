@@ -10,17 +10,25 @@ import { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import api from "../api";
 
 export default function DescriptionModal({ isOpen, setIsOpen, initialDescription = "", onUpdate }) {
-    const [description, setDescription] = useState(initialDescription);
+    const [descrizione, setDescription] = useState(initialDescription);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            fetchDescription();
+        }
+    }, [isOpen]);
 
     function closeModal() {
         setIsOpen(false);
     }
 
     const handleUpdate = async () => {
-        if (!description.trim()) {
+        if (!descrizione.trim()) {
             toast.error("La descrizione non può essere vuota.", {
                 autoClose: 2000,
                 position: "top-center",
@@ -31,7 +39,7 @@ export default function DescriptionModal({ isOpen, setIsOpen, initialDescription
 
         setLoading(true);
         try {
-            await onUpdate(description);
+            await api.put("/api/profile-descrizione/", { descrizione });
             toast.success("Descrizione aggiornata con successo!", {
                 autoClose: 2000,
                 position: "top-center",
@@ -46,6 +54,19 @@ export default function DescriptionModal({ isOpen, setIsOpen, initialDescription
             });
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchDescription = async () => {
+        try {
+            const res = await api.get("/api/profile-descrizione/");
+            setDescription(res.data.descrizione || "");
+        } catch (error) {
+            toast.error("Errore durante il caricamento della descrizione.", {
+                autoClose: 2000,
+                position: "top-center",
+                closeButton: false,
+            });
         }
     };
 
@@ -97,7 +118,7 @@ export default function DescriptionModal({ isOpen, setIsOpen, initialDescription
                                         <textarea
                                             className="textarea textarea-bordered w-full text-base p-3 border rounded-md border-gray-300"
                                             rows="6"
-                                            value={description}
+                                            value={descrizione}
                                             onChange={(e) => setDescription(e.target.value)}
                                             placeholder="Scrivi qualcosa su di te..."
                                         />
