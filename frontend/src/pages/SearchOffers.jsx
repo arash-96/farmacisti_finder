@@ -9,6 +9,7 @@ export default function App() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [offers, setOffers] = useState([]);
+  const [searchCity, setSearchCity] = useState("");
 
   useEffect(() => {
     async function fetchOffers() {
@@ -67,6 +68,11 @@ export default function App() {
     }
   };
 
+  const filteredOffers = offers.filter((offer) => {
+    if (!searchCity.trim()) return true;
+    return offer.comune_farmacia?.toLowerCase().includes(searchCity.toLowerCase());
+  });
+
   return (
     <div className="bg-gray-100 font-roboto min-h-screen flex flex-col">
       <div className="flex flex-col md:flex-row flex-1 mt-4">
@@ -77,8 +83,15 @@ export default function App() {
           <p className="text-gray-600 mb-4">
             Clicca su un&apos;offerta per visualizzarla sulla mappa.
           </p>
+          <input
+            type="text"
+            placeholder="Cerca per comune..."
+            className="w-full p-2 border rounded mb-4"
+            value={searchCity}
+            onChange={(e) => setSearchCity(e.target.value)}
+          />
           <ul className="space-y-4">
-            {offers.map((offer, index) => (
+            {filteredOffers.map((offer, index) => (
               <li
                 key={index}
                 className="p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 mb-2 transition-all duration-300"
@@ -94,6 +107,7 @@ export default function App() {
                 </div>
                 {selectedJob === offer && (
                   <div className="mt-3 space-y-2">
+                    <p className="text-gray-700"><strong>Comune farmacia:</strong> {offer.comune_farmacia}</p>
                     <p className="text-gray-700"><strong>Titolo:</strong> {offer.title}</p>
                     <p className="text-gray-700">
                       <strong>Descrizione:</strong> {offer.description}

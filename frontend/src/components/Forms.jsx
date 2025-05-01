@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import api from "../api";
 import { useNavigate, Link } from "react-router-dom";
@@ -70,6 +70,17 @@ function Form({ route, method }) {
   const [searchProvincia, setSearchProvincia] = useState("");
   const [filteredProvince, setFilteredProvince] = useState([]);
   const [selectedProvincia, setSelectedProvincia] = useState("");
+
+  const [searchComuneFarmacia, setSearchComuneFarmacia] = useState("");
+  const [filteredComuniFarmacia, setFilteredComuniFarmacia] = useState([]);
+  const [comuni_italiani, setComuniItaliani] = useState([]);
+
+  useEffect(() => {
+    fetch('https://axqvoqvbfjpaamphztgd.functions.supabase.co/comuni')
+      .then((res) => res.json())
+      .then((data) => setComuniItaliani(data.map((comune) => comune.nome)))
+      .catch((err) => console.error("Errore nel fetch dei comuni:", err));
+  }, []);
 
   const handleSearchRegione = (e) => {
     const value = e.target.value;
@@ -201,6 +212,7 @@ function Form({ route, method }) {
           denominazione_farmacia,
           indirizzo_farmacia,
           partita_iva,
+          comune_farmacia: searchComuneFarmacia,
         },
       };
 
@@ -219,6 +231,26 @@ function Form({ route, method }) {
       setLoading(false);
     }
   };
+
+  const handleSearchComuneFarmacia = (e) => {
+    const value = e.target.value;
+    setSearchComuneFarmacia(value);
+    if (value.length > 1) {
+      setFilteredComuniFarmacia(
+        comuni_italiani.filter((comune) =>
+          comune.toLowerCase().includes(value.toLowerCase())
+        ).slice(0, 5)
+      );
+    } else {
+      setFilteredComuniFarmacia([]);
+    }
+  };
+
+  const handleSelectComuneFarmacia = (comune) => {
+    setSearchComuneFarmacia(comune);
+    setFilteredComuniFarmacia([]);
+  };
+
 
   return (
     <form
@@ -408,17 +440,30 @@ function Form({ route, method }) {
                 />
               </div>
             </div>
-            <div className="flex">
-              <div className="flex-1">
-                <label className="block mb-2 text-xl">Indirizzo Farmacia</label>
-                <input
-                  className="w-full p-2 border border-gray-300 rounded text-xl"
-                  type="text"
-                  placeholder="Indirizzo Farmacia"
-                  onChange={(e) => setIndirizzo_farmacia(e.target.value)}
-                />
-              </div>
+            <div className="flex-1">
+              <label className="block mb-2 text-xl">Comune della Farmacia</label>
+              <input
+                className="w-full p-2 border border-gray-300 rounded text-xl"
+                type="text"
+                placeholder="Comune della Farmacia"
+                value={searchComuneFarmacia}
+                onChange={handleSearchComuneFarmacia}
+              />
+              {filteredComuniFarmacia.length > 0 && (
+                <ul className="bg-white border mt-1 rounded shadow max-h-48 overflow-y-auto">
+                  {filteredComuniFarmacia.map((comune) => (
+                    <li
+                      key={comune}
+                      onClick={() => handleSelectComuneFarmacia(comune)}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      {comune}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
+
           </>
         )}
 
