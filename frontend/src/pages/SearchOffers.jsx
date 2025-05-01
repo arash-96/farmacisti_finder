@@ -139,7 +139,7 @@ export default function App() {
         </aside>
 
         <div className="flex-1 h-[1000px] rounded-lg shadow-lg m-4">
-          <MapComponent jobOffers={offers} />
+          <MapComponent jobOffers={offers} selectedJob={selectedJob?.denominazione_farmacia} />
         </div>
       </div>
     </div >

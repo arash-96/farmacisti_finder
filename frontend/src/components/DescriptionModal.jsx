@@ -52,8 +52,6 @@ export default function DescriptionModal({ isOpen, setIsOpen, initialDescription
                 position: "top-center",
                 closeButton: false,
             });
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -67,6 +65,8 @@ export default function DescriptionModal({ isOpen, setIsOpen, initialDescription
                 position: "top-center",
                 closeButton: false,
             });
+        } finally {
+            setLoadingPage(false);
         }
     };
 

@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import api from "../api";
 
 function Profile() {
+  const [loading, setLoading] = useState(true);
   const [userRole, setUserRole] = useState("");
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -31,8 +32,14 @@ function Profile() {
     api
       .get("/api/user/details/")
       .then((res) => res.data)
-      .then((data) => populateData(data))
-      .catch((err) => alert(err));
+      .then((data) => {
+        populateData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        alert(err);
+        setLoading(false);
+      });
   };
 
   const populateData = (data) => {
@@ -141,8 +148,16 @@ function Profile() {
       );
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-opacity-75"></div>
+      </div>
+    );
+  }
+
   return (
-    <form className="mt-16 max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <form className="mt-6 max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <ToastContainer position="top-right" />
       <div className="flex justify-between items-center mb-4">
         <Link to="/">

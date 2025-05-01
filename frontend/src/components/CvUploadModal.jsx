@@ -84,6 +84,9 @@ function CvUploadModal({ isOpen, onClose }) {
           Carica il tuo CV
         </h3>
         <form id="cvForm" onSubmit={handleSubmit} className="space-y-4 mt-10">
+          <p className="text-sm text-gray-600">
+            * Il file deve essere in formato <strong>PDF</strong>
+          </p>
           <input
             type="file"
             name="cvFile"

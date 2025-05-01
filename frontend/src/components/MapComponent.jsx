@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
 });
 
 
-function MapComponent({ jobOffers }) {
+function MapComponent({ jobOffers, selectedJob }) {
     return (
         <MapContainer center={[41.9028, 12.4964]} zoom={6} className="h-full w-full rounded-lg">
             <TileLayer
