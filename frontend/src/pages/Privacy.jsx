@@ -8,7 +8,7 @@ const PrivacyPolicy = () => {
             <p className="mt-4">Benvenuto su SOS Pharmacist. La tua privacy è importante per noi e ci impegniamo a proteggerla. Questa Privacy Policy descrive come raccogliamo, utilizziamo e proteggiamo i tuoi dati personali quando utilizzi il nostro sito web.</p>
 
             <h2 className="text-2xl font-bold mt-6">1. Titolare del trattamento</h2>
-            <p>[Nome Azienda o Proprietario] [Indirizzo] [E-mail di contatto] [P.IVA/Codice Fiscale]</p>
+            <p>info.sospharmacist@gmail.com</p>
 
             <h2 className="text-2xl font-bold mt-6">2. Dati raccolti</h2>
             <ul className="list-disc list-inside pl-5">
