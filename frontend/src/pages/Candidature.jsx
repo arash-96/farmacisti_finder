@@ -39,7 +39,9 @@ export default function TitolareCandidature() {
                     <h1 className="text-2xl font-bold mb-4">Candidature Ricevute</h1>
 
                     {loading ? (
-                        <p>Caricamento in corso...</p>
+                        <div className="flex justify-center items-center h-[50vh]">
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+                        </div>
                     ) : candidatures.length === 0 ? (
                         <p>Nessuna candidatura trovata.</p>
                     ) : (
@@ -52,7 +54,7 @@ export default function TitolareCandidature() {
                                     <p><strong>Titolo:</strong> {item.farmacista.titolo}</p>
                                     <p><strong>Residenza:</strong> {item.farmacista.comune}, {item.farmacista.provincia_residenza}</p>
                                     <p><strong>Telefono:</strong> {item.farmacista.telephone}</p>
-                                    <p><strong>Data invio:</strong> {new Date(item.submitted_at).toLocaleString()}</p>
+                                    <p><strong>Data invio:</strong> {new Date(item.submitted_at).toLocaleString().substring(0, 17)}</p>
                                     <hr className="my-2 mx-auto w-1/2" />
                                     <p><strong>Offerta:</strong> {item.offer.title}</p>
                                     <p>{item.offer.description}</p>

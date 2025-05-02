@@ -36,7 +36,7 @@ class Offer(models.Model):
     date_to = models.DateField(null=True, blank=True)   
     time_from = models.TimeField(null=True, blank=True)  
     time_to = models.TimeField(null=True, blank=True) 
-    salary = models.FloatField()
+    salary = models.CharField(max_length=350, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="offers", null=True)
 
     def __str__(self):

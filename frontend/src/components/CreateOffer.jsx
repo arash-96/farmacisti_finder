@@ -21,7 +21,7 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
   const [date_to, setDateTo] = useState("");
   const [time_from, setTimeFrom] = useState("");
   const [time_to, setTimeTo] = useState("");
-  const [salary, setSalary] = useState(0);
+  const [salary, setSalary] = useState("");
   const [isSingleDay, setIsSingleDay] = useState(false);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       setDateTo("");
       setTimeFrom("");
       setTimeTo("");
-      setSalary(0);
+      setSalary("");
     }
   }, [selectedOffer, isOpen]);
 
@@ -63,7 +63,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
 
   function validateForm() {
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
     if (!title || title.trim().length < 3) {
       toast.error("Il titolo è obbligatorio e deve essere almeno 3 caratteri", {
@@ -95,15 +94,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
 
     if (!dateRegex.test(date_to)) {
       toast.error("Formato data di fine non valido (AAAA-MM-GG).", {
-        autoClose: 3000,
-        position: "top-center",
-        closeButton: false
-      });
-      return false;
-    }
-
-    if (!salary || isNaN(salary) || salary <= 0) {
-      toast.error("Inserisci una retribuzione valida.", {
         autoClose: 3000,
         position: "top-center",
         closeButton: false
@@ -312,7 +302,7 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
                       <li>
                         <strong>Retribuzione oraria:</strong>
                         <input
-                          type="number"
+                          type="text"
                           className="input input-bordered w-full mt-3"
                           value={salary}
                           onChange={(e) => setSalary(e.target.value)}

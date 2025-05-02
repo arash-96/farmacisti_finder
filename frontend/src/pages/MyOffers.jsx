@@ -51,7 +51,9 @@ export default function MyOffers() {
                 Le Mie Offerte
             </h1>
             {loading ? (
-                <p className="text-center">Caricamento...</p>
+                <div className="flex justify-center items-center h-[50vh]">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+                </div>
             ) : offers.length === 0 ? (
                 <p className="text-center">Nessuna offerta trovata.</p>
             ) : (
