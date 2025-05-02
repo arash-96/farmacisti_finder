@@ -113,7 +113,7 @@ export default function App() {
                       <strong>Descrizione:</strong> {offer.description}
                     </p>
                     <p className="text-gray-700">
-                      <strong>Salario:</strong> € {offer.salary} all'ora
+                      <strong>Salario:</strong> {offer.salary}
                     </p>
                     {(offer.date_from || offer.date_to) && (
                       <p className="text-gray-700">
