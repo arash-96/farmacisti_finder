@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const LoginOptions = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-gray-800 font-['Roboto'] px-4">
       <div className="text-center mb-10">
@@ -12,7 +16,7 @@ const LoginOptions = () => {
         <h2 className="text-[2em] font-semibold text-gray-700 mb-8">Benvenuto!</h2>
 
         <button
-          onClick={() => (window.location.href = "/login_email")}
+          onClick={() => (navigate("/login_email"))}
           className="w-full px-6 py-4 text-[1.3em] font-bold text-white bg-sky-600 rounded-lg border border-gray-300 transition duration-300 hover:bg-sky-700"
         >
           Accedi con Email

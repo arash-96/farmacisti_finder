@@ -5,21 +5,21 @@ import SectionCard from "../components/SectionCard";
 import CvUploadModal from "../components/CvUploadModal";
 import CreateOffer from "../components/CreateOffer";
 import DescriptionModal from "../components/DescriptionModal";
+import { capitalizeFirstLetter } from "../utils/capitalize";
 
 function Home() {
-  const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [name, setName] = useState(null);
   const [userRole, setUserRole] = useState(null);
-  const [openCreateModal, setCreateModal] = useState(false);
-  const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [loading, setLoading] = useState(true);
+  //Modals
+  const [createOfferModal, setCreateOfferModal] = useState(false);
+  const [cvModalOpen, setCvModalOpen] = useState(false);
+  const [descriptionModalOpen, setDescriptionModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getUserDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getUserDetails = () => {
@@ -29,19 +29,15 @@ function Home() {
       .then((data) => {
         setName(capitalizeFirstLetter(data.profile.name));
         setUserRole(data.profile.userRole);
-        setIsLoading(false);
+        setLoading(false);
       })
       .catch((err) => {
         alert(err);
-        setIsLoading(false);
+        setLoading(false);
       });
   };
 
-  function capitalizeFirstLetter(name) {
-    return name ? name.charAt(0).toUpperCase() + name.slice(1) : "";
-  }
-
-  return isLoading ? (
+  return loading ? (
     <div className="flex justify-center items-center h-[50vh]">
       <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
     </div>
@@ -75,7 +71,7 @@ function Home() {
               title="Carica il CV"
               buttonText="Aggiorna CV"
               buttonColor="bg-green-500 hover:bg-green-600"
-              setModal={() => setIsCvModalOpen(true)}
+              setModal={() => setCvModalOpen(true)}
             />
           </>
         )}
@@ -84,7 +80,7 @@ function Home() {
             <SectionCard
               buttonText="Crea Offerta"
               buttonColor="bg-blue-500 hover:bg-blue-600"
-              setModal={() => setCreateModal(true)}
+              setModal={() => setCreateOfferModal(true)}
             />
             <SectionCard
               buttonText="Candidature Ricevute"
@@ -102,7 +98,7 @@ function Home() {
           <SectionCard
             buttonText="Modifica Descrizione"
             buttonColor="bg-blue-500 hover:bg-blue-600"
-            setModal={() => setIsDescriptionModalOpen(true)}
+            setModal={() => setDescriptionModalOpen(true)}
           />
         </>
         {userRole === "admin" && (
@@ -116,14 +112,14 @@ function Home() {
         )}
       </div>
 
-      {isCvModalOpen && (
+      {cvModalOpen && (
         <CvUploadModal
-          isOpen={isCvModalOpen}
-          onClose={() => setIsCvModalOpen(false)}
+          isOpen={cvModalOpen}
+          onClose={() => setCvModalOpen(false)}
         />
       )}
-      <CreateOffer isOpen={openCreateModal} setIsOpen={setCreateModal} />
-      <DescriptionModal isOpen={isDescriptionModalOpen} setIsOpen={setIsDescriptionModalOpen} />
+      <CreateOffer isOpen={createOfferModal} setIsOpen={setCreateOfferModal} />
+      <DescriptionModal isOpen={descriptionModalOpen} setIsOpen={setDescriptionModalOpen} />
     </div>
   );
 }

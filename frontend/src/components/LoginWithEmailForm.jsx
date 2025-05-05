@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import api from "../api";
 import { useNavigate, Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import LoadingIndicator from "./LoadingIndicator";
 
@@ -31,9 +32,19 @@ function Form({ route, method }) {
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        alert("Email o password errati. Per favore riprova.");
+        toast.error("Email o password errati. Per favore riprova.", {
+          autoClose: 2000,
+          position: "top-center",
+          closeButton: false,
+        });
+        return;
       } else {
-        alert(error);
+        toast.error(error, {
+          autoClose: 2000,
+          position: "top-center",
+          closeButton: false,
+        });
+        return;
       }
     } finally {
       setLoading(false);
@@ -42,6 +53,7 @@ function Form({ route, method }) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <ToastContainer position="top-right" />
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center justify-center mt-10 mx-auto p-8 w-full max-w-xl rounded-xl shadow-2xl bg-white"

@@ -6,10 +6,11 @@ import api from "../api";
 
 const ResetPasswordComponent = () => {
   const { token } = useParams();
-  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +60,7 @@ const ResetPasswordComponent = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <ToastContainer />
       <div className="bg-white p-6 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-4 text-center mb-10">
+        <h2 className="text-2xl font-bold text-center mb-10">
           Reimposta Password
         </h2>
 

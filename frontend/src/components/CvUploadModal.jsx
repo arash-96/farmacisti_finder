@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import api from "../api";
 import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import { toast, ToastContainer } from "react-toastify";
 
 function CvUploadModal({ isOpen, onClose }) {
   const [pdfFile, setPdfFile] = useState("");
@@ -16,7 +17,13 @@ function CvUploadModal({ isOpen, onClose }) {
           setPdfFile(`data:application/pdf;base64,${data.profile.pdf_file}`);
         }
       })
-      .catch((err) => alert(err));
+      .catch((err) =>
+        toast.error(err, {
+          autoClose: 2000,
+          position: "top-center",
+          closeButton: false,
+        })
+      );
   }, []);
 
   if (!isOpen) return null;
@@ -26,13 +33,12 @@ function CvUploadModal({ isOpen, onClose }) {
 
     const file = event.target.elements.cvFile.files[0];
 
-    if (!file) {
-      alert("Seleziona un file prima di inviare.");
-      return;
-    }
-
     if (file.type !== "application/pdf") {
-      alert("Verificare che il PDF sia in formato PDF");
+      toast.error("Verificare che il PDF sia in formato PDF", {
+        autoClose: 2000,
+        position: "top-center",
+        closeButton: false,
+      });
       return;
     }
 
@@ -41,7 +47,6 @@ function CvUploadModal({ isOpen, onClose }) {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result.split(",")[1];
-
       api
         .put(
           "/api/user/details/",
@@ -61,13 +66,23 @@ function CvUploadModal({ isOpen, onClose }) {
           setLoading(false);
         })
         .catch((err) => {
-          alert("Errore durante l'upload: " + err);
+          toast.error("Errore durante l'upload: ", {
+            autoClose: 2000,
+            position: "top-center",
+            closeButton: false,
+          });
           setLoading(false);
+          return;
         });
     };
 
     reader.onerror = (error) => {
-      alert("Errore nella lettura del file: " + error);
+      toast.error(error, {
+        autoClose: 2000,
+        position: "top-center",
+        closeButton: false,
+      });
+      return;
     };
 
     reader.readAsDataURL(file);
@@ -75,6 +90,7 @@ function CvUploadModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <ToastContainer position="top-right" />
       <div className="bg-white p-6 rounded-2xl shadow-lg relative w-full max-w-md">
         <IoMdClose
           onClick={onClose}

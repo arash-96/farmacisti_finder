@@ -19,8 +19,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
   const [description, setDescription] = useState("");
   const [date_from, setDateFrom] = useState("");
   const [date_to, setDateTo] = useState("");
-  const [time_from, setTimeFrom] = useState("");
-  const [time_to, setTimeTo] = useState("");
   const [salary, setSalary] = useState("");
   const [isSingleDay, setIsSingleDay] = useState(false);
 
@@ -34,8 +32,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       setDescription(selectedOffer.description || "");
       setDateFrom(selectedOffer.date_from || "");
       setDateTo(selectedOffer.date_to || "");
-      setTimeFrom(selectedOffer.time_from || "");
-      setTimeTo(selectedOffer.time_to || "");
       setSalary(selectedOffer.salary || 0);
     } else {
       // Reset if creating a new one
@@ -43,8 +39,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       setDescription("");
       setDateFrom("");
       setDateTo("");
-      setTimeFrom("");
-      setTimeTo("");
       setSalary("");
     }
   }, [selectedOffer, isOpen]);
@@ -54,7 +48,13 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       .get("/api/user/details/")
       .then((res) => res.data)
       .then((data) => setUser(data["username"]))
-      .catch((err) => alert(err));
+      .catch((err) =>
+        toast.error(err, {
+          autoClose: 2000,
+          position: "top-center",
+          closeButton: false,
+        })
+      );
   };
 
   function closeModal() {
@@ -115,8 +115,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       description,
       date_from,
       date_to,
-      // time_from,
-      // time_to,
       salary,
     };
 
@@ -279,26 +277,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
                           </div>
                         </li>
                       )}
-                      {/* <li className="flex items-center gap-4">
-                        <div className="w-1/2">
-                          <strong>Orario da:</strong>
-                          <input
-                            type="time"
-                            className="input input-bordered w-full mt-3"
-                            value={time_from}
-                            onChange={(e) => setTimeFrom(e.target.value)}
-                          />
-                        </div>
-                        <div className="w-1/2">
-                          <strong>Orario a:</strong>
-                          <input
-                            type="time"
-                            className="input input-bordered w-full mt-3"
-                            value={time_to}
-                            onChange={(e) => setTimeTo(e.target.value)}
-                          />
-                        </div>
-                      </li> */}
                       <li>
                         <strong>Retribuzione oraria:</strong>
                         <input
@@ -334,5 +312,5 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
 CreateOffer.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
-  selectedOffer: PropTypes.object, // optional
+  selectedOffer: PropTypes.object,
 };

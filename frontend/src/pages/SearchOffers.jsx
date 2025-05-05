@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import api from "../api";
 import Loading from "../components/Loading";
 import MapComponent from "../components/MapComponent";
+import { formatDateToUKStyle } from "../utils/dateFormatter";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
@@ -40,11 +41,7 @@ export default function App() {
     fetchUser();
   }, []);
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "";
-    const [year, month, day] = dateString.split("-");
-    return `${day}/${month}/${year}`;
-  };
+
 
   const handleSendCv = async (offer) => {
     if (!currentUser?.profile?.pdf_file) {
@@ -118,7 +115,7 @@ export default function App() {
                     {(offer.date_from || offer.date_to) && (
                       <p className="text-gray-700">
                         <strong>Periodo:</strong>{" "}
-                        {formatDate(offer.date_from)} - {formatDate(offer.date_to)}
+                        {formatDateToUKStyle(offer.date_from)} - {formatDateToUKStyle(offer.date_to)}
                       </p>
                     )}
                     <button

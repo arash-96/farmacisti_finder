@@ -170,7 +170,7 @@ function Profile() {
         </Link>
       </div>
       <h1 className="text-lg text-gray-600 text-center">Profilo Personale</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Nome
@@ -292,6 +292,7 @@ function Profile() {
                 type="text"
                 value={denominazione_farmacia}
                 onChange={(e) => setDenominazione_farmacia(e.target.value)}
+                disabled
               />
             </div>
             <div>
@@ -304,6 +305,7 @@ function Profile() {
                 type="text"
                 value={indirizzo_farmacia}
                 onChange={(e) => setIndirizzo_farmacia(e.target.value)}
+                disabled
               />
             </div>
             <div>
@@ -315,7 +317,6 @@ function Profile() {
                   }`}
                 type="text"
                 value={partita_iva}
-                disabled
               />
             </div>
           </>
