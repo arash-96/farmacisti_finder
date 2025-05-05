@@ -7,56 +7,82 @@ import { useState, useEffect } from "react";
 
 ProtectedRoute.propTypes = {
   children: PropTypes.node.isRequired,
+  requiredRole: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
-function ProtectedRoute({ children }) {
-  const [isAuthorized, setIsAuthorized] = useState(null);
+function ProtectedRoute({ children, requiredRole = null }) {
+  const [status, setStatus] = useState("loading"); // 'loading' | 'unauthenticated' | 'unauthorized' | 'authorized'
 
   useEffect(() => {
-    auth().catch(() => setIsAuthorized(false));
+    checkAuth().catch(() => setStatus("unauthenticated"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const refreshToken = async () => {
-    const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+    const refresh = localStorage.getItem(REFRESH_TOKEN);
     try {
-      const res = await api.post("/api/token/refresh/", {
-        refresh: refreshToken,
-      });
+      const res = await api.post("/api/token/refresh/", { refresh });
       if (res.status === 200) {
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
-        setIsAuthorized(true);
-      } else {
-        setIsAuthorized(false);
+        return true;
       }
     } catch (error) {
-      console.log(error);
-      setIsAuthorized(false);
+      console.error("Token refresh failed", error);
     }
+    return false;
   };
 
-  const auth = async () => {
+  const checkAuth = async () => {
     const token = localStorage.getItem(ACCESS_TOKEN);
-    if (!token) {
-      setIsAuthorized(false);
-      return;
-    }
+    if (!token) return setStatus("unauthenticated");
+
     const decoded = jwtDecode(token);
-    const tokenExpiration = decoded.exp;
     const now = Date.now() / 1000;
 
-    if (tokenExpiration < now) {
-      await refreshToken();
-    } else {
-      setIsAuthorized(true);
+    if (decoded.exp < now) {
+      const refreshed = await refreshToken();
+      if (!refreshed) return setStatus("unauthenticated");
+    }
+
+    try {
+      const res = await api.get("/api/user/details/");
+      const userRole = res.data.profile.userRole;
+
+      if (
+        !requiredRole ||
+        userRole === requiredRole ||
+        (Array.isArray(requiredRole) && requiredRole.includes(userRole))
+      ) {
+        setStatus("authorized");
+      } else {
+        setStatus("unauthorized");
+      }
+    } catch (err) {
+      console.error("User role fetch failed", err);
+      setStatus("unauthenticated");
     }
   };
 
-  if (isAuthorized === null) {
-    return <div>Loading...</div>;
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+      </div>
+    );
   }
 
-  return isAuthorized ? children : <Navigate to="/login" />;
+  if (status === "unauthenticated") {
+    return <Navigate to="/login" />;
+  }
+
+  if (status === "unauthorized") {
+    return <Navigate to="/unauthorized" />;
+  }
+
+  return children;
 }
 
 export default ProtectedRoute;

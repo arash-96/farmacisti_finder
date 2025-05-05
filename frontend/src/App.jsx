@@ -22,6 +22,7 @@ import Privacy from "./pages/Privacy";
 import Footer from "./components/Footer";
 import MyOffers from "./pages/MyOffers";
 import Candidature from "./pages/Candidature";
+import Unauthorized from "./pages/Unauthorized";
 
 function Logout() {
   localStorage.clear();
@@ -78,7 +79,7 @@ function AppContent() {
           <Route
             path="/farmacie"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <Farmacie />
               </ProtectedRoute>
             }
@@ -108,6 +109,7 @@ function AppContent() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
         </Routes>
         {showNavbarAndFooter && <Footer />}
       </div>
