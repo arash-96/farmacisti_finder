@@ -41,7 +41,6 @@ export default function SearchOffer({ isOpen, setIsOpen }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="relative w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mt-10">
-                  {/* Close button */}
                   <button
                     type="button"
                     onClick={closeModal}
@@ -49,19 +48,15 @@ export default function SearchOffer({ isOpen, setIsOpen }) {
                   >
                     X
                   </button>
-
                   <DialogTitle
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    {/* Modal Title */}
                   </DialogTitle>
-
                   <div>
                     <h3 className="font-bold text-lg text-center">
                       Cerca offerte di lavoro
                     </h3>
-                    {/* Form Fields */}
                   </div>
                 </DialogPanel>
               </TransitionChild>
@@ -74,6 +69,6 @@ export default function SearchOffer({ isOpen, setIsOpen }) {
 }
 
 SearchOffer.propTypes = {
-  isOpen: PropTypes.bool.isRequired, // Expect a boolean prop
-  setIsOpen: PropTypes.func.isRequired, // Expect a function prop
+  isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
 };

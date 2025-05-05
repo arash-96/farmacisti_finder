@@ -18,7 +18,6 @@ function ProtectedRoute({ children, requiredRole = null }) {
 
   useEffect(() => {
     checkAuth().catch(() => setStatus("unauthenticated"));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const refreshToken = async () => {
