@@ -66,7 +66,7 @@ export default function MyOffers() {
                             <div>
                                 <h2 className="text-lg font-semibold text-gray-800">{offer.title}</h2>
                                 <p className="text-gray-600">{offer.description}</p>
-                                <p className="text-gray-500 mt-1">💶 {offer.salary} € all'ora</p>
+                                <p className="text-gray-500 mt-1">💶 {offer.salary}</p>
                                 {offer.date_from && offer.date_to && (
                                     <p className="text-gray-500">
                                         📅 Dal {formatDate(offer.date_from)} al {formatDate(offer.date_to)}

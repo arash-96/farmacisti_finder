@@ -11,6 +11,10 @@ export default function TitolareCandidature() {
         fetchCandidatures();
     }, []);
 
+    useEffect(() => {
+        console.log(candidatures);
+    }, [candidatures]);
+
     const fetchCandidatures = async () => {
         try {
             const res = await api.get("/api/titolare/candidatures/");
@@ -55,6 +59,17 @@ export default function TitolareCandidature() {
                                     <p><strong>Residenza:</strong> {item.farmacista.comune}, {item.farmacista.provincia_residenza}</p>
                                     <p><strong>Telefono:</strong> {item.farmacista.telephone}</p>
                                     <p><strong>Data invio:</strong> {new Date(item.submitted_at).toLocaleString().substring(0, 17)}</p>
+                                    <p>
+                                        <strong>CV candidato:</strong>{' '}
+                                        <a
+                                            href={`data:application/pdf;base64,${item.farmacista.pdf_file}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 underline"
+                                        >
+                                            Visualizza PDF
+                                        </a>
+                                    </p>
                                     <hr className="my-2 mx-auto w-1/2" />
                                     <p><strong>Offerta:</strong> {item.offer.title}</p>
                                     <p>{item.offer.description}</p>
