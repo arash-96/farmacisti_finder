@@ -109,3 +109,14 @@ class MyOfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
         fields = '__all__'
+
+
+class UserWithRoleSerializer(serializers.ModelSerializer):
+    role = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "role"]
+
+    def get_role(self, obj):
+        return obj.profile.userRole if hasattr(obj, "profile") else "undefined"

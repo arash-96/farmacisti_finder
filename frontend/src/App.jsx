@@ -23,6 +23,7 @@ import Footer from "./components/Footer";
 import MyOffers from "./pages/MyOffers";
 import Candidature from "./pages/Candidature";
 import Unauthorized from "./pages/Unauthorized";
+import Users from './pages/Users';
 
 function Logout() {
   localStorage.clear();
@@ -81,6 +82,14 @@ function AppContent() {
             element={
               <ProtectedRoute requiredRole="admin">
                 <Farmacie />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/utenti"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <Users />
               </ProtectedRoute>
             }
           />

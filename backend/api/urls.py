@@ -20,5 +20,7 @@ urlpatterns = [
     #Farmacisti
     path('farmacista/<int:farmacista_id>/profile/', views.FarmacistaProfileView.as_view(), name='farmacista-profile'),
     #Profile Description
-    path('profile-descrizione/', views.ProfileDescrizioneView.as_view(), name='profile-descrizione')
+    path('profile-descrizione/', views.ProfileDescrizioneView.as_view(), name='profile-descrizione'),
+    #All Users
+    path('users/all/', views.AllUsersWithRoleView.as_view(), name="get_all_users_with_role"),
 ]

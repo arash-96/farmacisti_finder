@@ -94,19 +94,26 @@ function Home() {
             />
           </>
         )}
-        <>
-          <SectionCard
-            buttonText="Modifica Descrizione"
-            buttonColor="bg-blue-500 hover:bg-blue-600"
-            setModal={() => setDescriptionModalOpen(true)}
-          />
-        </>
         {userRole === "admin" && (
           <>
             <SectionCard
               buttonText="Tutte le farmacie"
               buttonColor="bg-blue-500 hover:bg-blue-600"
               onClick={() => navigate("/farmacie")}
+            />
+            <SectionCard
+              buttonText="Utenti"
+              buttonColor="bg-blue-500 hover:bg-blue-600"
+              onClick={() => navigate("/utenti")}
+            />
+          </>
+        )}
+        {userRole !== "admin" && (
+          <>
+            <SectionCard
+              buttonText="Modifica Descrizione"
+              buttonColor="bg-blue-500 hover:bg-blue-600"
+              setModal={() => setDescriptionModalOpen(true)}
             />
           </>
         )}

@@ -5,7 +5,7 @@ from django.utils.timezone import now, timedelta
 from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import UserSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer
+from .serializers import UserSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer, UserWithRoleSerializer
 from .serializers import ProfileLocationUpdateSerializer, CandidatureSerializer, DescrizioneProfileSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import RetrieveUpdateAPIView
@@ -283,3 +283,17 @@ class ProfileDescrizioneView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user.profile
+
+class AllUsersWithRoleView(generics.ListAPIView):
+    serializer_class = UserWithRoleSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = User.objects.all().select_related("profile")
+        search = self.request.query_params.get("search", "").strip()
+        if search:
+            queryset = queryset.filter(
+                Q(username__icontains=search) |
+                Q(email__icontains=search)
+            )
+        return queryset
