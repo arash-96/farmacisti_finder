@@ -93,7 +93,7 @@ export default function PharmacySearch() {
         async function fetchPharmacies() {
             setLoadingFarmacie(true);
             try {
-                const response = await api.get(`/api/get_pharmacies/?search=${searchTerm}`);
+                const response = await api.get(`/api/pharmacies/?search=${searchTerm}`);
                 setPharmacies(response.data);
             } catch (error) {
                 console.error("Error fetching pharmacies:", error);

@@ -1,9 +1,9 @@
 import { useEffect, useState, Fragment } from "react";
 import api from "../api";
 import { Dialog, Transition } from "@headlessui/react";
-import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import CreateOffer from "../components/CreateOffer";
+import { formatDateToUKStyle } from "../utils/dateFormatter";
 
 export default function MyOffers() {
     const [offers, setOffers] = useState([]);
@@ -13,27 +13,19 @@ export default function MyOffers() {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [offerToDelete, setOfferToDelete] = useState(null);
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         fetchOffers();
     }, []);
 
     const fetchOffers = async () => {
         try {
-            const res = await api.get("/api/offers/my/");
+            const res = await api.get("/api/offers/mine/");
             setOffers(res.data);
         } catch (error) {
             console.error("Errore durante il caricamento delle offerte:", error);
         } finally {
             setLoading(false);
         }
-    };
-
-    const formatDate = (dateString) => {
-        if (!dateString) return "";
-        const [year, month, day] = dateString.split("-");
-        return `${day}/${month}/${year}`;
     };
 
     return (
@@ -69,7 +61,7 @@ export default function MyOffers() {
                                 <p className="text-gray-500 mt-1">💶 {offer.salary}</p>
                                 {offer.date_from && offer.date_to && (
                                     <p className="text-gray-500">
-                                        📅 Dal {formatDate(offer.date_from)} al {formatDate(offer.date_to)}
+                                        📅 Dal {formatDateToUKStyle(offer.date_from)} al {formatDateToUKStyle(offer.date_to)}
                                     </p>
                                 )}
                             </div>
@@ -103,6 +95,7 @@ export default function MyOffers() {
                 setIsOpen={setCreateModal}
                 selectedOffer={selectedOffer}
                 setSelectedOffer={setSelectedOffer}
+                onOfferSaved={fetchOffers}
             />
 
             {/* Delete Confirmation Modal */}

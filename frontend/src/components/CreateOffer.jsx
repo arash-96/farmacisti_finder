@@ -12,19 +12,14 @@ import PropTypes from "prop-types";
 import api from "../api";
 import Loading from "../components/Loading";
 
-export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null }) {
+export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null, onOfferSaved }) {
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date_from, setDateFrom] = useState("");
   const [date_to, setDateTo] = useState("");
   const [salary, setSalary] = useState("");
   const [isSingleDay, setIsSingleDay] = useState(false);
-
-  useEffect(() => {
-    getUserDetails();
-  }, []);
 
   useEffect(() => {
     if (selectedOffer) {
@@ -42,20 +37,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       setSalary("");
     }
   }, [selectedOffer, isOpen]);
-
-  const getUserDetails = () => {
-    api
-      .get("/api/user/details/")
-      .then((res) => res.data)
-      .then((data) => setUser(data["username"]))
-      .catch((err) =>
-        toast.error(err, {
-          autoClose: 2000,
-          position: "top-center",
-          closeButton: false,
-        })
-      );
-  };
 
   function closeModal() {
     setIsOpen(false);
@@ -110,7 +91,6 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
     setLoading(true);
 
     const payload = {
-      user,
       title,
       description,
       date_from,
@@ -118,9 +98,10 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       salary,
     };
 
+
     const url = selectedOffer
       ? `/api/offers/${selectedOffer.id}/update/`
-      : "/api/offer/";
+      : "/api/offers/create/";
     const method = selectedOffer ? api.put : api.post;
 
     try {
@@ -138,6 +119,9 @@ export default function CreateOffer({ isOpen, setIsOpen, selectedOffer = null })
       );
 
       closeModal();
+      if (onOfferSaved) {
+        onOfferSaved();
+      }
     } catch {
       toast.error("Errore durante l'invio dell'offerta.", {
         position: "top-center",
@@ -313,4 +297,9 @@ CreateOffer.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
   selectedOffer: PropTypes.object,
+  onOfferSaved: PropTypes.func,
+};
+
+CreateOffer.defaultProps = {
+  onOfferSaved: () => { },
 };

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.http import Http404
 from django.utils.timezone import now, timedelta
 from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
@@ -201,26 +202,22 @@ class GetLocationView(generics.CreateAPIView):
             "lng": profile.lng
         }, status=status.HTTP_200_OK)
 
-class MyOffersView(generics.ListAPIView):
+class UserOfferBaseView:
     serializer_class = MyOfferSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Offer.objects.filter(user=self.request.user)
 
-class DeleteOfferView(generics.DestroyAPIView):
-    serializer_class = MyOfferSerializer
-    permission_classes = [IsAuthenticated]
+class MyOffersView(UserOfferBaseView, generics.ListAPIView):
+    pass
 
-    def get_queryset(self):
-        return Offer.objects.filter(user=self.request.user)
+class DeleteOfferView(UserOfferBaseView, generics.DestroyAPIView):
+    pass
 
-class UpdateOfferView(generics.RetrieveUpdateAPIView):
-    serializer_class = MyOfferSerializer
-    permission_classes = [IsAuthenticated]
+class UpdateOfferView(UserOfferBaseView, generics.RetrieveUpdateAPIView):
+    pass
 
-    def get_queryset(self):
-        return Offer.objects.filter(user=self.request.user)
 
 class FarmacistaProfileView(APIView):
     permission_classes = [IsAuthenticated]
