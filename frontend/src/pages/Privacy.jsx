@@ -1,82 +1,119 @@
 const PrivacyPolicy = () => {
     return (
-        <div className="text-center mx-auto max-w-3xl">
+        <main className="p-6 max-w-4xl mx-auto text-gray-800">
             <h1 className="text-3xl font-bold mb-4">Privacy Policy di SOS Pharmacist</h1>
-            <p className="text-gray-600">Ultimo aggiornamento: 28/03/2025</p>
-            <p className="mt-4">Benvenuto su SOS Pharmacist. La tua privacy è importante per noi e ci impegniamo a proteggerla. Questa Privacy Policy descrive come raccogliamo, utilizziamo e proteggiamo i tuoi dati personali quando utilizzi il nostro sito web.</p>
+            <p className="italic mb-6">Ultimo aggiornamento: 13/05/2025</p>
 
-            <h2 className="text-2xl font-bold mt-6">1. Titolare del trattamento</h2>
-            <p>info.sospharmacist@gmail.com</p>
+            <p className="mb-4">
+                Questa informativa è resa ai sensi dell’art. 13 del Regolamento (UE) 2016/679 (GDPR) e descrive le modalità con cui SOS Pharmacist raccoglie, utilizza e protegge i dati personali degli utenti che accedono al sito{" "}
+                <a href="https://www.sos-pharmacist.com" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
+                    www.sos-pharmacist.com
+                </a>.
+            </p>
 
-            <h2 className="text-2xl font-bold mt-6">2. Dati raccolti</h2>
-            <ul className="list-disc list-inside pl-5">
-                <li>Dati di registrazione: nome, cognome, e-mail, password.</li>
-                <li>Dati di pagamento: per la sottoscrizione di abbonamenti.</li>
-                <li>Dati di navigazione: indirizzo IP, tipo di dispositivo, cookie.</li>
-                <li>Dati per la pubblicità: preferenze pubblicitarie e interazioni con gli annunci.</li>
-            </ul>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">1. Titolare del Trattamento</h2>
+                <p>
+                    Il titolare del trattamento dei dati è:<br />
+                    Email: <a href="mailto:info@sospharmacist.com" className="text-blue-600 underline">
+                        info@sospharmacist.com
+                    </a>.<br />
+                </p>
+            </section>
 
-            <h2 className="text-2xl font-bold mt-6">3. Finalità del trattamento</h2>
-            <ul className="list-disc list-inside  pl-5">
-                <li>Creare e gestire il tuo account.</li>
-                <li>Permettere la sottoscrizione di abbonamenti.</li>
-                <li>Fornire servizi e contenuti personalizzati.</li>
-                <li>Gestire le inserzioni pubblicitarie.</li>
-                <li>Rispondere alle richieste di assistenza.</li>
-                <li>Adempiere ad obblighi legali e fiscali.</li>
-            </ul>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">2. Tipologie di Dati Raccolti</h2>
+                <ul className="list-disc list-inside">
+                    <li>Dati identificativi: nome, cognome, email (tramite moduli di contatto o registrazione);</li>
+                    <li>Dati tecnici: indirizzi IP, tipo di browser, orario di accesso e dati relativi alla navigazione;</li>
+                    <li>Cookie: solo cookie tecnici e di analisi anonima (vedi Cookie Policy separata).</li>
+                </ul>
+            </section>
 
-            <h2 className="text-2xl font-bold mt-6">4. Base giuridica del trattamento</h2>
-            <p>Trattiamo i tuoi dati in conformità al GDPR sulla base di:</p>
-            <ul className="list-disc list-inside  pl-5">
-                <li>Consenso dell’utente per finalità di marketing e pubblicità.</li>
-                <li>Esecuzione di un contratto per la gestione dell’account e degli abbonamenti.</li>
-                <li>Obblighi di legge per fatturazione e contabilità.</li>
-                <li>Legittimo interesse per migliorare i nostri servizi.</li>
-            </ul>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">3. Finalità del Trattamento</h2>
+                <ul className="list-disc list-inside">
+                    <li>Gestione delle richieste ricevute tramite il sito (form di contatto);</li>
+                    <li>Registrazione e gestione dell’account utente;</li>
+                    <li>Miglioramento del sito e monitoraggio statistico del traffico (in forma aggregata e anonima);</li>
+                    <li>Adempimento a obblighi di legge o regolamenti.</li>
+                </ul>
+            </section>
 
-            <h2 className="text-2xl font-bold mt-6">5. Consensi richiesti</h2>
-            <p>Al momento della registrazione o dell’utilizzo del nostro sito, richiederemo il tuo consenso per:</p>
-            <ul className="list-disc list-inside  pl-5">
-                <li>Trattamento dei dati personali.</li>
-                <li>Finalità di marketing.</li>
-                <li>Pubblicità personalizzata.</li>
-                <li>Condivisione con terze parti.</li>
-                <li>Cookie: il consenso verrà raccolto tramite un banner cookie.</li>
-            </ul>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">4. Base Giuridica del Trattamento</h2>
+                <ul className="list-disc list-inside">
+                    <li>Il consenso dell’interessato (es. quando compila un modulo);</li>
+                    <li>L’esecuzione di misure precontrattuali o contrattuali (es. registrazione utente);</li>
+                    <li>L’adempimento di obblighi legali.</li>
+                </ul>
+            </section>
 
-            <h2 className="text-2xl font-bold mt-6">6. Conservazione dei dati</h2>
-            <p>Conserviamo i tuoi dati solo per il tempo necessario a fornire i servizi richiesti e adempiere agli obblighi di legge.</p>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">5. Modalità di Trattamento e Conservazione</h2>
+                <p>
+                    I dati sono trattati con strumenti informatici in modo lecito, corretto e trasparente. I dati saranno conservati solo per il tempo necessario alle finalità sopra indicate o secondo quanto previsto dalla legge.
+                </p>
+            </section>
 
-            <h2 className="text-2xl font-bold mt-6">7. Condivisione dei dati</h2>
-            <ul className="list-disc list-inside  pl-5">
-                <li>Provider di pagamento per la gestione degli abbonamenti.</li>
-                <li>Fornitori di servizi pubblicitari.</li>
-                <li>Autorità competenti, se richiesto dalla legge.</li>
-            </ul>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">6. Comunicazione e Diffusione dei Dati</h2>
+                <p>
+                    I dati non saranno mai venduti o diffusi. Potranno essere comunicati a:
+                </p>
+                <ul className="list-disc list-inside">
+                    <li>Fornitori di servizi tecnici e hosting;</li>
+                    <li>Collaboratori e professionisti incaricati dal titolare;</li>
+                    <li>Autorità competenti, solo nei casi previsti dalla legge.</li>
+                </ul>
+            </section>
 
-            <h2 className="text-2xl font-bold mt-6">8. Diritti dell’utente</h2>
-            <p>Hai il diritto di:</p>
-            <ul className="list-disc list-inside  pl-5">
-                <li>Accedere ai tuoi dati.</li>
-                <li>Chiedere la rettifica o la cancellazione.</li>
-                <li>Ottenere la portabilità dei dati.</li>
-                <li>Revocare il consenso al trattamento.</li>
-                <li>Presentare reclamo all’Autorità Garante.</li>
-            </ul>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">7. Diritti dell’Interessato</h2>
+                <p>L’utente può, in qualsiasi momento, esercitare i diritti previsti dal GDPR (artt. 15-22), tra cui:</p>
+                <ul className="list-disc list-inside">
+                    <li>Accesso ai dati;</li>
+                    <li>Rettifica o aggiornamento;</li>
+                    <li>Cancellazione (diritto all’oblio);</li>
+                    <li>Limitazione del trattamento;</li>
+                    <li>Portabilità dei dati;</li>
+                    <li>Opposizione al trattamento.</li>
+                </ul>
+                <p>Le richieste vanno inviate a <a href="mailto:info@sospharmacist.com" className="text-blue-600 underline">
+                    info@sospharmacist.com
+                </a>.</p>
+            </section>
 
-            <h2 className="text-2xl font-bold mt-6">9. Cookie e pubblicità</h2>
-            <p>Usiamo cookie per migliorare l’esperienza utente. Puoi gestire le tue preferenze attraverso le impostazioni del browser o tramite il nostro banner cookie.</p>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">8. Modifiche alla Privacy Policy</h2>
+                <p>
+                    Ci riserviamo il diritto di aggiornare questa informativa. In caso di modifiche rilevanti, sarà data opportuna comunicazione sul sito.
+                </p>
+            </section>
 
-            <h2 className="text-2xl font-bold mt-6">10. Modifiche alla Privacy Policy</h2>
-            <p>Ci riserviamo il diritto di aggiornare questa Privacy Policy. Ti informeremo in caso di modifiche significative.</p>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">9. Contatti</h2>
+                <p>
+                    Per qualsiasi chiarimento o per esercitare i tuoi diritti, puoi scrivere a:<br />
+                    📧 <a href="mailto:info@sospharmacist.com" className="text-blue-600 underline">
+                        info@sospharmacist.com
+                    </a>.
+                </p>
+            </section>
 
-            <p className="mt-6">Se hai domande, contattaci a info@sospharmacist.com.</p>
-            <p className="font-bold mt-4">Grazie per aver scelto SOS Pharmacist!</p>
-            <br />
-            <br />
-            <br />
-        </div>
+            <section className="mb-6">
+                <h2 className="text-xl font-semibold mb-2">10. Tutela dei contenuti e proprietà intellettuale</h2>
+                <p>
+                    Tutti i contenuti presenti su SOS Pharmacist, inclusi testi, immagini, loghi, grafica, codice, layout e ogni altro elemento pubblicato, sono di proprietà esclusiva del Titolare o concessi in licenza d’uso, e sono protetti dalle normative italiane e internazionali sul diritto d’autore e sulla proprietà intellettuale.
+                </p>
+                <p>
+                    È vietata qualsiasi forma di riproduzione, distribuzione, pubblicazione, trasmissione, modifica o utilizzo anche parziale dei contenuti senza autorizzazione scritta del Titolare. Ogni violazione sarà perseguita nei termini di legge.
+                </p>
+                <p>Per segnalazioni o richieste di utilizzo, scrivere a <a href="mailto:info@sospharmacist.com" className="text-blue-600 underline">
+                    info@sospharmacist.com
+                </a>.</p>
+            </section>
+        </main>
     );
 };
 
