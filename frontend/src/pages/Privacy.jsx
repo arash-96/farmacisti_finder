@@ -1,10 +1,10 @@
 const PrivacyPolicy = () => {
     return (
         <main className="p-6 max-w-4xl mx-auto text-gray-800">
-            <h1 className="text-3xl font-bold mb-4">Privacy Policy di SOS Pharmacist</h1>
-            <p className="italic mb-6">Ultimo aggiornamento: 13/05/2025</p>
+            <h1 className="text-3xl font-bold mb-4 text-center">Privacy Policy di SOS Pharmacist</h1>
+            <p className="italic mb-6 text-center">Ultimo aggiornamento: 13/05/2025</p>
 
-            <p className="mb-4">
+            <p className="mb-4 text-center">
                 Questa informativa è resa ai sensi dell’art. 13 del Regolamento (UE) 2016/679 (GDPR) e descrive le modalità con cui SOS Pharmacist raccoglie, utilizza e protegge i dati personali degli utenti che accedono al sito{" "}
                 <a href="https://www.sos-pharmacist.com" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
                     www.sos-pharmacist.com
