@@ -88,7 +88,7 @@ const TermsAndConditions = () => {
 
             <section className="mb-6">
                 <h2 className="text-xl font-semibold mb-2">10. Contatti</h2>
-                <p>Per domande sui presenti Termini e Condizioni, puoi contattarci a <strong>info@sospharmacist.com</strong>.</p>
+                <p>Per domande sui presenti Termini e Condizioni, puoi contattarci a <strong>info.sospharmacist@gmail.com</strong>.</p>
             </section>
 
             <p className="text-center font-semibold mt-6">

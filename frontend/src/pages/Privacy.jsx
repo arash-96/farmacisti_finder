@@ -15,8 +15,8 @@ const PrivacyPolicy = () => {
                 <h2 className="text-xl font-semibold mb-2">1. Titolare del Trattamento</h2>
                 <p>
                     Il titolare del trattamento dei dati è:<br />
-                    Email: <a href="mailto:info@sospharmacist.com" className="text-blue-600 underline">
-                        info@sospharmacist.com
+                    Email: <a href="mailto:info.sospharmacist@gmail.com" className="text-blue-600 underline">
+                        info.sospharmacist@gmail.com
                     </a>.<br />
                 </p>
             </section>
@@ -79,8 +79,8 @@ const PrivacyPolicy = () => {
                     <li>Portabilità dei dati;</li>
                     <li>Opposizione al trattamento.</li>
                 </ul>
-                <p>Le richieste vanno inviate a <a href="mailto:info@sospharmacist.com" className="text-blue-600 underline">
-                    info@sospharmacist.com
+                <p>Le richieste vanno inviate a <a href="mailto:info.sospharmacist@gmail.com" className="text-blue-600 underline">
+                    info.sospharmacist@gmail.com
                 </a>.</p>
             </section>
 
@@ -95,8 +95,8 @@ const PrivacyPolicy = () => {
                 <h2 className="text-xl font-semibold mb-2">9. Contatti</h2>
                 <p>
                     Per qualsiasi chiarimento o per esercitare i tuoi diritti, puoi scrivere a:<br />
-                    📧 <a href="mailto:info@sospharmacist.com" className="text-blue-600 underline">
-                        info@sospharmacist.com
+                    📧 <a href="mailto:info.sospharmacist@gmail.com" className="text-blue-600 underline">
+                        info.sospharmacist@gmail.com
                     </a>.
                 </p>
             </section>
@@ -109,8 +109,8 @@ const PrivacyPolicy = () => {
                 <p>
                     È vietata qualsiasi forma di riproduzione, distribuzione, pubblicazione, trasmissione, modifica o utilizzo anche parziale dei contenuti senza autorizzazione scritta del Titolare. Ogni violazione sarà perseguita nei termini di legge.
                 </p>
-                <p>Per segnalazioni o richieste di utilizzo, scrivere a <a href="mailto:info@sospharmacist.com" className="text-blue-600 underline">
-                    info@sospharmacist.com
+                <p>Per segnalazioni o richieste di utilizzo, scrivere a <a href="mailto:info.sospharmacist@gmail.com" className="text-blue-600 underline">
+                    info.sospharmacist@gmail.com
                 </a>.</p>
             </section>
         </main>

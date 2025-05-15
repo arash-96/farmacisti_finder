@@ -176,7 +176,7 @@ class UpdateLocationView(APIView):
         if lat is None or lng is None:
             return Response({"error": "Latitude and Longitude are required."}, status=status.HTTP_400_BAD_REQUEST)
 
-        profile = Profile.objects.get(user=user)
+        profile = Profile.objects.get(id=user)
         profile.lat = lat
         profile.lng = lng
         profile.save()
@@ -193,7 +193,7 @@ class GetLocationView(generics.CreateAPIView):
             return Response({"error": "userId is required."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            profile = Profile.objects.get(user__id=user_id)
+            profile = Profile.objects.get(id=user_id)
         except Profile.DoesNotExist:
             return Response({"error": "Profile not found for the specified user."}, status=status.HTTP_404_NOT_FOUND)
 
