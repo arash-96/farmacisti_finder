@@ -35,14 +35,19 @@ function Form({ route, method }) {
   const [denominazione_farmacia, setDenominazione_farmacia] = useState(null);
   const [indirizzo_farmacia, setIndirizzo_farmacia] = useState(null);
   const [partita_iva, setPartita_iva] = useState(null);
+  const [preferredRegion, setPreferredRegion] = useState("");
   const [userRole, setUserRole] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [communicationConsent, setCommunicationConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const [searchRegione, setSearchRegione] = useState("");
   const [filteredRegioni, setFilteredRegioni] = useState([]);
   const [selectedRegione, setSelectedRegione] = useState("");
+
+  const [searchPreferredRegion, setSearchPreferredRegion] = useState("");
+  const [filteredPreferredRegions, setFilteredPreferredRegions] = useState([]);
 
   const [searchProvincia, setSearchProvincia] = useState("");
   const [filteredProvince, setFilteredProvince] = useState([]);
@@ -93,6 +98,27 @@ function Form({ route, method }) {
     setSelectedProvincia(provincia);
     setSearchProvincia(provincia);
     setFilteredProvince([]);
+  };
+
+  const handleSearchPreferredRegion = (e) => {
+    const value = e.target.value;
+    setSearchPreferredRegion(value);
+    setPreferredRegion(value);
+    if (value.length > 0) {
+      setFilteredPreferredRegions(
+        regioni_italiane.filter((regione) =>
+          regione.toLowerCase().includes(value.toLowerCase())
+        ).slice(0, 5)
+      );
+    } else {
+      setFilteredPreferredRegions([]);
+    }
+  };
+
+  const handleSelectPreferredRegion = (regione) => {
+    setPreferredRegion(regione);
+    setSearchPreferredRegion(regione);
+    setFilteredPreferredRegions([]);
   };
 
   const validateForm = () => {
@@ -178,6 +204,9 @@ function Form({ route, method }) {
           indirizzo_farmacia,
           partita_iva,
           comune_farmacia: searchComuneFarmacia,
+          preferredRegion,
+          communicationConsent,
+          privacyPolicyConsent: acceptedTerms
         },
       };
 
@@ -361,26 +390,56 @@ function Form({ route, method }) {
         </div>
 
         {userRole === "farmacista" && (
-          <div className="flex justify-between gap-4">
-            <div className="flex-1">
-              <label className="block mb-2 text-xl">N° Iscrizione Albo dei Farmacisti*</label>
-              <input
-                className="w-full p-2 border border-gray-300 rounded text-xl"
-                type="text"
-                placeholder="N° Iscrizione"
-                onChange={(e) => setNumero_iscrizione_albo(e.target.value)}
-              />
+          <>
+            <div className="flex justify-between gap-4">
+              <div className="flex-1">
+                <label className="block mb-2 text-xl">N° Iscrizione Albo dei Farmacisti*</label>
+                <input
+                  className="w-full p-2 border border-gray-300 rounded text-xl"
+                  type="text"
+                  placeholder="N° Iscrizione"
+                  onChange={(e) => setNumero_iscrizione_albo(e.target.value)}
+                />
+              </div>
+              <div className="flex-1">
+                <label className="block mb-2 text-xl">Titolo di studio</label>
+                <input
+                  className="w-full p-2 border border-gray-300 rounded text-xl"
+                  type="text"
+                  placeholder="Titolo di studio"
+                  onChange={(e) => setTitolo(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="flex-1">
-              <label className="block mb-2 text-xl">Titolo di studio</label>
+
+            <div className="flex flex-col">
+              <label className="block mb-2 text-xl">Regione di preferenza
+                <span className="text-sm italic text-gray-500 mb-2 ml-2">
+                  (Seleziona la regione in cui desideri ricevere aggiornamenti o offerte)
+                </span>
+              </label>
               <input
-                className="w-full p-2 border border-gray-300 rounded text-xl"
                 type="text"
-                placeholder="Titolo di studio"
-                onChange={(e) => setTitolo(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded text-lg"
+                placeholder="Cerca Regione di preferenza"
+                value={searchPreferredRegion}
+                onChange={handleSearchPreferredRegion}
               />
+              {filteredPreferredRegions.length > 0 && (
+                <ul className="bg-white border mt-1 rounded shadow max-h-48 overflow-y-auto">
+                  {filteredPreferredRegions.map((regione) => (
+                    <li
+                      key={regione}
+                      onClick={() => handleSelectPreferredRegion(regione)}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      {regione}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          </div>
+          </>
         )}
 
         {userRole === "titolare" && (
@@ -481,11 +540,11 @@ function Form({ route, method }) {
 
       {loading && <Loading />}
 
-      <div className="flex items-center justify-center gap-5 mt-6">
+      <div className="flex items-start justify-center gap-5 mt-6 ml-1">
         <input
           type="checkbox"
           checked={acceptedTerms}
-          className="w-6 h-6 accent-blue-600 checkbox"
+          className="w-6 h-6 mt-1 accent-blue-600 checkbox"
           onChange={() => setAcceptedTerms(!acceptedTerms)}
         />
         <label htmlFor="terms" className="text-lg text-gray-600">
@@ -499,6 +558,22 @@ function Form({ route, method }) {
           </Link>
         </label>
       </div>
+
+      <div className="flex items-start justify-center gap-5 mt-4 ml-20">
+        <input
+          type="checkbox"
+          checked={communicationConsent}
+          className="w-6 h-6 mt-1 accent-blue-600 checkbox"
+          onChange={() => setCommunicationConsent(!communicationConsent)}
+        />
+        <label htmlFor="communicationConsent" className="text-lg text-gray-600">
+          Desidero ricevere comunicazioni e offerte personalizzate in base alla regione da me indicata.{" "}
+          <span className="block text-sm text-gray-400 italic mt-1">
+            (Potrai revocare il consenso in qualsiasi momento dalla tua area personale o scrivendoci.)
+          </span>
+        </label>
+      </div>
+
 
       <div className="flex justify-center items-center mt-5">
         <button

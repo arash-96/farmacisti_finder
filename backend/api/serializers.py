@@ -7,7 +7,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ["id", "name", "surname", "dob", "placeOfBirth", "telephone", "userRole", "pdf_file",
                    "regione_residenza", "provincia_residenza", "comune", "via", "numero_iscrizione_albo",
-                   "titolo", "denominazione_farmacia", "indirizzo_farmacia", "partita_iva", "lat", "lng", "descrizione"
+                   "titolo", "denominazione_farmacia", "indirizzo_farmacia", "partita_iva", "lat", "lng", "descrizione",
+                   "preferredRegion", "communicationConsent", "privacyPolicyConsent" 
                 ]
         extra_kwargs = {"pdf_file": {"required": False}}
 

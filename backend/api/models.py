@@ -25,6 +25,9 @@ class Profile(models.Model):
     lat = models.DecimalField(max_digits=9, decimal_places=6, db_column="Lat", null=True, blank=True)
     lng = models.DecimalField(max_digits=9, decimal_places=6, db_column="Lng", null=True, blank=True)
     descrizione = models.TextField(null=True, blank=True)
+    preferredRegion = models.CharField(max_length=200, null=True)
+    communicationConsent = models.BooleanField(default=False, null=False)
+    privacyPolicyConsent = models.BooleanField(default=True, null=False)
 
     def __str__(self):
         return self.user.username
