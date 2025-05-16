@@ -297,3 +297,12 @@ class AllUsersWithRoleView(generics.ListAPIView):
                 Q(email__icontains=search)
             )
         return queryset
+    
+class DeleteAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, *args, **kwargs):
+        user = request.user
+        user.is_active = False
+        user.save()
+        return Response({"message": "Account disattivato con successo."}, status=status.HTTP_200_OK)

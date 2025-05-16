@@ -3,6 +3,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { Link } from 'react-router-dom';
 import "react-toastify/dist/ReactToastify.css";
 import api from "../api";
+import DeleteModal from "./deleteModal";
 
 function Profile() {
   const [loading, setLoading] = useState(true);
@@ -24,6 +25,8 @@ function Profile() {
   const [partita_iva, setPartita_iva] = useState("");
   const [preferredRegion, setPreferredRegion] = useState("");
   const [communicationConsent, setCommunicationConsent] = useState(false);
+
+  const [delModalOpen, setDelModalOpen] = useState(false);
 
   useEffect(() => {
     getUserDetails();
@@ -151,6 +154,11 @@ function Profile() {
           hideProgressBar: true,
         })
       );
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+    alert("Cancelled!");
   };
 
   if (loading) {
@@ -389,6 +397,16 @@ function Profile() {
           Aggiorna Profilo
         </button>
       </div>
+      <div className="mt-6 text-center">
+        <button
+          type="button"
+          className="w-3/5 bg-red-500 text-white p-2 rounded hover:bg-red-600"
+          onClick={() => setDelModalOpen(true)}
+        >
+          Elimina Account
+        </button>
+      </div>
+      <DeleteModal isOpen={delModalOpen} setIsOpen={setDelModalOpen} />
     </form>
   );
 }
