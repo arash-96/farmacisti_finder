@@ -22,6 +22,8 @@ function Profile() {
   const [denominazione_farmacia, setDenominazione_farmacia] = useState("");
   const [indirizzo_farmacia, setIndirizzo_farmacia] = useState("");
   const [partita_iva, setPartita_iva] = useState("");
+  const [preferredRegion, setPreferredRegion] = useState("");
+  const [communicationConsent, setCommunicationConsent] = useState(false);
 
   useEffect(() => {
     getUserDetails();
@@ -60,6 +62,8 @@ function Profile() {
     setIndirizzo_farmacia(profile["indirizzo_farmacia"] || "");
     setPartita_iva(profile["partita_iva"] || "");
     setUsername(data["username"] || "");
+    setCommunicationConsent(profile["communicationConsent"] || "");
+    setPreferredRegion(profile["preferredRegion"] || "");
   };
 
   const validateForm = () => {
@@ -115,6 +119,8 @@ function Profile() {
         denominazione_farmacia,
         indirizzo_farmacia,
         partita_iva,
+        preferredRegion,
+        communicationConsent,
       },
     };
 
@@ -345,9 +351,35 @@ function Profile() {
                 onChange={(e) => setTitolo(e.target.value)}
               />
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Regione di preferenza
+              </label>
+              <input
+                className="w-full mt-1 p-2 border rounded"
+                type="text"
+                value={preferredRegion}
+                onChange={(e) => setPreferredRegion(e.target.value)}
+              />
+            </div>
           </>
         )}
       </div>
+      {userRole === "farmacista" && (
+        <>
+          <div className="flex items-start justify-center gap-5 mt-4 ml-20">
+            <input
+              type="checkbox"
+              checked={communicationConsent}
+              className="w-6 h-6 mt-1 accent-blue-600 checkbox"
+              onChange={() => setCommunicationConsent(!communicationConsent)}
+            />
+            <label htmlFor="communicationConsent" className="text-lg text-gray-600">
+              Desidero ricevere comunicazioni e offerte personalizzate in base alla regione da me indicata.{" "}
+            </label>
+          </div>
+        </>
+      )}
       <div className="mt-6 text-center">
         <button
           type="submit"
