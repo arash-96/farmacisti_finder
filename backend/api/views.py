@@ -1,13 +1,12 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.http import Http404
 from django.utils.timezone import now, timedelta
 from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import UserSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer, UserWithRoleSerializer
+from .serializers import UserSerializer, OfferSerializer, MyOfferSerializer, ForgotPasswordSerializer, PharmacySerializer, UserProfileSerializer, UserWithProfileSerializer, UserWithRoleSerializer
 from .serializers import ProfileLocationUpdateSerializer, CandidatureSerializer, DescrizioneProfileSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.views import APIView
 from .models import Offer, Profile, Pharmacy,Candidature
@@ -286,17 +285,29 @@ class ProfileDescrizioneView(RetrieveUpdateAPIView):
 
 class AllUsersWithRoleView(generics.ListAPIView):
     serializer_class = UserWithRoleSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get_queryset(self):
         queryset = User.objects.all().select_related("profile")
         search = self.request.query_params.get("search", "").strip()
+        role = self.request.query_params.get("role", "").strip().lower()
+
         if search:
             queryset = queryset.filter(
                 Q(username__icontains=search) |
                 Q(email__icontains=search)
             )
-        return queryset
+
+        if role:
+            queryset = queryset.filter(profile__userRole__iexact=role)
+
+        return queryset.order_by("id")
+    
+class SingleUserDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.select_related("profile")
+    serializer_class = UserWithProfileSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    lookup_field = "pk"
     
 class DeleteAccountView(APIView):
     permission_classes = [IsAuthenticated]

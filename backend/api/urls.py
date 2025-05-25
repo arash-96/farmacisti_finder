@@ -23,4 +23,5 @@ urlpatterns = [
     path('profile-descrizione/', views.ProfileDescrizioneView.as_view(), name='profile-descrizione'),
     #All Users
     path('users/all/', views.AllUsersWithRoleView.as_view(), name="get_all_users_with_role"),
+    path("users/<int:pk>/details/", views.SingleUserDetailView.as_view(), name="user-details"),
 ]

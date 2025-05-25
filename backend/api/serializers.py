@@ -114,10 +114,30 @@ class MyOfferSerializer(serializers.ModelSerializer):
 
 class UserWithRoleSerializer(serializers.ModelSerializer):
     role = serializers.SerializerMethodField()
+    preferredRegion = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "role"]
+        fields = ["id", "username", "email", "role", "preferredRegion"]
+
+    def get_role(self, obj):
+        return obj.profile.userRole if hasattr(obj, "profile") else "undefined"
+    
+    def get_preferredRegion(self, obj):
+        return obj.profile.preferredRegion if hasattr(obj, "profile") else None
+    
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        exclude = ["reset_token", "reset_token_expires_at"]
+    
+class UserWithProfileSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    role = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "role", "profile"]
 
     def get_role(self, obj):
         return obj.profile.userRole if hasattr(obj, "profile") else "undefined"
