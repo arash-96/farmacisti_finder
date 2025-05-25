@@ -3,7 +3,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { Link } from 'react-router-dom';
 import "react-toastify/dist/ReactToastify.css";
 import api from "../api";
-import DeleteModal from "./deleteModal";
+import DeleteModal from "./DeleteModal";
 
 function Profile() {
   const [loading, setLoading] = useState(true);
