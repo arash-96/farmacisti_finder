@@ -78,15 +78,15 @@ export default function AllUsers() {
                 </select>
             </div>
 
-            <div className="text-sm text-gray-600 mb-2 text-center">
-                Totale utenti trovati: <span className="font-semibold">{users.length - 4}</span>
-            </div>
-
             {loading ? (
                 <div className="flex justify-center items-center h-[40vh]">
                     <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500"></div>
                 </div>
             ) : (
+                <>
+                            <div className="text-sm text-gray-600 mb-2 text-center">
+                Totale utenti trovati: <span className="font-semibold">{users.length - 4}</span>
+            </div>
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white shadow rounded-lg">
                         <thead className="bg-blue-100 text-gray-700">
@@ -133,6 +133,7 @@ export default function AllUsers() {
                     </div>
 
                 </div>
+                </>
             )}
             {/* MODAL */}
             {showModal && selectedUser && (
