@@ -53,3 +53,6 @@ docs/_build/
 
 # Environment
 .env
+
+# File
+sos.pharmacist_accessKeys.csv
